@@ -18,7 +18,7 @@
 # ---------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------
-# arrays' organization
+# Array memory organization
 # ---------------------------------------------------------------------------
 NO_NPB_CPP_CONVENTIONS = -DDO_NOT_ALLOCATE_ARRAYS_WITH_DYNAMIC_MEMORY_AND_AS_SINGLE_DIMENSION
 
@@ -33,38 +33,34 @@ HIP_COMPILER=$(ROCM_PATH)/bin/hipcc
 # ---------------------------------------------------------------------------
 CC = ${HIP_COMPILER}
 
-##################
-# choose AMD GPU #
-##################
+# ---------------------------------------------------------------------------
+# Choose a GPU vendor using the options: amd, nvidia, or intel
+# ---------------------------------------------------------------------------
 export HIP_PLATFORM=amd
 
-#####################
-# choose NVIDIA GPU #
-#####################
-# export HIP_PLATFORM=nvidia
+# ---------------------------------------------------------------------------
+# HIP compiler for Intel GPUs
+# ---------------------------------------------------------------------------
+INTEL_CHIPSTAR=~/intel-stuff/chipStar-v1.2.1/
+CC_INTEL = ${INTEL_CHIPSTAR}/build/bin/hipcc
 
-###################
-# chose INTEL GPU #
-###################
-# export HIP_PLATFORM=intel
-# INTEL_ONEAPI=~/intel-stuff/intel/oneapi/
+# ---------------------------------------------------------------------------
+# Execute these commands before compiling the NPB for Intel GPUs
+# ---------------------------------------------------------------------------
 # INTEL_CHIPSTAR=~/intel-stuff/chipStar-v1.2.1/
-# source ${INTEL_ONEAPI}/setvars.sh --force
-# export HIP_PLATFORM=chipstar
 # export CHIP_DEVICE_TYPE=GPU
 # export CHIP_BE=level0
 # export PATH=${INTEL_CHIPSTAR}/build/bin:$PATH
 # export LD_LIBRARY_PATH=${INTEL_CHIPSTAR}/build/lib:$LD_LIBRARY_PATH
 # export IGC_EnableDPEmulation=1
 # export OverrideDefaultFP64Settings=1
-# CC = ${INTEL_CHIPSTAR}/build/bin/hipcc
 
 # ---------------------------------------------------------------------------
 # GPU vendor flags
 # ---------------------------------------------------------------------------
 AMD_FLAGS = -fopenmp -O3
 NVIDIA_FLAGS = -Xcompiler -fopenmp -Xcompiler -O3
-INTEL_FLAGS = 
+INTEL_FLAGS = -O3
 
 # ---------------------------------------------------------------------------
 # in case HIP does not recognize nvcc path
@@ -117,20 +113,3 @@ SYSDIR = ../sys
 # RAND = randi8
 # The following is highly reliable but may be slow:
 RAND = randdp
-
-# ---------------------------------------------------------------------------
-# The variable WTIME is the name of the wtime source code module in the
-# NPB2.x/common directory.  
-# For most machines,       use wtime.c
-# For SGI power challenge: use wtime_sgi64.c
-# ---------------------------------------------------------------------------
-WTIME = wtime.cpp
-
-# ---------------------------------------------------------------------------
-# Enable if either Cray or IBM: 
-# (no such flag for most machines: see common/wtime.h)
-# This is used by the C compiler to pass the machine name to common/wtime.h,
-# where the C/Fortran binding interface format is determined
-# ---------------------------------------------------------------------------
-# MACHINE = -DCRAY
-# MACHINE = -DIBM
