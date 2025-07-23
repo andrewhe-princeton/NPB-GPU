@@ -31,22 +31,22 @@ HIP_COMPILER=$(ROCM_PATH)/bin/hipcc
 # ---------------------------------------------------------------------------
 # CC is the compiler used for HIP programs
 # ---------------------------------------------------------------------------
+CC = ${HIP_COMPILER}
 
-###########
-# AMD GPU #
-###########
+##################
+# choose AMD GPU #
+##################
 export HIP_PLATFORM=amd
-CC = ${HIP_COMPILER} -fopenmp -O3
 
-##############
-# NVIDIA GPU #
-##############
+#####################
+# choose NVIDIA GPU #
+#####################
 # export HIP_PLATFORM=nvidia
-# CC = ${HIP_COMPILER} -Xcompiler -fopenmp -Xcompiler -O3 -maxrregcount=50
 
-#############
-# INTEL GPU #
-#############
+###################
+# chose INTEL GPU #
+###################
+# export HIP_PLATFORM=intel
 # INTEL_ONEAPI=~/intel-stuff/intel/oneapi/
 # INTEL_CHIPSTAR=~/intel-stuff/chipStar-v1.2.1/
 # source ${INTEL_ONEAPI}/setvars.sh --force
@@ -58,6 +58,13 @@ CC = ${HIP_COMPILER} -fopenmp -O3
 # export IGC_EnableDPEmulation=1
 # export OverrideDefaultFP64Settings=1
 # CC = ${INTEL_CHIPSTAR}/build/bin/hipcc
+
+# ---------------------------------------------------------------------------
+# GPU vendor flags
+# ---------------------------------------------------------------------------
+AMD_FLAGS = -fopenmp -O3
+NVIDIA_FLAGS = -Xcompiler -fopenmp -Xcompiler -O3
+INTEL_FLAGS = 
 
 # ---------------------------------------------------------------------------
 # in case HIP does not recognize nvcc path
