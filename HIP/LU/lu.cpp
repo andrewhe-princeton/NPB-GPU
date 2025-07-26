@@ -205,19 +205,19 @@ hipDeviceProp_t gpu_device_properties;
 extern __shared__ double extern_share_data[];
 // device constants
 // coefficients of the exact solution
-__device__ __constant__ double ce[13][5];
+__device__ __constant__ double ce_device[13][5];
 // grid
-__device__ __constant__ double dxi, deta, dzeta;
-__device__ __constant__ double tx1, tx2, tx3;
-__device__ __constant__ double ty1, ty2, ty3;
-__device__ __constant__ double tz1, tz2, tz3;	
+__device__ __constant__ double dxi_device, deta_device, dzeta_device;
+__device__ __constant__ double tx1_device, tx2_device, tx3_device;
+__device__ __constant__ double ty1_device, ty2_device, ty3_device;
+__device__ __constant__ double tz1_device, tz2_device, tz3_device;	
 // dissipation
-__device__ __constant__ double dx1, dx2, dx3, dx4, dx5;
-__device__ __constant__ double dy1, dy2, dy3, dy4, dy5;
-__device__ __constant__ double dz1, dz2, dz3, dz4, dz5;
-__device__ __constant__ double dssp;
+__device__ __constant__ double dx1_device, dx2_device, dx3_device, dx4_device, dx5_device;
+__device__ __constant__ double dy1_device, dy2_device, dy3_device, dy4_device, dy5_device;
+__device__ __constant__ double dz1_device, dz2_device, dz3_device, dz4_device, dz5_device;
+__device__ __constant__ double dssp_device;
 // newton-raphson iteration control parameters
-__device__ __constant__ double dt, omega;
+__device__ __constant__ double dt_device, omega_device;
 
 /* function prototypes */
 static void erhs_gpu();
@@ -713,19 +713,19 @@ __global__ static void erhs_gpu_kernel_1(double* frct,
 	zeta=(double)k/((double)(nz-1));
 	eta=(double)j/((double)(ny-1));
 	xi=(double)i/((double)(nx-1));	
-	for(m=0;m<5;m++){rsd(m,i,j,k)=ce[0][m]+
-		(ce[1][m]+
-		 (ce[4][m]+
-		  (ce[7][m]+
-		   ce[10][m]*xi)*xi)*xi)*xi+
-			(ce[2][m]+
-			 (ce[5][m]+
-			  (ce[8][m]+
-			   ce[11][m]*eta)*eta)*eta)*eta+
-			(ce[3][m]+
-			 (ce[6][m]+
-			  (ce[9][m]+
-			   ce[12][m]*zeta)*zeta)*zeta)*zeta;
+	for(m=0;m<5;m++){rsd(m,i,j,k)=ce_device[0][m]+
+		(ce_device[1][m]+
+		 (ce_device[4][m]+
+		  (ce_device[7][m]+
+		   ce_device[10][m]*xi)*xi)*xi)*xi+
+			(ce_device[2][m]+
+			 (ce_device[5][m]+
+			  (ce_device[8][m]+
+			   ce_device[11][m]*eta)*eta)*eta)*eta+
+			(ce_device[3][m]+
+			 (ce_device[6][m]+
+			  (ce_device[9][m]+
+			   ce_device[12][m]*zeta)*zeta)*zeta)*zeta;
 	}
 }
 
@@ -777,7 +777,7 @@ __global__ static void erhs_gpu_kernel_2(double* frct,
 		flux[threadIdx.x+(3*blockDim.x)]=rtmp[threadIdx.x*5+3]*u21;
 		flux[threadIdx.x+(4*blockDim.x)]=(C1*rtmp[threadIdx.x*5+4]-C2*q)*u21;
 		__syncthreads();
-		if((threadIdx.x>=1)&&(threadIdx.x<(blockDim.x-1))&&(i<(nx-1))){for(m=0;m<5;m++){utmp[m]=frct(m,i,j,k)-tx2*(flux[(threadIdx.x+1)+(m*blockDim.x)]-flux[(threadIdx.x-1)+(m*blockDim.x)]);}}
+		if((threadIdx.x>=1)&&(threadIdx.x<(blockDim.x-1))&&(i<(nx-1))){for(m=0;m<5;m++){utmp[m]=frct(m,i,j,k)-tx2_device*(flux[(threadIdx.x+1)+(m*blockDim.x)]-flux[(threadIdx.x-1)+(m*blockDim.x)]);}}
 		u21=1.0/rtmp[threadIdx.x*5+0];
 		u21i[threadIdx.x]=u21*rtmp[threadIdx.x*5+1];
 		u31i[threadIdx.x]=u21*rtmp[threadIdx.x*5+2];
@@ -785,28 +785,28 @@ __global__ static void erhs_gpu_kernel_2(double* frct,
 		u51i[threadIdx.x]=u21*rtmp[threadIdx.x*5+4];
 		__syncthreads();
 		if(threadIdx.x>=1){
-			flux[threadIdx.x+(1*blockDim.x)]=(4.0/3.0)*tx3*(u21i[threadIdx.x]-u21i[threadIdx.x-1]);
-			flux[threadIdx.x+(2*blockDim.x)]=tx3*(u31i[threadIdx.x]-u31i[threadIdx.x-1]);
-			flux[threadIdx.x+(3*blockDim.x)]=tx3*(u41i[threadIdx.x]-u41i[threadIdx.x-1]);
-			flux[threadIdx.x+(4*blockDim.x)]=0.5*(1.0-C1*C5)*tx3*((u21i[threadIdx.x]*u21i[threadIdx.x]+u31i[threadIdx.x]*u31i[threadIdx.x]+u41i[threadIdx.x]*u41i[threadIdx.x])-(u21i[threadIdx.x-1]*u21i[threadIdx.x-1]+u31i[threadIdx.x-1]*u31i[threadIdx.x-1]+u41i[threadIdx.x-1]*u41i[threadIdx.x-1]))+(1.0/6.0)*tx3*(u21i[threadIdx.x]*u21i[threadIdx.x]-u21i[threadIdx.x-1]*u21i[threadIdx.x-1])+C1*C5*tx3*(u51i[threadIdx.x]-u51i[threadIdx.x-1]);
+			flux[threadIdx.x+(1*blockDim.x)]=(4.0/3.0)*tx3_device*(u21i[threadIdx.x]-u21i[threadIdx.x-1]);
+			flux[threadIdx.x+(2*blockDim.x)]=tx3_device*(u31i[threadIdx.x]-u31i[threadIdx.x-1]);
+			flux[threadIdx.x+(3*blockDim.x)]=tx3_device*(u41i[threadIdx.x]-u41i[threadIdx.x-1]);
+			flux[threadIdx.x+(4*blockDim.x)]=0.5*(1.0-C1*C5)*tx3_device*((u21i[threadIdx.x]*u21i[threadIdx.x]+u31i[threadIdx.x]*u31i[threadIdx.x]+u41i[threadIdx.x]*u41i[threadIdx.x])-(u21i[threadIdx.x-1]*u21i[threadIdx.x-1]+u31i[threadIdx.x-1]*u31i[threadIdx.x-1]+u41i[threadIdx.x-1]*u41i[threadIdx.x-1]))+(1.0/6.0)*tx3_device*(u21i[threadIdx.x]*u21i[threadIdx.x]-u21i[threadIdx.x-1]*u21i[threadIdx.x-1])+C1*C5*tx3_device*(u51i[threadIdx.x]-u51i[threadIdx.x-1]);
 		}
 		__syncthreads();
 		if((threadIdx.x>=1)&&(threadIdx.x<(blockDim.x-1))&&(i<nx-1)){
-			utmp[0]+=dx1*tx1*(rtmp[threadIdx.x*5-5]-2.0*rtmp[threadIdx.x*5+0]+rtmp[threadIdx.x*5+5]);
-			utmp[1]+=tx3*C3*C4*(flux[(threadIdx.x+1)+(1*blockDim.x)]-flux[threadIdx.x+(1*blockDim.x)])+dx2*tx1*(rtmp[threadIdx.x*5-4]-2.0*rtmp[threadIdx.x*5+1]+rtmp[threadIdx.x*5+6]);
-			utmp[2]+=tx3*C3*C4*(flux[(threadIdx.x+1)+(2*blockDim.x)]-flux[threadIdx.x+(2*blockDim.x)])+dx3*tx1*(rtmp[threadIdx.x*5-3]-2.0*rtmp[threadIdx.x*5+2]+rtmp[threadIdx.x*5+7]);
-			utmp[3]+=tx3*C3*C4*(flux[(threadIdx.x+1)+(3*blockDim.x)]-flux[threadIdx.x+(3*blockDim.x)])+dx4*tx1*(rtmp[threadIdx.x*5-2]-2.0*rtmp[threadIdx.x*5+3]+rtmp[threadIdx.x*5+8]);
-			utmp[4]+=tx3*C3*C4*(flux[(threadIdx.x+1)+(4*blockDim.x)]-flux[threadIdx.x+(4*blockDim.x)])+dx5*tx1*(rtmp[threadIdx.x*5-1]-2.0*rtmp[threadIdx.x*5+4]+rtmp[threadIdx.x*5+9]);
+			utmp[0]+=dx1_device*tx1_device*(rtmp[threadIdx.x*5-5]-2.0*rtmp[threadIdx.x*5+0]+rtmp[threadIdx.x*5+5]);
+			utmp[1]+=tx3_device*C3*C4*(flux[(threadIdx.x+1)+(1*blockDim.x)]-flux[threadIdx.x+(1*blockDim.x)])+dx2_device*tx1_device*(rtmp[threadIdx.x*5-4]-2.0*rtmp[threadIdx.x*5+1]+rtmp[threadIdx.x*5+6]);
+			utmp[2]+=tx3_device*C3*C4*(flux[(threadIdx.x+1)+(2*blockDim.x)]-flux[threadIdx.x+(2*blockDim.x)])+dx3_device*tx1_device*(rtmp[threadIdx.x*5-3]-2.0*rtmp[threadIdx.x*5+2]+rtmp[threadIdx.x*5+7]);
+			utmp[3]+=tx3_device*C3*C4*(flux[(threadIdx.x+1)+(3*blockDim.x)]-flux[threadIdx.x+(3*blockDim.x)])+dx4_device*tx1_device*(rtmp[threadIdx.x*5-2]-2.0*rtmp[threadIdx.x*5+3]+rtmp[threadIdx.x*5+8]);
+			utmp[4]+=tx3_device*C3*C4*(flux[(threadIdx.x+1)+(4*blockDim.x)]-flux[threadIdx.x+(4*blockDim.x)])+dx5_device*tx1_device*(rtmp[threadIdx.x*5-1]-2.0*rtmp[threadIdx.x*5+4]+rtmp[threadIdx.x*5+9]);
 			/*
 			 * ---------------------------------------------------------------------
 			 * fourth-order dissipation
 			 * ---------------------------------------------------------------------
 			 */
-			if(i==1){for(m=0;m<5;m++){frct(m,1,j,k)=utmp[m]-dssp*(+5.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]+rsd(m,3,j,k));}}
-			if(i==2){for(m=0;m<5;m++){frct(m,2,j,k)=utmp[m]-dssp*(-4.0*rtmp[threadIdx.x*5+m-5]+6.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]+rsd(m,4,j,k));}}
-			if((i>=3)&&(i<(nx-3))){for(m=0;m<5;m++){frct(m,i,j,k)=utmp[m]-dssp*(rsd(m,i-2,j,k)-4.0*rtmp[threadIdx.x*5+m-5]+6.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]+rsd(m,i+2,j,k));}}
-			if(i==(nx-3)){for(m=0;m<5;m++){frct(m,nx-3,j,k)=utmp[m]-dssp*(rsd(m,nx-5,j,k)-4.0*rtmp[threadIdx.x*5+m-5]+6.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]);}}
-			if(i==(nx-2)){for(m=0;m<5;m++){frct(m,nx-2,j,k)=utmp[m]-dssp*(rsd(m,nx-4,j,k)-4.0*rtmp[threadIdx.x*5+m-5]+5.0*rtmp[threadIdx.x*5+m]);}}
+			if(i==1){for(m=0;m<5;m++){frct(m,1,j,k)=utmp[m]-dssp_device*(+5.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]+rsd(m,3,j,k));}}
+			if(i==2){for(m=0;m<5;m++){frct(m,2,j,k)=utmp[m]-dssp_device*(-4.0*rtmp[threadIdx.x*5+m-5]+6.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]+rsd(m,4,j,k));}}
+			if((i>=3)&&(i<(nx-3))){for(m=0;m<5;m++){frct(m,i,j,k)=utmp[m]-dssp_device*(rsd(m,i-2,j,k)-4.0*rtmp[threadIdx.x*5+m-5]+6.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]+rsd(m,i+2,j,k));}}
+			if(i==(nx-3)){for(m=0;m<5;m++){frct(m,nx-3,j,k)=utmp[m]-dssp_device*(rsd(m,nx-5,j,k)-4.0*rtmp[threadIdx.x*5+m-5]+6.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]);}}
+			if(i==(nx-2)){for(m=0;m<5;m++){frct(m,nx-2,j,k)=utmp[m]-dssp_device*(rsd(m,nx-4,j,k)-4.0*rtmp[threadIdx.x*5+m-5]+5.0*rtmp[threadIdx.x*5+m]);}}
 		}
 		i+=blockDim.x-2;
 	}
@@ -860,7 +860,7 @@ __global__ static void erhs_gpu_kernel_3(double* frct,
 		flux[threadIdx.x+(3*blockDim.x)]=rtmp[threadIdx.x*5+3]*u31;
 		flux[threadIdx.x+(4*blockDim.x)]=(C1*rtmp[threadIdx.x*5+4]-C2*q)*u31;
 		__syncthreads();
-		if((threadIdx.x>=1)&&(threadIdx.x<(blockDim.x-1))&&(j<(ny-1))){for(m=0;m<5;m++){utmp[m]=frct(m,i,j,k)-ty2*(flux[(threadIdx.x+1)+(m*blockDim.x)]-flux[(threadIdx.x-1)+(m*blockDim.x)]);}}
+		if((threadIdx.x>=1)&&(threadIdx.x<(blockDim.x-1))&&(j<(ny-1))){for(m=0;m<5;m++){utmp[m]=frct(m,i,j,k)-ty2_device*(flux[(threadIdx.x+1)+(m*blockDim.x)]-flux[(threadIdx.x-1)+(m*blockDim.x)]);}}
 		u31=1.0/rtmp[threadIdx.x*5+0];
 		u21j[threadIdx.x]=u31*rtmp[threadIdx.x*5+1];
 		u31j[threadIdx.x]=u31*rtmp[threadIdx.x*5+2];
@@ -868,28 +868,28 @@ __global__ static void erhs_gpu_kernel_3(double* frct,
 		u51j[threadIdx.x]=u31*rtmp[threadIdx.x*5+4];
 		__syncthreads();
 		if(threadIdx.x>=1){
-			flux[threadIdx.x+(1*blockDim.x)]=ty3*(u21j[threadIdx.x]-u21j[threadIdx.x-1]);
-			flux[threadIdx.x+(2*blockDim.x)]=(4.0/3.0)*ty3*(u31j[threadIdx.x]-u31j[threadIdx.x-1]);
-			flux[threadIdx.x+(3*blockDim.x)]=ty3*(u41j[threadIdx.x]-u41j[threadIdx.x-1]);
-			flux[threadIdx.x+(4*blockDim.x)]=0.5*(1.0-C1*C5)*ty3*((u21j[threadIdx.x]*u21j[threadIdx.x]+u31j[threadIdx.x]*u31j[threadIdx.x]+u41j[threadIdx.x]*u41j[threadIdx.x])-(u21j[threadIdx.x-1]*u21j[threadIdx.x-1]+u31j[threadIdx.x-1]*u31j[threadIdx.x-1]+u41j[threadIdx.x-1]*u41j[threadIdx.x-1]))+(1.0/6.0)*ty3*(u31j[threadIdx.x]*u31j[threadIdx.x]-u31j[threadIdx.x-1]*u31j[threadIdx.x-1])+C1*C5*ty3*(u51j[threadIdx.x]-u51j[threadIdx.x-1]);
+			flux[threadIdx.x+(1*blockDim.x)]=ty3_device*(u21j[threadIdx.x]-u21j[threadIdx.x-1]);
+			flux[threadIdx.x+(2*blockDim.x)]=(4.0/3.0)*ty3_device*(u31j[threadIdx.x]-u31j[threadIdx.x-1]);
+			flux[threadIdx.x+(3*blockDim.x)]=ty3_device*(u41j[threadIdx.x]-u41j[threadIdx.x-1]);
+			flux[threadIdx.x+(4*blockDim.x)]=0.5*(1.0-C1*C5)*ty3_device*((u21j[threadIdx.x]*u21j[threadIdx.x]+u31j[threadIdx.x]*u31j[threadIdx.x]+u41j[threadIdx.x]*u41j[threadIdx.x])-(u21j[threadIdx.x-1]*u21j[threadIdx.x-1]+u31j[threadIdx.x-1]*u31j[threadIdx.x-1]+u41j[threadIdx.x-1]*u41j[threadIdx.x-1]))+(1.0/6.0)*ty3_device*(u31j[threadIdx.x]*u31j[threadIdx.x]-u31j[threadIdx.x-1]*u31j[threadIdx.x-1])+C1*C5*ty3_device*(u51j[threadIdx.x]-u51j[threadIdx.x-1]);
 		}
 		__syncthreads();
 		if((threadIdx.x>=1)&&(threadIdx.x<(blockDim.x-1))&&(j<(ny-1))){
-			utmp[0]+=dy1*ty1*(rtmp[threadIdx.x*5-5]-2.0*rtmp[threadIdx.x*5+0]+rtmp[threadIdx.x*5+5]);
-			utmp[1]+=ty3*C3*C4*(flux[(threadIdx.x+1)+(1*blockDim.x)]-flux[threadIdx.x+(1*blockDim.x)])+dy2*ty1*(rtmp[threadIdx.x*5-4]-2.0*rtmp[threadIdx.x*5+1]+rtmp[threadIdx.x*5+6]);
-			utmp[2]+=ty3*C3*C4*(flux[(threadIdx.x+1)+(2*blockDim.x)]-flux[threadIdx.x+(2*blockDim.x)])+dy3*ty1*(rtmp[threadIdx.x*5-3]-2.0*rtmp[threadIdx.x*5+2]+rtmp[threadIdx.x*5+7]);
-			utmp[3]+=ty3*C3*C4*(flux[(threadIdx.x+1)+(3*blockDim.x)]-flux[threadIdx.x+(3*blockDim.x)])+dy4*ty1*(rtmp[threadIdx.x*5-2]-2.0*rtmp[threadIdx.x*5+3]+rtmp[threadIdx.x*5+8]);
-			utmp[4]+=ty3*C3*C4*(flux[(threadIdx.x+1)+(4*blockDim.x)]-flux[threadIdx.x+(4*blockDim.x)])+dy5*ty1*(rtmp[threadIdx.x*5-1]-2.0*rtmp[threadIdx.x*5+4]+rtmp[threadIdx.x*5+9]);
+			utmp[0]+=dy1_device*ty1_device*(rtmp[threadIdx.x*5-5]-2.0*rtmp[threadIdx.x*5+0]+rtmp[threadIdx.x*5+5]);
+			utmp[1]+=ty3_device*C3*C4*(flux[(threadIdx.x+1)+(1*blockDim.x)]-flux[threadIdx.x+(1*blockDim.x)])+dy2_device*ty1_device*(rtmp[threadIdx.x*5-4]-2.0*rtmp[threadIdx.x*5+1]+rtmp[threadIdx.x*5+6]);
+			utmp[2]+=ty3_device*C3*C4*(flux[(threadIdx.x+1)+(2*blockDim.x)]-flux[threadIdx.x+(2*blockDim.x)])+dy3_device*ty1_device*(rtmp[threadIdx.x*5-3]-2.0*rtmp[threadIdx.x*5+2]+rtmp[threadIdx.x*5+7]);
+			utmp[3]+=ty3_device*C3*C4*(flux[(threadIdx.x+1)+(3*blockDim.x)]-flux[threadIdx.x+(3*blockDim.x)])+dy4_device*ty1_device*(rtmp[threadIdx.x*5-2]-2.0*rtmp[threadIdx.x*5+3]+rtmp[threadIdx.x*5+8]);
+			utmp[4]+=ty3_device*C3*C4*(flux[(threadIdx.x+1)+(4*blockDim.x)]-flux[threadIdx.x+(4*blockDim.x)])+dy5_device*ty1_device*(rtmp[threadIdx.x*5-1]-2.0*rtmp[threadIdx.x*5+4]+rtmp[threadIdx.x*5+9]);
 			/*
 			 * ---------------------------------------------------------------------
 			 * fourth-order dissipation
 			 * ---------------------------------------------------------------------
 			 */
-			if(j==1){for(m=0;m<5;m++){frct(m,i,1,k)=utmp[m]-dssp*(+5.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]+rsd(m,i,3,k));}}
-			if(j==2){for(m=0;m<5;m++){frct(m,i,2,k)=utmp[m]-dssp*(-4.0*rtmp[threadIdx.x*5+m-5]+6.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]+rsd(m,i,4,k));}}
-			if((j>=3)&&(j<(ny-3))){for(m=0;m<5;m++){frct(m,i,j,k)=utmp[m]-dssp*(rsd(m,i,j-2,k)-4.0*rtmp[threadIdx.x*5+m-5]+6.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]+rsd(m,i,j+2,k));}}
-			if(j==(ny-3)){for(m=0;m<5;m++){frct(m,i,ny-3,k)=utmp[m]-dssp*(rsd(m,i,ny-5,k)-4.0*rtmp[threadIdx.x*5+m-5]+6.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]);}}
-			if(j==(ny-2)){for(m=0;m<5;m++){frct(m,i,ny-2,k)=utmp[m]-dssp*(rsd(m,i,ny-4,k)-4.0*rtmp[threadIdx.x*5+m-5]+5.0*rtmp[threadIdx.x*5+m]);}}
+			if(j==1){for(m=0;m<5;m++){frct(m,i,1,k)=utmp[m]-dssp_device*(+5.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]+rsd(m,i,3,k));}}
+			if(j==2){for(m=0;m<5;m++){frct(m,i,2,k)=utmp[m]-dssp_device*(-4.0*rtmp[threadIdx.x*5+m-5]+6.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]+rsd(m,i,4,k));}}
+			if((j>=3)&&(j<(ny-3))){for(m=0;m<5;m++){frct(m,i,j,k)=utmp[m]-dssp_device*(rsd(m,i,j-2,k)-4.0*rtmp[threadIdx.x*5+m-5]+6.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]+rsd(m,i,j+2,k));}}
+			if(j==(ny-3)){for(m=0;m<5;m++){frct(m,i,ny-3,k)=utmp[m]-dssp_device*(rsd(m,i,ny-5,k)-4.0*rtmp[threadIdx.x*5+m-5]+6.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]);}}
+			if(j==(ny-2)){for(m=0;m<5;m++){frct(m,i,ny-2,k)=utmp[m]-dssp_device*(rsd(m,i,ny-4,k)-4.0*rtmp[threadIdx.x*5+m-5]+5.0*rtmp[threadIdx.x*5+m]);}}
 		}
 		j += blockDim.x-2;
 	}
@@ -943,7 +943,7 @@ __global__ static void erhs_gpu_kernel_4(double* frct,
 		flux[threadIdx.x+(3*blockDim.x)]=rtmp[threadIdx.x*5+3]*u41+C2*(rtmp[threadIdx.x*5+4]-q);
 		flux[threadIdx.x+(4*blockDim.x)]=(C1*rtmp[threadIdx.x*5+4]-C2*q)*u41;
 		__syncthreads();
-		if((threadIdx.x>=1)&&(threadIdx.x<(blockDim.x-1))&&(k<(nz-1))){for(m=0;m<5;m++){utmp[m]=frct(m,i,j,k)-tz2*(flux[(threadIdx.x+1)+(m*blockDim.x)]-flux[(threadIdx.x-1)+(m*blockDim.x)]);}}
+		if((threadIdx.x>=1)&&(threadIdx.x<(blockDim.x-1))&&(k<(nz-1))){for(m=0;m<5;m++){utmp[m]=frct(m,i,j,k)-tz2_device*(flux[(threadIdx.x+1)+(m*blockDim.x)]-flux[(threadIdx.x-1)+(m*blockDim.x)]);}}
 		u41=1.0/rtmp[threadIdx.x*5+0];
 		u21k[threadIdx.x]=u41*rtmp[threadIdx.x*5+1];
 		u31k[threadIdx.x]=u41*rtmp[threadIdx.x*5+2];
@@ -951,28 +951,28 @@ __global__ static void erhs_gpu_kernel_4(double* frct,
 		u51k[threadIdx.x]=u41*rtmp[threadIdx.x*5+4];
 		__syncthreads();
 		if(threadIdx.x>=1){
-			flux[threadIdx.x+(1*blockDim.x)]=tz3*(u21k[threadIdx.x]-u21k[threadIdx.x-1]);
-			flux[threadIdx.x+(2*blockDim.x)]=tz3*(u31k[threadIdx.x]-u31k[threadIdx.x-1]);
-			flux[threadIdx.x+(3*blockDim.x)]=(4.0/3.0)*tz3*(u41k[threadIdx.x]-u41k[threadIdx.x-1]);
-			flux[threadIdx.x+(4*blockDim.x)]=0.5*(1.0-C1*C5)*tz3*((u21k[threadIdx.x]*u21k[threadIdx.x]+u31k[threadIdx.x]*u31k[threadIdx.x]+u41k[threadIdx.x]*u41k[threadIdx.x])-(u21k[threadIdx.x-1]*u21k[threadIdx.x-1]+u31k[threadIdx.x-1]*u31k[threadIdx.x-1]+u41k[threadIdx.x-1]*u41k[threadIdx.x-1]))+(1.0/6.0)*tz3*(u41k[threadIdx.x]*u41k[threadIdx.x]-u41k[threadIdx.x-1]*u41k[threadIdx.x-1])+C1*C5*tz3*(u51k[threadIdx.x]-u51k[threadIdx.x-1]);
+			flux[threadIdx.x+(1*blockDim.x)]=tz3_device*(u21k[threadIdx.x]-u21k[threadIdx.x-1]);
+			flux[threadIdx.x+(2*blockDim.x)]=tz3_device*(u31k[threadIdx.x]-u31k[threadIdx.x-1]);
+			flux[threadIdx.x+(3*blockDim.x)]=(4.0/3.0)*tz3_device*(u41k[threadIdx.x]-u41k[threadIdx.x-1]);
+			flux[threadIdx.x+(4*blockDim.x)]=0.5*(1.0-C1*C5)*tz3_device*((u21k[threadIdx.x]*u21k[threadIdx.x]+u31k[threadIdx.x]*u31k[threadIdx.x]+u41k[threadIdx.x]*u41k[threadIdx.x])-(u21k[threadIdx.x-1]*u21k[threadIdx.x-1]+u31k[threadIdx.x-1]*u31k[threadIdx.x-1]+u41k[threadIdx.x-1]*u41k[threadIdx.x-1]))+(1.0/6.0)*tz3_device*(u41k[threadIdx.x]*u41k[threadIdx.x]-u41k[threadIdx.x-1]*u41k[threadIdx.x-1])+C1*C5*tz3_device*(u51k[threadIdx.x]-u51k[threadIdx.x-1]);
 		}
 		__syncthreads();
 		if((threadIdx.x>=1)&&(threadIdx.x<(blockDim.x-1))&&(k<(nz-1))){
-			utmp[0]+=dz1*tz1*(rtmp[threadIdx.x*5-5]-2.0*rtmp[threadIdx.x*5+0]+rtmp[threadIdx.x*5+5]);
-			utmp[1]+=tz3*C3*C4*(flux[(threadIdx.x+1)+(1*blockDim.x)]-flux[threadIdx.x+(1*blockDim.x)])+dz2*tz1*(rtmp[threadIdx.x*5-4]-2.0*rtmp[threadIdx.x*5+1]+rtmp[threadIdx.x*5+6]);
-			utmp[2]+=tz3*C3*C4*(flux[(threadIdx.x+1)+(2*blockDim.x)]-flux[threadIdx.x+(2*blockDim.x)])+dz3*tz1*(rtmp[threadIdx.x*5-3]-2.0*rtmp[threadIdx.x*5+2]+rtmp[threadIdx.x*5+7]);
-			utmp[3]+=tz3*C3*C4*(flux[(threadIdx.x+1)+(3*blockDim.x)]-flux[threadIdx.x+(3*blockDim.x)])+dz4*tz1*(rtmp[threadIdx.x*5-2]-2.0*rtmp[threadIdx.x*5+3]+rtmp[threadIdx.x*5+8]);
-			utmp[4]+=tz3*C3*C4*(flux[(threadIdx.x+1)+(4*blockDim.x)]-flux[threadIdx.x+(4*blockDim.x)])+dz5*tz1*(rtmp[threadIdx.x*5-1]-2.0*rtmp[threadIdx.x*5+4]+rtmp[threadIdx.x*5+9]);
+			utmp[0]+=dz1_device*tz1_device*(rtmp[threadIdx.x*5-5]-2.0*rtmp[threadIdx.x*5+0]+rtmp[threadIdx.x*5+5]);
+			utmp[1]+=tz3_device*C3*C4*(flux[(threadIdx.x+1)+(1*blockDim.x)]-flux[threadIdx.x+(1*blockDim.x)])+dz2_device*tz1_device*(rtmp[threadIdx.x*5-4]-2.0*rtmp[threadIdx.x*5+1]+rtmp[threadIdx.x*5+6]);
+			utmp[2]+=tz3_device*C3*C4*(flux[(threadIdx.x+1)+(2*blockDim.x)]-flux[threadIdx.x+(2*blockDim.x)])+dz3_device*tz1_device*(rtmp[threadIdx.x*5-3]-2.0*rtmp[threadIdx.x*5+2]+rtmp[threadIdx.x*5+7]);
+			utmp[3]+=tz3_device*C3*C4*(flux[(threadIdx.x+1)+(3*blockDim.x)]-flux[threadIdx.x+(3*blockDim.x)])+dz4_device*tz1_device*(rtmp[threadIdx.x*5-2]-2.0*rtmp[threadIdx.x*5+3]+rtmp[threadIdx.x*5+8]);
+			utmp[4]+=tz3_device*C3*C4*(flux[(threadIdx.x+1)+(4*blockDim.x)]-flux[threadIdx.x+(4*blockDim.x)])+dz5_device*tz1_device*(rtmp[threadIdx.x*5-1]-2.0*rtmp[threadIdx.x*5+4]+rtmp[threadIdx.x*5+9]);
 			/*
 			 * ---------------------------------------------------------------------
 			 * fourth-order dissipation
 			 * ---------------------------------------------------------------------
 			 */
-			if(k==1){for(m=0;m<5;m++){frct(m,i,j,1)=utmp[m]-dssp*(+5.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]+rsd(m,i,j,3));}}
-			if(k==2){for(m=0;m<5;m++){frct(m,i,j,2)=utmp[m]-dssp*(-4.0*rtmp[threadIdx.x*5+m-5]+6.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]+rsd(m,i,j,4));}}
-			if((k>=3)&&(k<(nz-3))){for(m=0;m<5;m++){frct(m,i,j,k)=utmp[m]-dssp*(rsd(m,i,j,k-2)-4.0*rtmp[threadIdx.x*5+m-5]+6.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]+rsd(m,i,j,k+2));}}
-			if(k==(nz-3)){for(m=0;m<5;m++){frct(m,i,j,nz-3)=utmp[m]-dssp*(rsd(m,i,j,nz-5)-4.0*rtmp[threadIdx.x*5+m-5]+6.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]);}}
-			if(k==(nz-2)){for(m=0;m<5;m++){frct(m,i,j,nz-2)=utmp[m]-dssp*(rsd(m,i,j,nz-4)-4.0*rtmp[threadIdx.x*5+m-5]+5.0*rtmp[threadIdx.x*5+m]);}}
+			if(k==1){for(m=0;m<5;m++){frct(m,i,j,1)=utmp[m]-dssp_device*(+5.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]+rsd(m,i,j,3));}}
+			if(k==2){for(m=0;m<5;m++){frct(m,i,j,2)=utmp[m]-dssp_device*(-4.0*rtmp[threadIdx.x*5+m-5]+6.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]+rsd(m,i,j,4));}}
+			if((k>=3)&&(k<(nz-3))){for(m=0;m<5;m++){frct(m,i,j,k)=utmp[m]-dssp_device*(rsd(m,i,j,k-2)-4.0*rtmp[threadIdx.x*5+m-5]+6.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]+rsd(m,i,j,k+2));}}
+			if(k==(nz-3)){for(m=0;m<5;m++){frct(m,i,j,nz-3)=utmp[m]-dssp_device*(rsd(m,i,j,nz-5)-4.0*rtmp[threadIdx.x*5+m-5]+6.0*rtmp[threadIdx.x*5+m]-4.0*rtmp[threadIdx.x*5+m+5]);}}
+			if(k==(nz-2)){for(m=0;m<5;m++){frct(m,i,j,nz-2)=utmp[m]-dssp_device*(rsd(m,i,j,nz-4)-4.0*rtmp[threadIdx.x*5+m-5]+5.0*rtmp[threadIdx.x*5+m]);}}
 		}
 		k+=blockDim.x-2;
 	}
@@ -1096,19 +1096,19 @@ __device__ static void exact_gpu_device(const int i,
 	eta=(double)j/(double)(ny-1);
 	zeta=(double)k/(double)(nz-1);
 	for(m=0; m<5; m++){
-		u000ijk[m]=ce[0][m]+
-			(ce[1][m]+
-			 (ce[4][m]+
-			  (ce[7][m]+
-			   ce[10][m]*xi)*xi)*xi)*xi+ 
-			(ce[2][m]+
-			 (ce[5][m]+
-			  (ce[8][m]+
-			   ce[11][m]*eta)*eta)*eta)*eta+ 
-			(ce[3][m]+
-			 (ce[6][m]+
-			  (ce[9][m]+
-			   ce[12][m]*zeta)*zeta)*zeta)*zeta;
+		u000ijk[m]=ce_device[0][m]+
+			(ce_device[1][m]+
+			 (ce_device[4][m]+
+			  (ce_device[7][m]+
+			   ce_device[10][m]*xi)*xi)*xi)*xi+ 
+			(ce_device[2][m]+
+			 (ce_device[5][m]+
+			  (ce_device[8][m]+
+			   ce_device[11][m]*eta)*eta)*eta)*eta+ 
+			(ce_device[3][m]+
+			 (ce_device[6][m]+
+			  (ce_device[9][m]+
+			   ce_device[12][m]*zeta)*zeta)*zeta)*zeta;
 	}
 }
 
@@ -1144,32 +1144,32 @@ __global__ static void jacld_blts_gpu_kernel(const int plane,
 	tmp1=rho_i(i,j,k-1);
 	tmp2=tmp1*tmp1;
 	tmp3=tmp1*tmp2;
-	tmat[0+5*0]= -dt*tz1*dz1;
+	tmat[0+5*0]= -dt_device*tz1_device*dz1_device;
 	tmat[0+5*1]=0.0;
 	tmat[0+5*2]=0.0;
-	tmat[0+5*3]=-dt*tz2;
+	tmat[0+5*3]=-dt_device*tz2_device;
 	tmat[0+5*4]=0.0;
-	tmat[1+5*0]=-dt*tz2*(-(u(1,i,j,k-1)*u(3,i,j,k-1))*tmp2)-dt*tz1*(-c34*tmp2*u(1,i,j,k-1));
-	tmat[1+5*1]=-dt*tz2*(u(3,i,j,k-1)*tmp1)-dt*tz1*c34*tmp1-dt*tz1*dz2;
+	tmat[1+5*0]=-dt_device*tz2_device*(-(u(1,i,j,k-1)*u(3,i,j,k-1))*tmp2)-dt_device*tz1_device*(-c34*tmp2*u(1,i,j,k-1));
+	tmat[1+5*1]=-dt_device*tz2_device*(u(3,i,j,k-1)*tmp1)-dt_device*tz1_device*c34*tmp1-dt_device*tz1_device*dz2_device;
 	tmat[1+5*2]=0.0;
-	tmat[1+5*3]=-dt*tz2*(u(1,i,j,k-1)*tmp1);
+	tmat[1+5*3]=-dt_device*tz2_device*(u(1,i,j,k-1)*tmp1);
 	tmat[1+5*4]=0.0;
-	tmat[2+5*0]=-dt*tz2*(-(u(2,i,j,k-1)*u(3,i,j,k-1))*tmp2)-dt*tz1*(-c34*tmp2*u(2,i,j,k-1));
+	tmat[2+5*0]=-dt_device*tz2_device*(-(u(2,i,j,k-1)*u(3,i,j,k-1))*tmp2)-dt_device*tz1_device*(-c34*tmp2*u(2,i,j,k-1));
 	tmat[2+5*1]=0.0;
-	tmat[2+5*2]=-dt*tz2*(u(3,i,j,k-1)*tmp1)-dt*tz1*(c34*tmp1)-dt*tz1*dz3;
-	tmat[2+5*3]=-dt*tz2*(u(2,i,j,k-1)*tmp1);
+	tmat[2+5*2]=-dt_device*tz2_device*(u(3,i,j,k-1)*tmp1)-dt_device*tz1_device*(c34*tmp1)-dt_device*tz1_device*dz3_device;
+	tmat[2+5*3]=-dt_device*tz2_device*(u(2,i,j,k-1)*tmp1);
 	tmat[2+5*4]=0.0;
-	tmat[3+5*0]=-dt*tz2*(-(u(3,i,j,k-1)*tmp1)*(u(3,i,j,k-1)*tmp1)+C2*qs(i,j,k-1)*tmp1)-dt*tz1*(-r43*c34*tmp2*u(3,i,j,k-1));
-	tmat[3+5*1]=-dt*tz2*(-C2*(u(1,i,j,k-1)*tmp1));
-	tmat[3+5*2]=-dt*tz2*(-C2*(u(2,i,j,k-1)*tmp1));
-	tmat[3+5*3]=-dt*tz2*(2.0-C2)*(u(3,i,j,k-1)*tmp1)-dt*tz1*(r43*c34*tmp1)-dt*tz1*dz4;
-	tmat[3+5*4]=-dt*tz2*C2;
-	tmat[4+5*0]=-dt*tz2*((C2*2.0*qs(i,j,k-1)-C1*u(4,i,j,k-1))*u(3,i,j,k-1)*tmp2)-dt*tz1*(-(c34-c1345)*tmp3*(u(1,i,j,k-1)*u(1,i,j,k-1))-(c34-c1345)*tmp3*(u(2,i,j,k-1)*u(2,i,j,k-1))-(r43*c34-c1345)*tmp3*(u(3,i,j,k-1)*u(3,i,j,k-1))-c1345*tmp2*u(4,i,j,k-1));
-	tmat[4+5*1]=-dt*tz2*(-C2*(u(1,i,j,k-1)*u(3,i,j,k-1))*tmp2)-dt*tz1*(c34-c1345)*tmp2*u(1,i,j,k-1);
-	tmat[4+5*2]=-dt*tz2*(-C2*(u(2,i,j,k-1)*u(3,i,j,k-1))*tmp2)-dt*tz1*(c34-c1345)*tmp2*u(2,i,j,k-1);
-	tmat[4+5*3]=-dt*tz2*(C1*(u(4,i,j,k-1)*tmp1)-C2*(qs(i,j,k-1)*tmp1+u(3,i,j,k-1)*u(3,i,j,k-1)*tmp2))-dt*tz1*(r43*c34-c1345)*tmp2*u(3,i,j,k-1);
-	tmat[4+5*4]=-dt*tz2*(C1*(u(3,i,j,k-1)*tmp1))-dt*tz1*c1345*tmp1-dt*tz1*dz5;
-	for(m=0;m<5;m++){tv[m]=v(m,i,j,k)-omega*(tmat[m+5*0]*v(0,i,j,k-1)+tmat[m+5*1]*v(1,i,j,k-1)+tmat[m+5*2]*v(2,i,j,k-1)+tmat[m+5*3]*v(3,i,j,k-1)+tmat[m+5*4]*v(4,i,j,k-1));}
+	tmat[3+5*0]=-dt_device*tz2_device*(-(u(3,i,j,k-1)*tmp1)*(u(3,i,j,k-1)*tmp1)+C2*qs(i,j,k-1)*tmp1)-dt_device*tz1_device*(-r43*c34*tmp2*u(3,i,j,k-1));
+	tmat[3+5*1]=-dt_device*tz2_device*(-C2*(u(1,i,j,k-1)*tmp1));
+	tmat[3+5*2]=-dt_device*tz2_device*(-C2*(u(2,i,j,k-1)*tmp1));
+	tmat[3+5*3]=-dt_device*tz2_device*(2.0-C2)*(u(3,i,j,k-1)*tmp1)-dt_device*tz1_device*(r43*c34*tmp1)-dt_device*tz1_device*dz4_device;
+	tmat[3+5*4]=-dt_device*tz2_device*C2;
+	tmat[4+5*0]=-dt_device*tz2_device*((C2*2.0*qs(i,j,k-1)-C1*u(4,i,j,k-1))*u(3,i,j,k-1)*tmp2)-dt_device*tz1_device*(-(c34-c1345)*tmp3*(u(1,i,j,k-1)*u(1,i,j,k-1))-(c34-c1345)*tmp3*(u(2,i,j,k-1)*u(2,i,j,k-1))-(r43*c34-c1345)*tmp3*(u(3,i,j,k-1)*u(3,i,j,k-1))-c1345*tmp2*u(4,i,j,k-1));
+	tmat[4+5*1]=-dt_device*tz2_device*(-C2*(u(1,i,j,k-1)*u(3,i,j,k-1))*tmp2)-dt_device*tz1_device*(c34-c1345)*tmp2*u(1,i,j,k-1);
+	tmat[4+5*2]=-dt_device*tz2_device*(-C2*(u(2,i,j,k-1)*u(3,i,j,k-1))*tmp2)-dt_device*tz1_device*(c34-c1345)*tmp2*u(2,i,j,k-1);
+	tmat[4+5*3]=-dt_device*tz2_device*(C1*(u(4,i,j,k-1)*tmp1)-C2*(qs(i,j,k-1)*tmp1+u(3,i,j,k-1)*u(3,i,j,k-1)*tmp2))-dt_device*tz1_device*(r43*c34-c1345)*tmp2*u(3,i,j,k-1);
+	tmat[4+5*4]=-dt_device*tz2_device*(C1*(u(3,i,j,k-1)*tmp1))-dt_device*tz1_device*c1345*tmp1-dt_device*tz1_device*dz5_device;
+	for(m=0;m<5;m++){tv[m]=v(m,i,j,k)-omega_device*(tmat[m+5*0]*v(0,i,j,k-1)+tmat[m+5*1]*v(1,i,j,k-1)+tmat[m+5*2]*v(2,i,j,k-1)+tmat[m+5*3]*v(3,i,j,k-1)+tmat[m+5*4]*v(4,i,j,k-1));}
 	/*
 	 * ---------------------------------------------------------------------
 	 * form the second block sub-diagonal
@@ -1178,32 +1178,32 @@ __global__ static void jacld_blts_gpu_kernel(const int plane,
 	tmp1=rho_i(i,j-1,k);
 	tmp2=tmp1*tmp1;
 	tmp3=tmp1*tmp2;
-	tmat[0+5*0]=-dt*ty1*dy1;
+	tmat[0+5*0]=-dt_device*ty1_device*dy1_device;
 	tmat[0+5*1]=0.0;
-	tmat[0+5*2]=-dt*ty2;
+	tmat[0+5*2]=-dt_device*ty2_device;
 	tmat[0+5*3]=0.0;
 	tmat[0+5*4]=0.0;
-	tmat[1+5*0]=-dt*ty2*(-(u(1,i,j-1,k)*u(2,i,j-1,k))*tmp2)-dt*ty1*(-c34*tmp2*u(1,i,j-1,k));
-	tmat[1+5*1]=-dt*ty2*(u(2,i,j-1,k)*tmp1)-dt*ty1*(c34*tmp1)-dt*ty1*dy2;
-	tmat[1+5*2]=-dt*ty2*(u(1,i,j-1,k)*tmp1);
+	tmat[1+5*0]=-dt_device*ty2_device*(-(u(1,i,j-1,k)*u(2,i,j-1,k))*tmp2)-dt_device*ty1_device*(-c34*tmp2*u(1,i,j-1,k));
+	tmat[1+5*1]=-dt_device*ty2_device*(u(2,i,j-1,k)*tmp1)-dt_device*ty1_device*(c34*tmp1)-dt_device*ty1_device*dy2_device;
+	tmat[1+5*2]=-dt_device*ty2_device*(u(1,i,j-1,k)*tmp1);
 	tmat[1+5*3]=0.0;
 	tmat[1+5*4]=0.0;
-	tmat[2+5*0]=-dt*ty2*(-(u(2,i,j-1,k)*tmp1)*(u(2,i,j-1,k)*tmp1)+C2*(qs(i,j-1,k)*tmp1))-dt*ty1*(-r43*c34*tmp2*u(2,i,j-1,k));
-	tmat[2+5*1]=-dt*ty2*(-C2*(u(1,i,j-1,k)*tmp1));
-	tmat[2+5*2]=-dt*ty2*((2.0-C2)*(u(2,i,j-1,k)*tmp1))-dt*ty1*(r43*c34*tmp1)-dt*ty1*dy3;
-	tmat[2+5*3]=-dt*ty2*(-C2*(u(3,i,j-1,k)*tmp1));
-	tmat[2+5*4]=-dt*ty2*C2;
-	tmat[3+5*0]=-dt*ty2*(-(u(2,i,j-1,k)*u(3,i,j-1,k))*tmp2)-dt*ty1*(-c34*tmp2*u(3,i,j-1,k));
+	tmat[2+5*0]=-dt_device*ty2_device*(-(u(2,i,j-1,k)*tmp1)*(u(2,i,j-1,k)*tmp1)+C2*(qs(i,j-1,k)*tmp1))-dt_device*ty1_device*(-r43*c34*tmp2*u(2,i,j-1,k));
+	tmat[2+5*1]=-dt_device*ty2_device*(-C2*(u(1,i,j-1,k)*tmp1));
+	tmat[2+5*2]=-dt_device*ty2_device*((2.0-C2)*(u(2,i,j-1,k)*tmp1))-dt_device*ty1_device*(r43*c34*tmp1)-dt_device*ty1_device*dy3_device;
+	tmat[2+5*3]=-dt_device*ty2_device*(-C2*(u(3,i,j-1,k)*tmp1));
+	tmat[2+5*4]=-dt_device*ty2_device*C2;
+	tmat[3+5*0]=-dt_device*ty2_device*(-(u(2,i,j-1,k)*u(3,i,j-1,k))*tmp2)-dt_device*ty1_device*(-c34*tmp2*u(3,i,j-1,k));
 	tmat[3+5*1]=0.0;
-	tmat[3+5*2]=-dt*ty2*(u(3,i,j-1,k)*tmp1);
-	tmat[3+5*3]=-dt*ty2*(u(2,i,j-1,k)*tmp1)-dt*ty1*(c34*tmp1)-dt*ty1*dy4;
+	tmat[3+5*2]=-dt_device*ty2_device*(u(3,i,j-1,k)*tmp1);
+	tmat[3+5*3]=-dt_device*ty2_device*(u(2,i,j-1,k)*tmp1)-dt_device*ty1_device*(c34*tmp1)-dt_device*ty1_device*dy4_device;
 	tmat[3+5*4]=0.0;
-	tmat[4+5*0]=-dt*ty2*((C2*2.0*qs(i,j-1,k)-C1*u(4,i,j-1,k))*(u(2,i,j-1,k)*tmp2))-dt*ty1*(-(c34-c1345)*tmp3*(u(1,i,j-1,k)*u(1,i,j-1,k))-(r43*c34-c1345)*tmp3*(u(2,i,j-1,k)*u(2,i,j-1,k))-(c34-c1345)*tmp3*(u(3,i,j-1,k)*u(3,i,j-1,k))-c1345*tmp2*u(4,i,j-1,k));
-	tmat[4+5*1]=-dt*ty2*(-C2*(u(1,i,j-1,k)*u(2,i,j-1,k))*tmp2)-dt*ty1*(c34-c1345)*tmp2*u(1,i,j-1,k);
-	tmat[4+5*2]=-dt*ty2*(C1*(u(4,i,j-1,k)*tmp1)-C2*(qs(i,j-1,k)*tmp1+u(2,i,j-1,k)*u(2,i,j-1,k)*tmp2))-dt*ty1*(r43*c34-c1345)*tmp2*u(2,i,j-1,k);
-	tmat[4+5*3]=-dt*ty2*(-C2*(u(2,i,j-1,k)*u(3,i,j-1,k))*tmp2) - dt*ty1*(c34-c1345)*tmp2*u(3,i,j-1,k);
-	tmat[4+5*4]=-dt*ty2*(C1*(u(2,i,j-1,k)*tmp1))-dt*ty1*c1345*tmp1-dt*ty1*dy5;
-	for(m=0;m<5;m++){tv[m]=tv[m]-omega*(tmat[m+5*0]*v(0,i,j-1,k)+tmat[m+5*1]*v(1,i,j-1,k)+tmat[m+5*2]*v(2,i,j-1,k)+tmat[m+5*3]*v(3,i,j-1,k)+tmat[m+5*4]*v(4,i,j-1,k));}
+	tmat[4+5*0]=-dt_device*ty2_device*((C2*2.0*qs(i,j-1,k)-C1*u(4,i,j-1,k))*(u(2,i,j-1,k)*tmp2))-dt_device*ty1_device*(-(c34-c1345)*tmp3*(u(1,i,j-1,k)*u(1,i,j-1,k))-(r43*c34-c1345)*tmp3*(u(2,i,j-1,k)*u(2,i,j-1,k))-(c34-c1345)*tmp3*(u(3,i,j-1,k)*u(3,i,j-1,k))-c1345*tmp2*u(4,i,j-1,k));
+	tmat[4+5*1]=-dt_device*ty2_device*(-C2*(u(1,i,j-1,k)*u(2,i,j-1,k))*tmp2)-dt_device*ty1_device*(c34-c1345)*tmp2*u(1,i,j-1,k);
+	tmat[4+5*2]=-dt_device*ty2_device*(C1*(u(4,i,j-1,k)*tmp1)-C2*(qs(i,j-1,k)*tmp1+u(2,i,j-1,k)*u(2,i,j-1,k)*tmp2))-dt_device*ty1_device*(r43*c34-c1345)*tmp2*u(2,i,j-1,k);
+	tmat[4+5*3]=-dt_device*ty2_device*(-C2*(u(2,i,j-1,k)*u(3,i,j-1,k))*tmp2) - dt_device*ty1_device*(c34-c1345)*tmp2*u(3,i,j-1,k);
+	tmat[4+5*4]=-dt_device*ty2_device*(C1*(u(2,i,j-1,k)*tmp1))-dt_device*ty1_device*c1345*tmp1-dt_device*ty1_device*dy5_device;
+	for(m=0;m<5;m++){tv[m]=tv[m]-omega_device*(tmat[m+5*0]*v(0,i,j-1,k)+tmat[m+5*1]*v(1,i,j-1,k)+tmat[m+5*2]*v(2,i,j-1,k)+tmat[m+5*3]*v(3,i,j-1,k)+tmat[m+5*4]*v(4,i,j-1,k));}
 	/*
 	 * ---------------------------------------------------------------------
 	 * form the third block sub-diagonal
@@ -1212,32 +1212,32 @@ __global__ static void jacld_blts_gpu_kernel(const int plane,
 	tmp1=rho_i(i-1,j,k);
 	tmp2=tmp1*tmp1;
 	tmp3=tmp1*tmp2;
-	tmat[0+5*0]=-dt*tx1*dx1;
-	tmat[0+5*1]=-dt*tx2;
+	tmat[0+5*0]=-dt_device*tx1_device*dx1_device;
+	tmat[0+5*1]=-dt_device*tx2_device;
 	tmat[0+5*2]=0.0;
 	tmat[0+5*3]=0.0;
 	tmat[0+5*4]=0.0;
-	tmat[1+5*0]=-dt*tx2*(-(u(1,i-1,j,k)*tmp1)*(u(1,i-1,j,k)*tmp1)+C2*qs(i-1,j,k)*tmp1)-dt*tx1*(-r43*c34*tmp2*u(1,i-1,j,k));
-	tmat[1+5*1]=-dt*tx2*((2.0-C2)*(u(1,i-1,j,k)*tmp1))-dt*tx1*(r43*c34*tmp1)-dt*tx1*dx2;
-	tmat[1+5*2]=-dt*tx2*(-C2*(u(2,i-1,j,k)*tmp1));
-	tmat[1+5*3]=-dt*tx2*(-C2*(u(3,i-1,j,k)*tmp1));
-	tmat[1+5*4]=-dt*tx2*C2;
-	tmat[2+5*0]=-dt*tx2*(-(u(1,i-1,j,k)*u(2,i-1,j,k))*tmp2)-dt*tx1*(-c34*tmp2*u(2,i-1,j,k));
-	tmat[2+5*1]=-dt*tx2*(u(2,i-1,j,k)*tmp1);
-	tmat[2+5*2]=-dt*tx2*(u(1,i-1,j,k)*tmp1)-dt*tx1*(c34*tmp1)-dt*tx1*dx3;
+	tmat[1+5*0]=-dt_device*tx2_device*(-(u(1,i-1,j,k)*tmp1)*(u(1,i-1,j,k)*tmp1)+C2*qs(i-1,j,k)*tmp1)-dt_device*tx1_device*(-r43*c34*tmp2*u(1,i-1,j,k));
+	tmat[1+5*1]=-dt_device*tx2_device*((2.0-C2)*(u(1,i-1,j,k)*tmp1))-dt_device*tx1_device*(r43*c34*tmp1)-dt_device*tx1_device*dx2_device;
+	tmat[1+5*2]=-dt_device*tx2_device*(-C2*(u(2,i-1,j,k)*tmp1));
+	tmat[1+5*3]=-dt_device*tx2_device*(-C2*(u(3,i-1,j,k)*tmp1));
+	tmat[1+5*4]=-dt_device*tx2_device*C2;
+	tmat[2+5*0]=-dt_device*tx2_device*(-(u(1,i-1,j,k)*u(2,i-1,j,k))*tmp2)-dt_device*tx1_device*(-c34*tmp2*u(2,i-1,j,k));
+	tmat[2+5*1]=-dt_device*tx2_device*(u(2,i-1,j,k)*tmp1);
+	tmat[2+5*2]=-dt_device*tx2_device*(u(1,i-1,j,k)*tmp1)-dt_device*tx1_device*(c34*tmp1)-dt_device*tx1_device*dx3_device;
 	tmat[2+5*3]=0.0;
 	tmat[2+5*4]=0.0;
-	tmat[3+5*0]=-dt*tx2*(-(u(1,i-1,j,k)*u(3,i-1,j,k))*tmp2)-dt*tx1*(-c34*tmp2*u(3,i-1,j,k));
-	tmat[3+5*1]=-dt*tx2*(u(3,i-1,j,k)*tmp1);
+	tmat[3+5*0]=-dt_device*tx2_device*(-(u(1,i-1,j,k)*u(3,i-1,j,k))*tmp2)-dt_device*tx1_device*(-c34*tmp2*u(3,i-1,j,k));
+	tmat[3+5*1]=-dt_device*tx2_device*(u(3,i-1,j,k)*tmp1);
 	tmat[3+5*2]=0.0;
-	tmat[3+5*3]=-dt*tx2*(u(1,i-1,j,k)*tmp1)-dt*tx1*(c34*tmp1)-dt*tx1*dx4;
+	tmat[3+5*3]=-dt_device*tx2_device*(u(1,i-1,j,k)*tmp1)-dt_device*tx1_device*(c34*tmp1)-dt_device*tx1_device*dx4_device;
 	tmat[3+5*4]=0.0;
-	tmat[4+5*0]=-dt*tx2*((C2*2.0*qs(i-1,j,k)-C1*u(4,i-1,j,k))*u(1,i-1,j,k)*tmp2)-dt*tx1*(-(r43*c34-c1345)*tmp3*(u(1,i-1,j,k)*u(1,i-1,j,k))-(c34-c1345)*tmp3*(u(2,i-1,j,k)*u(2,i-1,j,k))-(c34-c1345)*tmp3*(u(3,i-1,j,k)*u(3,i-1,j,k))-c1345*tmp2*u(4,i-1,j,k));
-	tmat[4+5*1]=-dt*tx2*(C1*(u(4,i-1,j,k)*tmp1)-C2*(u(1,i-1,j,k)*u(1,i-1,j,k)*tmp2+qs(i-1,j,k)*tmp1))-dt*tx1*(r43*c34-c1345)*tmp2*u(1,i-1,j,k);
-	tmat[4+5*2]=-dt*tx2*(-C2*(u(2,i-1,j,k)*u(1,i-1,j,k))*tmp2)-dt*tx1*(c34-c1345)*tmp2*u(2,i-1,j,k);
-	tmat[4+5*3]=-dt*tx2*(-C2*(u(3,i-1,j,k)*u(1,i-1,j,k))*tmp2)-dt*tx1*(c34-c1345)*tmp2*u(3,i-1,j,k);
-	tmat[4+5*4]=-dt*tx2*(C1*(u(1,i-1,j,k)*tmp1))-dt*tx1*c1345*tmp1-dt*tx1*dx5;
-	for(m=0;m<5;m++){tv[m]=tv[m]-omega*(tmat[m+0*5]*v(0,i-1,j,k)+tmat[m+5*1]*v(1,i-1,j,k)+tmat[m+5*2]*v(2,i-1,j,k)+tmat[m+5*3]*v(3,i-1,j,k)+tmat[m+5*4]*v(4,i-1,j,k));}
+	tmat[4+5*0]=-dt_device*tx2_device*((C2*2.0*qs(i-1,j,k)-C1*u(4,i-1,j,k))*u(1,i-1,j,k)*tmp2)-dt_device*tx1_device*(-(r43*c34-c1345)*tmp3*(u(1,i-1,j,k)*u(1,i-1,j,k))-(c34-c1345)*tmp3*(u(2,i-1,j,k)*u(2,i-1,j,k))-(c34-c1345)*tmp3*(u(3,i-1,j,k)*u(3,i-1,j,k))-c1345*tmp2*u(4,i-1,j,k));
+	tmat[4+5*1]=-dt_device*tx2_device*(C1*(u(4,i-1,j,k)*tmp1)-C2*(u(1,i-1,j,k)*u(1,i-1,j,k)*tmp2+qs(i-1,j,k)*tmp1))-dt_device*tx1_device*(r43*c34-c1345)*tmp2*u(1,i-1,j,k);
+	tmat[4+5*2]=-dt_device*tx2_device*(-C2*(u(2,i-1,j,k)*u(1,i-1,j,k))*tmp2)-dt_device*tx1_device*(c34-c1345)*tmp2*u(2,i-1,j,k);
+	tmat[4+5*3]=-dt_device*tx2_device*(-C2*(u(3,i-1,j,k)*u(1,i-1,j,k))*tmp2)-dt_device*tx1_device*(c34-c1345)*tmp2*u(3,i-1,j,k);
+	tmat[4+5*4]=-dt_device*tx2_device*(C1*(u(1,i-1,j,k)*tmp1))-dt_device*tx1_device*c1345*tmp1-dt_device*tx1_device*dx5_device;
+	for(m=0;m<5;m++){tv[m]=tv[m]-omega_device*(tmat[m+0*5]*v(0,i-1,j,k)+tmat[m+5*1]*v(1,i-1,j,k)+tmat[m+5*2]*v(2,i-1,j,k)+tmat[m+5*3]*v(3,i-1,j,k)+tmat[m+5*4]*v(4,i-1,j,k));}
 	/*
 	 * ---------------------------------------------------------------------
 	 * form the block diagonal
@@ -1246,31 +1246,31 @@ __global__ static void jacld_blts_gpu_kernel(const int plane,
 	tmp1=rho_i(i,j,k);
 	tmp2=tmp1*tmp1;
 	tmp3=tmp1*tmp2;
-	tmat[0+5*0]=1.0+dt*2.0*(tx1*dx1+ty1*dy1+tz1*dz1);
+	tmat[0+5*0]=1.0+dt_device*2.0*(tx1_device*dx1_device+ty1_device*dy1_device+tz1_device*dz1_device);
 	tmat[0+5*1]=0.0;
 	tmat[0+5*2]=0.0;
 	tmat[0+5*3]=0.0;
 	tmat[0+5*4]=0.0;
-	tmat[1+5*0]=-dt*2.0*(tx1*r43+ty1+tz1)*c34*tmp2*u(1,i,j,k);
-	tmat[1+5*1]=1.0+dt*2.0*c34*tmp1*(tx1*r43+ty1+tz1) + dt*2.0*(tx1*dx2+ty1*dy2+tz1*dz2);
+	tmat[1+5*0]=-dt_device*2.0*(tx1_device*r43+ty1_device+tz1_device)*c34*tmp2*u(1,i,j,k);
+	tmat[1+5*1]=1.0+dt_device*2.0*c34*tmp1*(tx1_device*r43+ty1_device+tz1_device) + dt_device*2.0*(tx1_device*dx2_device+ty1_device*dy2_device+tz1_device*dz2_device);
 	tmat[1+5*2]=0.0;
 	tmat[1+5*3]=0.0;
 	tmat[1+5*4]=0.0;
-	tmat[2+5*0]=-dt*2.0*(tx1+ty1*r43+tz1)*c34*tmp2*u(2,i,j,k);
+	tmat[2+5*0]=-dt_device*2.0*(tx1_device+ty1_device*r43+tz1_device)*c34*tmp2*u(2,i,j,k);
 	tmat[2+5*1]=0.0;
-	tmat[2+5*2]=1.0+dt*2.0*c34*tmp1*(tx1+ty1*r43+tz1)+dt*2.0*(tx1*dx3+ty1*dy3+tz1*dz3);
+	tmat[2+5*2]=1.0+dt_device*2.0*c34*tmp1*(tx1_device+ty1_device*r43+tz1_device)+dt_device*2.0*(tx1_device*dx3_device+ty1_device*dy3_device+tz1_device*dz3_device);
 	tmat[2+5*3]=0.0;
 	tmat[2+5*4]=0.0;
-	tmat[3+5*0]=-dt*2.0*(tx1+ty1+tz1*r43)*c34*tmp2*u(3,i,j,k);
+	tmat[3+5*0]=-dt_device*2.0*(tx1_device+ty1_device+tz1_device*r43)*c34*tmp2*u(3,i,j,k);
 	tmat[3+5*1]=0.0;
 	tmat[3+5*2]=0.0;
-	tmat[3+5*3]=1.0+dt*2.0*c34*tmp1*(tx1+ty1+tz1*r43)+dt*2.0*(tx1*dx4+ty1*dy4+tz1*dz4);
+	tmat[3+5*3]=1.0+dt_device*2.0*c34*tmp1*(tx1_device+ty1_device+tz1_device*r43)+dt_device*2.0*(tx1_device*dx4_device+ty1_device*dy4_device+tz1_device*dz4_device);
 	tmat[3+5*4]=0.0;
-	tmat[4+5*0]=-dt*2.0*(((tx1*(r43*c34-c1345)+ty1*(c34-c1345)+tz1*(c34-c1345))*(u(1,i,j,k)*u(1,i,j,k))+(tx1*(c34-c1345)+ty1*(r43*c34-c1345)+tz1*(c34-c1345))*(u(2,i,j,k)*u(2,i,j,k))+(tx1*(c34-c1345)+ty1*(c34-c1345)+tz1*(r43*c34-c1345))*(u(3,i,j,k)*u(3,i,j,k)))*tmp3+(tx1+ty1+tz1)*c1345*tmp2*u(4,i,j,k));
-	tmat[4+5*1]=dt*2.0*tmp2*u(1,i,j,k)*(tx1*(r43*c34-c1345)+ty1*(c34-c1345)+tz1*(c34-c1345));
-	tmat[4+5*2]=dt*2.0*tmp2*u(2,i,j,k)*(tx1*(c34-c1345)+ty1*(r43*c34-c1345)+tz1*(c34-c1345));
-	tmat[4+5*3]=dt*2.0*tmp2*u(3,i,j,k)*(tx1*(c34-c1345)+ty1*(c34-c1345)+tz1*(r43*c34-c1345));
-	tmat[4+5*4]=1.0+dt*2.0*(tx1+ty1+tz1)*c1345*tmp1+dt*2.0*(tx1*dx5+ty1*dy5+tz1*dz5);
+	tmat[4+5*0]=-dt_device*2.0*(((tx1_device*(r43*c34-c1345)+ty1_device*(c34-c1345)+tz1_device*(c34-c1345))*(u(1,i,j,k)*u(1,i,j,k))+(tx1_device*(c34-c1345)+ty1_device*(r43*c34-c1345)+tz1_device*(c34-c1345))*(u(2,i,j,k)*u(2,i,j,k))+(tx1_device*(c34-c1345)+ty1_device*(c34-c1345)+tz1_device*(r43*c34-c1345))*(u(3,i,j,k)*u(3,i,j,k)))*tmp3+(tx1_device+ty1_device+tz1_device)*c1345*tmp2*u(4,i,j,k));
+	tmat[4+5*1]=dt_device*2.0*tmp2*u(1,i,j,k)*(tx1_device*(r43*c34-c1345)+ty1_device*(c34-c1345)+tz1_device*(c34-c1345));
+	tmat[4+5*2]=dt_device*2.0*tmp2*u(2,i,j,k)*(tx1_device*(c34-c1345)+ty1_device*(r43*c34-c1345)+tz1_device*(c34-c1345));
+	tmat[4+5*3]=dt_device*2.0*tmp2*u(3,i,j,k)*(tx1_device*(c34-c1345)+ty1_device*(c34-c1345)+tz1_device*(r43*c34-c1345));
+	tmat[4+5*4]=1.0+dt_device*2.0*(tx1_device+ty1_device+tz1_device)*c1345*tmp1+dt_device*2.0*(tx1_device*dx5_device+ty1_device*dy5_device+tz1_device*dz5_device);
 	/*
 	 * ---------------------------------------------------------------------
 	 * diagonal block inversion
@@ -1380,32 +1380,32 @@ __global__ static void jacu_buts_gpu_kernel(const int plane,
 	tmp1=rho_i(i+1,j,k);
 	tmp2=tmp1*tmp1;
 	tmp3=tmp1*tmp2;
-	tmat[0+5*0]=-dt*tx1*dx1;
-	tmat[0+5*1]=dt*tx2;
+	tmat[0+5*0]=-dt_device*tx1_device*dx1_device;
+	tmat[0+5*1]=dt_device*tx2_device;
 	tmat[0+5*2]=0.0;
 	tmat[0+5*3]=0.0;
 	tmat[0+5*4]=0.0;
-	tmat[1+5*0]=dt*tx2*(-(u(1,i+1,j,k)*tmp1)*(u(1,i+1,j,k)*tmp1)+C2*qs(i+1,j,k)*tmp1)-dt*tx1*(-r43*c34*tmp2*u(1,i+1,j,k));
-	tmat[1+5*1]=dt*tx2*((2.0-C2)*(u(1,i+1,j,k)*tmp1))-dt*tx1*(r43*c34*tmp1)-dt*tx1*dx2;
-	tmat[1+5*2]=dt*tx2*(-C2*(u(2,i+1,j,k)*tmp1));
-	tmat[1+5*3]=dt*tx2*(-C2*(u(3,i+1,j,k)*tmp1));
-	tmat[1+5*4]=dt*tx2*C2;
-	tmat[2+5*0]=dt*tx2*(-(u(1,i+1,j,k)*u(2,i+1,j,k))*tmp2)-dt*tx1*(-c34*tmp2*u(2,i+1,j,k));
-	tmat[2+5*1]=dt*tx2*(u(2,i+1,j,k)*tmp1);
-	tmat[2+5*2]=dt*tx2*(u(1,i+1,j,k)*tmp1)-dt*tx1*(c34*tmp1)-dt*tx1*dx3;
+	tmat[1+5*0]=dt_device*tx2_device*(-(u(1,i+1,j,k)*tmp1)*(u(1,i+1,j,k)*tmp1)+C2*qs(i+1,j,k)*tmp1)-dt_device*tx1_device*(-r43*c34*tmp2*u(1,i+1,j,k));
+	tmat[1+5*1]=dt_device*tx2_device*((2.0-C2)*(u(1,i+1,j,k)*tmp1))-dt_device*tx1_device*(r43*c34*tmp1)-dt_device*tx1_device*dx2_device;
+	tmat[1+5*2]=dt_device*tx2_device*(-C2*(u(2,i+1,j,k)*tmp1));
+	tmat[1+5*3]=dt_device*tx2_device*(-C2*(u(3,i+1,j,k)*tmp1));
+	tmat[1+5*4]=dt_device*tx2_device*C2;
+	tmat[2+5*0]=dt_device*tx2_device*(-(u(1,i+1,j,k)*u(2,i+1,j,k))*tmp2)-dt_device*tx1_device*(-c34*tmp2*u(2,i+1,j,k));
+	tmat[2+5*1]=dt_device*tx2_device*(u(2,i+1,j,k)*tmp1);
+	tmat[2+5*2]=dt_device*tx2_device*(u(1,i+1,j,k)*tmp1)-dt_device*tx1_device*(c34*tmp1)-dt_device*tx1_device*dx3_device;
 	tmat[2+5*3]=0.0;
 	tmat[2+5*4]=0.0;
-	tmat[3+5*0]=dt*tx2*(-(u(1,i+1,j,k)*u(3,i+1,j,k))*tmp2)-dt*tx1*(-c34*tmp2*u(3,i+1,j,k));
-	tmat[3+5*1]=dt*tx2*(u(3,i+1,j,k)*tmp1);
+	tmat[3+5*0]=dt_device*tx2_device*(-(u(1,i+1,j,k)*u(3,i+1,j,k))*tmp2)-dt_device*tx1_device*(-c34*tmp2*u(3,i+1,j,k));
+	tmat[3+5*1]=dt_device*tx2_device*(u(3,i+1,j,k)*tmp1);
 	tmat[3+5*2]=0.0;
-	tmat[3+5*3]=dt*tx2*(u(1,i+1,j,k)*tmp1)-dt*tx1*(c34*tmp1)-dt*tx1*dx4;
+	tmat[3+5*3]=dt_device*tx2_device*(u(1,i+1,j,k)*tmp1)-dt_device*tx1_device*(c34*tmp1)-dt_device*tx1_device*dx4_device;
 	tmat[3+5*4]=0.0;
-	tmat[4+5*0]=dt*tx2*((C2*2.0*qs(i+1,j,k)-C1*u(4,i+1,j,k))*(u(1,i+1,j,k)*tmp2))-dt*tx1*(-(r43*c34-c1345)*tmp3*(u(1,i+1,j,k)*u(1,i+1,j,k))-(c34-c1345)*tmp3*(u(2,i+1,j,k)*u(2,i+1,j,k))-(c34-c1345)*tmp3*(u(3,i+1,j,k)*u(3,i+1,j,k))-c1345*tmp2*u(4,i+1,j,k));
-	tmat[4+5*1]=dt*tx2*(C1*(u(4,i+1,j,k)*tmp1)-C2*(u(1,i+1,j,k)*u(1,i+1,j,k)*tmp2+qs(i+1,j,k)*tmp1))-dt*tx1*(r43*c34-c1345)*tmp2*u(1,i+1,j,k);
-	tmat[4+5*2]=dt*tx2*(-C2*(u(2,i+1,j,k)*u(1,i+1,j,k))*tmp2)-dt*tx1*(c34-c1345)*tmp2*u(2,i+1,j,k);
-	tmat[4+5*3]=dt*tx2*(-C2*(u(3,i+1,j,k)*u(1,i+1,j,k))*tmp2)-dt*tx1*(c34-c1345)*tmp2*u(3,i+1,j,k);
-	tmat[4+5*4]=dt*tx2*(C1*(u(1,i+1,j,k)*tmp1))-dt*tx1*c1345*tmp1-dt*tx1*dx5;
-	for(m=0;m<5;m++){tv[m]=omega*(tmat[m+5*0]*v(0,i+1,j,k)+tmat[m+5*1]*v(1,i+1,j,k)+tmat[m+5*2]*v(2,i+1,j,k)+tmat[m+5*3]*v(3,i+1,j,k)+tmat[m+5*4]*v(4,i+1,j,k));}
+	tmat[4+5*0]=dt_device*tx2_device*((C2*2.0*qs(i+1,j,k)-C1*u(4,i+1,j,k))*(u(1,i+1,j,k)*tmp2))-dt_device*tx1_device*(-(r43*c34-c1345)*tmp3*(u(1,i+1,j,k)*u(1,i+1,j,k))-(c34-c1345)*tmp3*(u(2,i+1,j,k)*u(2,i+1,j,k))-(c34-c1345)*tmp3*(u(3,i+1,j,k)*u(3,i+1,j,k))-c1345*tmp2*u(4,i+1,j,k));
+	tmat[4+5*1]=dt_device*tx2_device*(C1*(u(4,i+1,j,k)*tmp1)-C2*(u(1,i+1,j,k)*u(1,i+1,j,k)*tmp2+qs(i+1,j,k)*tmp1))-dt_device*tx1_device*(r43*c34-c1345)*tmp2*u(1,i+1,j,k);
+	tmat[4+5*2]=dt_device*tx2_device*(-C2*(u(2,i+1,j,k)*u(1,i+1,j,k))*tmp2)-dt_device*tx1_device*(c34-c1345)*tmp2*u(2,i+1,j,k);
+	tmat[4+5*3]=dt_device*tx2_device*(-C2*(u(3,i+1,j,k)*u(1,i+1,j,k))*tmp2)-dt_device*tx1_device*(c34-c1345)*tmp2*u(3,i+1,j,k);
+	tmat[4+5*4]=dt_device*tx2_device*(C1*(u(1,i+1,j,k)*tmp1))-dt_device*tx1_device*c1345*tmp1-dt_device*tx1_device*dx5_device;
+	for(m=0;m<5;m++){tv[m]=omega_device*(tmat[m+5*0]*v(0,i+1,j,k)+tmat[m+5*1]*v(1,i+1,j,k)+tmat[m+5*2]*v(2,i+1,j,k)+tmat[m+5*3]*v(3,i+1,j,k)+tmat[m+5*4]*v(4,i+1,j,k));}
 	/*
 	 * ---------------------------------------------------------------------
 	 * form the second block sub-diagonal
@@ -1414,32 +1414,32 @@ __global__ static void jacu_buts_gpu_kernel(const int plane,
 	tmp1=rho_i(i,j+1,k);
 	tmp2=tmp1*tmp1;
 	tmp3=tmp1*tmp2;
-	tmat[0+5*0]=-dt*ty1*dy1;
+	tmat[0+5*0]=-dt_device*ty1_device*dy1_device;
 	tmat[0+5*1]=0.0;
-	tmat[0+5*2]=dt*ty2;
+	tmat[0+5*2]=dt_device*ty2_device;
 	tmat[0+5*3]=0.0;
 	tmat[0+5*4]=0.0;
-	tmat[1+5*0]=dt*ty2*(-(u(1,i,j+1,k)*u(2,i,j+1,k))*tmp2)-dt*ty1*(-c34*tmp2*u(1,i,j+1,k));
-	tmat[1+5*1]=dt*ty2*(u(2,i,j+1,k)*tmp1)-dt*ty1*(c34*tmp1)-dt*ty1*dy2;
-	tmat[1+5*2]=dt*ty2*(u(1,i,j+1,k)*tmp1);
+	tmat[1+5*0]=dt_device*ty2_device*(-(u(1,i,j+1,k)*u(2,i,j+1,k))*tmp2)-dt_device*ty1_device*(-c34*tmp2*u(1,i,j+1,k));
+	tmat[1+5*1]=dt_device*ty2_device*(u(2,i,j+1,k)*tmp1)-dt_device*ty1_device*(c34*tmp1)-dt_device*ty1_device*dy2_device;
+	tmat[1+5*2]=dt_device*ty2_device*(u(1,i,j+1,k)*tmp1);
 	tmat[1+5*3]=0.0;
 	tmat[1+5*4]=0.0;
-	tmat[2+5*0]=dt*ty2*(-(u(2,i,j+1,k)*tmp1)*(u(2,i,j+1,k)*tmp1)+C2*(qs(i,j+1,k)*tmp1))-dt*ty1*(-r43*c34*tmp2*u(2,i,j+1,k));
-	tmat[2+5*1]=dt*ty2*(-C2*(u(1,i,j+1,k)*tmp1));
-	tmat[2+5*2]=dt*ty2*((2.0-C2)*(u(2,i,j+1,k)*tmp1))-dt*ty1*(r43*c34*tmp1)-dt*ty1*dy3;
-	tmat[2+5*3]=dt*ty2*(-C2*(u(3,i,j+1,k)*tmp1));
-	tmat[2+5*4]=dt*ty2*C2;
-	tmat[3+5*0]=dt*ty2*(-(u(2,i,j+1,k)*u(3,i,j+1,k))*tmp2)-dt*ty1*(-c34*tmp2*u(3,i,j+1,k));
+	tmat[2+5*0]=dt_device*ty2_device*(-(u(2,i,j+1,k)*tmp1)*(u(2,i,j+1,k)*tmp1)+C2*(qs(i,j+1,k)*tmp1))-dt_device*ty1_device*(-r43*c34*tmp2*u(2,i,j+1,k));
+	tmat[2+5*1]=dt_device*ty2_device*(-C2*(u(1,i,j+1,k)*tmp1));
+	tmat[2+5*2]=dt_device*ty2_device*((2.0-C2)*(u(2,i,j+1,k)*tmp1))-dt_device*ty1_device*(r43*c34*tmp1)-dt_device*ty1_device*dy3_device;
+	tmat[2+5*3]=dt_device*ty2_device*(-C2*(u(3,i,j+1,k)*tmp1));
+	tmat[2+5*4]=dt_device*ty2_device*C2;
+	tmat[3+5*0]=dt_device*ty2_device*(-(u(2,i,j+1,k)*u(3,i,j+1,k))*tmp2)-dt_device*ty1_device*(-c34*tmp2*u(3,i,j+1,k));
 	tmat[3+5*1]=0.0;
-	tmat[3+5*2]=dt*ty2*(u(3,i,j+1,k)*tmp1);
-	tmat[3+5*3]=dt*ty2*(u(2,i,j+1,k)*tmp1)-dt*ty1*(c34*tmp1)-dt*ty1*dy4;
+	tmat[3+5*2]=dt_device*ty2_device*(u(3,i,j+1,k)*tmp1);
+	tmat[3+5*3]=dt_device*ty2_device*(u(2,i,j+1,k)*tmp1)-dt_device*ty1_device*(c34*tmp1)-dt_device*ty1_device*dy4_device;
 	tmat[3+5*4]=0.0;
-	tmat[4+5*0]=dt*ty2*((C2*2.0*qs(i,j+1,k)-C1*u(4,i,j+1,k))*(u(2,i,j+1,k)*tmp2))-dt*ty1*(-(c34-c1345)*tmp3*(u(1,i,j+1,k)*u(1,i,j+1,k))-(r43*c34-c1345)*tmp3*(u(2,i,j+1,k)*u(2,i,j+1,k))-(c34-c1345)*tmp3*(u(3,i,j+1,k)*u(3,i,j+1,k))-c1345*tmp2*u(4,i,j+1,k));
-	tmat[4+5*1]=dt*ty2*(-C2*(u(1,i,j+1,k)*u(2,i,j+1,k))*tmp2)-dt*ty1*(c34-c1345)*tmp2*u(1,i,j+1,k);
-	tmat[4+5*2]=dt*ty2*(C1*(u(4,i,j+1,k)*tmp1)-C2*(qs(i,j+1,k)*tmp1+u(2,i,j+1,k)*u(2,i,j+1,k)*tmp2))-dt*ty1*(r43*c34-c1345)*tmp2*u(2,i,j+1,k);
-	tmat[4+5*3]=dt*ty2*(-C2*(u(2,i,j+1,k)*u(3,i,j+1,k))*tmp2)-dt*ty1*(c34-c1345)*tmp2*u(3,i,j+1,k);
-	tmat[4+5*4]=dt*ty2*(C1*(u(2,i,j+1,k)*tmp1))-dt*ty1*c1345*tmp1-dt*ty1*dy5;
-	for(m=0;m<5;m++){tv[m]=tv[m]+omega*(tmat[m+5*0]*v(0,i,j+1,k)+tmat[m+5*1]*v(1,i,j+1,k)+tmat[m+5*2]*v(2,i,j+1,k)+tmat[m+5*3]*v(3,i,j+1,k)+tmat[m+5*4]*v(4,i,j+1,k));}
+	tmat[4+5*0]=dt_device*ty2_device*((C2*2.0*qs(i,j+1,k)-C1*u(4,i,j+1,k))*(u(2,i,j+1,k)*tmp2))-dt_device*ty1_device*(-(c34-c1345)*tmp3*(u(1,i,j+1,k)*u(1,i,j+1,k))-(r43*c34-c1345)*tmp3*(u(2,i,j+1,k)*u(2,i,j+1,k))-(c34-c1345)*tmp3*(u(3,i,j+1,k)*u(3,i,j+1,k))-c1345*tmp2*u(4,i,j+1,k));
+	tmat[4+5*1]=dt_device*ty2_device*(-C2*(u(1,i,j+1,k)*u(2,i,j+1,k))*tmp2)-dt_device*ty1_device*(c34-c1345)*tmp2*u(1,i,j+1,k);
+	tmat[4+5*2]=dt_device*ty2_device*(C1*(u(4,i,j+1,k)*tmp1)-C2*(qs(i,j+1,k)*tmp1+u(2,i,j+1,k)*u(2,i,j+1,k)*tmp2))-dt_device*ty1_device*(r43*c34-c1345)*tmp2*u(2,i,j+1,k);
+	tmat[4+5*3]=dt_device*ty2_device*(-C2*(u(2,i,j+1,k)*u(3,i,j+1,k))*tmp2)-dt_device*ty1_device*(c34-c1345)*tmp2*u(3,i,j+1,k);
+	tmat[4+5*4]=dt_device*ty2_device*(C1*(u(2,i,j+1,k)*tmp1))-dt_device*ty1_device*c1345*tmp1-dt_device*ty1_device*dy5_device;
+	for(m=0;m<5;m++){tv[m]=tv[m]+omega_device*(tmat[m+5*0]*v(0,i,j+1,k)+tmat[m+5*1]*v(1,i,j+1,k)+tmat[m+5*2]*v(2,i,j+1,k)+tmat[m+5*3]*v(3,i,j+1,k)+tmat[m+5*4]*v(4,i,j+1,k));}
 	/*
 	 * ---------------------------------------------------------------------
 	 * form the third block sub-diagonal
@@ -1448,32 +1448,32 @@ __global__ static void jacu_buts_gpu_kernel(const int plane,
 	tmp1=rho_i(i,j,k+1);
 	tmp2=tmp1*tmp1;
 	tmp3=tmp1*tmp2;
-	tmat[0+5*0]=-dt*tz1*dz1;
+	tmat[0+5*0]=-dt_device*tz1_device*dz1_device;
 	tmat[0+5*1]=0.0;
 	tmat[0+5*2]=0.0;
-	tmat[0+5*3]=dt*tz2;
+	tmat[0+5*3]=dt_device*tz2_device;
 	tmat[0+5*4]=0.0;
-	tmat[1+5*0]=dt*tz2*(-(u(1,i,j,k+1)*u(3,i,j,k+1))*tmp2)-dt*tz1*(-c34*tmp2*u(1,i,j,k+1));
-	tmat[1+5*1]=dt*tz2*(u(3,i,j,k+1)*tmp1)-dt*tz1*c34*tmp1-dt*tz1*dz2;
+	tmat[1+5*0]=dt_device*tz2_device*(-(u(1,i,j,k+1)*u(3,i,j,k+1))*tmp2)-dt_device*tz1_device*(-c34*tmp2*u(1,i,j,k+1));
+	tmat[1+5*1]=dt_device*tz2_device*(u(3,i,j,k+1)*tmp1)-dt_device*tz1_device*c34*tmp1-dt_device*tz1_device*dz2_device;
 	tmat[1+5*2]=0.0;
-	tmat[1+5*3]=dt*tz2*(u(1,i,j,k+1)*tmp1);
+	tmat[1+5*3]=dt_device*tz2_device*(u(1,i,j,k+1)*tmp1);
 	tmat[1+5*4]=0.0;
-	tmat[2+5*0]=dt*tz2*(-(u(2,i,j,k+1)*u(3,i,j,k+1))*tmp2)-dt*tz1*(-c34*tmp2*u(2,i,j,k+1));
+	tmat[2+5*0]=dt_device*tz2_device*(-(u(2,i,j,k+1)*u(3,i,j,k+1))*tmp2)-dt_device*tz1_device*(-c34*tmp2*u(2,i,j,k+1));
 	tmat[2+5*1]=0.0;
-	tmat[2+5*2]=dt*tz2*(u(3,i,j,k+1)*tmp1)-dt*tz1*(c34*tmp1)-dt*tz1*dz3;
-	tmat[2+5*3]=dt*tz2*(u(2,i,j,k+1)*tmp1);
+	tmat[2+5*2]=dt_device*tz2_device*(u(3,i,j,k+1)*tmp1)-dt_device*tz1_device*(c34*tmp1)-dt_device*tz1_device*dz3_device;
+	tmat[2+5*3]=dt_device*tz2_device*(u(2,i,j,k+1)*tmp1);
 	tmat[2+5*4]=0.0;
-	tmat[3+5*0]=dt*tz2*(-(u(3,i,j,k+1)*tmp1)*(u(3,i,j,k+1)*tmp1)+C2*(qs(i,j,k+1)*tmp1))-dt*tz1*(-r43*c34*tmp2*u(3,i,j,k+1));
-	tmat[3+5*1]=dt*tz2*(-C2*(u(1,i,j,k+1)*tmp1));
-	tmat[3+5*2]=dt*tz2*(-C2*(u(2,i,j,k+1)*tmp1));
-	tmat[3+5*3]=dt*tz2*(2.0-C2)*(u(3,i,j,k+1)*tmp1)-dt*tz1*(r43*c34*tmp1)-dt*tz1*dz4;
-	tmat[3+5*4]=dt*tz2*C2;
-	tmat[4+5*0]=dt*tz2*((C2*2.0*qs(i,j,k+1)-C1*u(4,i,j,k+1))*(u(3,i,j,k+1)*tmp2))-dt*tz1*(-(c34-c1345)*tmp3*(u(1,i,j,k+1)*u(1,i,j,k+1))-(c34-c1345)*tmp3*(u(2,i,j,k+1)*u(2,i,j,k+1))-(r43*c34-c1345)*tmp3*(u(3,i,j,k+1)*u(3,i,j,k+1))-c1345*tmp2*u(4,i,j,k+1));
-	tmat[4+5*1]=dt*tz2*(-C2*(u(1,i,j,k+1)*u(3,i,j,k+1))*tmp2)-dt*tz1*(c34-c1345)*tmp2*u(1,i,j,k+1);
-	tmat[4+5*2]=dt*tz2*(-C2*(u(2,i,j,k+1)*u(3,i,j,k+1))*tmp2)-dt*tz1*(c34-c1345)*tmp2*u(2,i,j,k+1);
-	tmat[4+5*3]=dt*tz2*(C1*(u(4,i,j,k+1)*tmp1)-C2*(qs(i,j,k+1)*tmp1+u(3,i,j,k+1)*u(3,i,j,k+1)*tmp2))-dt*tz1*(r43*c34-c1345)*tmp2*u(3,i,j,k+1);
-	tmat[4+5*4]=dt*tz2*(C1*(u(3,i,j,k+1)*tmp1))-dt*tz1*c1345*tmp1-dt*tz1*dz5;
-	for(m=0;m<5;m++){tv[m]=tv[m]+omega*(tmat[m+5*0]*v(0,i,j,k+1)+tmat[m+5*1]*v(1,i,j,k+1)+tmat[m+5*2]*v(2,i,j,k+1)+tmat[m+5*3]*v(3,i,j,k+1)+tmat[m+5*4]*v(4,i,j,k+1));}
+	tmat[3+5*0]=dt_device*tz2_device*(-(u(3,i,j,k+1)*tmp1)*(u(3,i,j,k+1)*tmp1)+C2*(qs(i,j,k+1)*tmp1))-dt_device*tz1_device*(-r43*c34*tmp2*u(3,i,j,k+1));
+	tmat[3+5*1]=dt_device*tz2_device*(-C2*(u(1,i,j,k+1)*tmp1));
+	tmat[3+5*2]=dt_device*tz2_device*(-C2*(u(2,i,j,k+1)*tmp1));
+	tmat[3+5*3]=dt_device*tz2_device*(2.0-C2)*(u(3,i,j,k+1)*tmp1)-dt_device*tz1_device*(r43*c34*tmp1)-dt_device*tz1_device*dz4_device;
+	tmat[3+5*4]=dt_device*tz2_device*C2;
+	tmat[4+5*0]=dt_device*tz2_device*((C2*2.0*qs(i,j,k+1)-C1*u(4,i,j,k+1))*(u(3,i,j,k+1)*tmp2))-dt_device*tz1_device*(-(c34-c1345)*tmp3*(u(1,i,j,k+1)*u(1,i,j,k+1))-(c34-c1345)*tmp3*(u(2,i,j,k+1)*u(2,i,j,k+1))-(r43*c34-c1345)*tmp3*(u(3,i,j,k+1)*u(3,i,j,k+1))-c1345*tmp2*u(4,i,j,k+1));
+	tmat[4+5*1]=dt_device*tz2_device*(-C2*(u(1,i,j,k+1)*u(3,i,j,k+1))*tmp2)-dt_device*tz1_device*(c34-c1345)*tmp2*u(1,i,j,k+1);
+	tmat[4+5*2]=dt_device*tz2_device*(-C2*(u(2,i,j,k+1)*u(3,i,j,k+1))*tmp2)-dt_device*tz1_device*(c34-c1345)*tmp2*u(2,i,j,k+1);
+	tmat[4+5*3]=dt_device*tz2_device*(C1*(u(4,i,j,k+1)*tmp1)-C2*(qs(i,j,k+1)*tmp1+u(3,i,j,k+1)*u(3,i,j,k+1)*tmp2))-dt_device*tz1_device*(r43*c34-c1345)*tmp2*u(3,i,j,k+1);
+	tmat[4+5*4]=dt_device*tz2_device*(C1*(u(3,i,j,k+1)*tmp1))-dt_device*tz1_device*c1345*tmp1-dt_device*tz1_device*dz5_device;
+	for(m=0;m<5;m++){tv[m]=tv[m]+omega_device*(tmat[m+5*0]*v(0,i,j,k+1)+tmat[m+5*1]*v(1,i,j,k+1)+tmat[m+5*2]*v(2,i,j,k+1)+tmat[m+5*3]*v(3,i,j,k+1)+tmat[m+5*4]*v(4,i,j,k+1));}
 	/*
 	 * ---------------------------------------------------------------------
 	 * form the block daigonal
@@ -1482,31 +1482,31 @@ __global__ static void jacu_buts_gpu_kernel(const int plane,
 	tmp1=rho_i(i,j,k);
 	tmp2=tmp1*tmp1;
 	tmp3=tmp1*tmp2;
-	tmat[0+5*0]=1.0+dt*2.0*(tx1*dx1+ty1*dy1+tz1*dz1);
+	tmat[0+5*0]=1.0+dt_device*2.0*(tx1_device*dx1_device+ty1_device*dy1_device+tz1_device*dz1_device);
 	tmat[0+5*1]=0.0;
 	tmat[0+5*2]=0.0;
 	tmat[0+5*3]=0.0;
 	tmat[0+5*4]=0.0;
-	tmat[1+5*0]=dt*2.0*(-tx1*r43-ty1-tz1)*(c34*tmp2*u(1,i,j,k));
-	tmat[1+5*1]=1.0+dt*2.0*c34*tmp1*(tx1*r43+ty1+tz1)+dt*2.0*(tx1*dx2+ty1*dy2+tz1*dz2);
+	tmat[1+5*0]=dt_device*2.0*(-tx1_device*r43-ty1_device-tz1_device)*(c34*tmp2*u(1,i,j,k));
+	tmat[1+5*1]=1.0+dt_device*2.0*c34*tmp1*(tx1_device*r43+ty1_device+tz1_device)+dt_device*2.0*(tx1_device*dx2_device+ty1_device*dy2_device+tz1_device*dz2_device);
 	tmat[1+5*2]=0.0;
 	tmat[1+5*3]=0.0;
 	tmat[1+5*4]=0.0;
-	tmat[2+5*0]=dt*2.0*(-tx1-ty1*r43-tz1)*(c34*tmp2*u(2,i,j,k));
+	tmat[2+5*0]=dt_device*2.0*(-tx1_device-ty1_device*r43-tz1_device)*(c34*tmp2*u(2,i,j,k));
 	tmat[2+5*1]=0.0;
-	tmat[2+5*2]=1.0+dt*2.0*c34*tmp1*(tx1+ty1*r43+tz1)+dt*2.0*(tx1*dx3+ty1*dy3+tz1*dz3);
+	tmat[2+5*2]=1.0+dt_device*2.0*c34*tmp1*(tx1_device+ty1_device*r43+tz1_device)+dt_device*2.0*(tx1_device*dx3_device+ty1_device*dy3_device+tz1_device*dz3_device);
 	tmat[2+5*3]=0.0;
 	tmat[2+5*4]=0.0;
-	tmat[3+5*0]=dt*2.0*(-tx1-ty1-tz1*r43)*(c34*tmp2*u(3,i,j,k));
+	tmat[3+5*0]=dt_device*2.0*(-tx1_device-ty1_device-tz1_device*r43)*(c34*tmp2*u(3,i,j,k));
 	tmat[3+5*1]=0.0;
 	tmat[3+5*2]=0.0;
-	tmat[3+5*3]=1.0+dt*2.0*c34*tmp1*(tx1+ty1+tz1*r43)+dt*2.0*(tx1*dx4+ty1*dy4+tz1*dz4);
+	tmat[3+5*3]=1.0+dt_device*2.0*c34*tmp1*(tx1_device+ty1_device+tz1_device*r43)+dt_device*2.0*(tx1_device*dx4_device+ty1_device*dy4_device+tz1_device*dz4_device);
 	tmat[3+5*4]=0.0;
-	tmat[4+5*0]=-dt*2.0*(((tx1*(r43*c34-c1345)+ty1*(c34-c1345)+tz1*(c34-c1345))*(u(1,i,j,k)*u(1,i,j,k))+(tx1*(c34-c1345)+ty1*(r43*c34-c1345)+tz1*(c34-c1345))*(u(2,i,j,k)*u(2,i,j,k))+(tx1*(c34-c1345)+ty1*(c34-c1345)+tz1*(r43*c34-c1345))*(u(3,i,j,k)*u(3,i,j,k)))*tmp3+(tx1+ty1+tz1)*c1345*tmp2*u(4,i,j,k));
-	tmat[4+5*1]=dt*2.0*(tx1*(r43*c34-c1345)+ty1*(c34-c1345)+tz1*(c34-c1345))*tmp2*u(1,i,j,k);
-	tmat[4+5*2]=dt*2.0*(tx1*(c34-c1345)+ty1*(r43*c34-c1345)+tz1*(c34-c1345))*tmp2*u(2,i,j,k);
-	tmat[4+5*3]=dt*2.0*(tx1*(c34-c1345)+ty1*(c34-c1345)+tz1*(r43*c34-c1345))*tmp2*u(3,i,j,k);
-	tmat[4+5*4]=1.0 + dt*2.0*(tx1+ty1+tz1)*c1345*tmp1+dt*2.0*(tx1*dx5+ty1*dy5+tz1*dz5);
+	tmat[4+5*0]=-dt_device*2.0*(((tx1_device*(r43*c34-c1345)+ty1_device*(c34-c1345)+tz1_device*(c34-c1345))*(u(1,i,j,k)*u(1,i,j,k))+(tx1_device*(c34-c1345)+ty1_device*(r43*c34-c1345)+tz1_device*(c34-c1345))*(u(2,i,j,k)*u(2,i,j,k))+(tx1_device*(c34-c1345)+ty1_device*(c34-c1345)+tz1_device*(r43*c34-c1345))*(u(3,i,j,k)*u(3,i,j,k)))*tmp3+(tx1_device+ty1_device+tz1_device)*c1345*tmp2*u(4,i,j,k));
+	tmat[4+5*1]=dt_device*2.0*(tx1_device*(r43*c34-c1345)+ty1_device*(c34-c1345)+tz1_device*(c34-c1345))*tmp2*u(1,i,j,k);
+	tmat[4+5*2]=dt_device*2.0*(tx1_device*(c34-c1345)+ty1_device*(r43*c34-c1345)+tz1_device*(c34-c1345))*tmp2*u(2,i,j,k);
+	tmat[4+5*3]=dt_device*2.0*(tx1_device*(c34-c1345)+ty1_device*(c34-c1345)+tz1_device*(r43*c34-c1345))*tmp2*u(3,i,j,k);
+	tmat[4+5*4]=1.0 + dt_device*2.0*(tx1_device+ty1_device+tz1_device)*c1345*tmp1+dt_device*2.0*(tx1_device*dx5_device+ty1_device*dy5_device+tz1_device*dz5_device);
 	/*
 	 * ---------------------------------------------------------------------
 	 * diagonal block inversion
@@ -1870,7 +1870,7 @@ __global__ static void pintgr_gpu_kernel_1(const double* u,
 		dist=(dist+1)/2;
 		__syncthreads();
 	}
-	if(i==0){frc[blockIdx.y*gridDim.x+blockIdx.x]=frc1[0]*dxi*deta;}
+	if(i==0){frc[blockIdx.y*gridDim.x+blockIdx.x]=frc1[0]*dxi_device*deta_device;}
 }
 
 __global__ static void pintgr_gpu_kernel_2(const double* u,
@@ -1912,7 +1912,7 @@ __global__ static void pintgr_gpu_kernel_2(const double* u,
 		dist=(dist+1)/2;
 		__syncthreads();
 	}
-	if(i==0){frc[blockIdx.y*gridDim.x+blockIdx.x]=frc2[0]*dxi*dzeta;}
+	if(i==0){frc[blockIdx.y*gridDim.x+blockIdx.x]=frc2[0]*dxi_device*dzeta_device;}
 }
 
 __global__ static void pintgr_gpu_kernel_3(const double* u,
@@ -1952,7 +1952,7 @@ __global__ static void pintgr_gpu_kernel_3(const double* u,
 		dist=(dist+1)/2;
 		__syncthreads();
 	}
-	if(j==0){frc[blockIdx.y*gridDim.x+blockIdx.x]=frc3[0]*deta*dzeta;}
+	if(j==0){frc[blockIdx.y*gridDim.x+blockIdx.x]=frc3[0]*deta_device*dzeta_device;}
 }
 
 __global__ static void pintgr_gpu_kernel_4(double* frc,
@@ -1994,52 +1994,19 @@ void read_input(){
 	 * nx, ny, nz = number of grid points in x, y, z directions
 	 * ---------------------------------------------------------------------
 	 */	
-	FILE* fp; int avoid_warning;
-	if((fp=fopen("inputlu.data","r"))!=NULL){
-		printf("Reading from input file inputlu.data\n");
-		while(fgetc(fp)!='\n');
-		while(fgetc(fp)!='\n');
-		avoid_warning=fscanf(fp,"%d%d",&ipr,&inorm); 
-		while(fgetc(fp)!='\n');
-		while(fgetc(fp)!='\n');
-		while(fgetc(fp)!='\n');
-		avoid_warning=fscanf(fp,"%d",&itmax);
-		while(fgetc(fp)!='\n');
-		while(fgetc(fp)!='\n');
-		while(fgetc(fp)!='\n');
-		avoid_warning=fscanf(fp,"%lf",&dt_host);
-		while(fgetc(fp)!='\n');
-		while(fgetc(fp)!='\n');
-		while(fgetc(fp)!='\n');
-		avoid_warning=fscanf(fp,"%lf",&omega_host);
-		while(fgetc(fp)!='\n');
-		while(fgetc(fp)!='\n');
-		while(fgetc(fp)!='\n');
-		avoid_warning=fscanf(fp,"%lf%lf%lf%lf%lf",&tolrsd[0],
-				&tolrsd[1],
-				&tolrsd[2],
-				&tolrsd[3],
-				&tolrsd[4]);
-		while(fgetc(fp)!='\n');
-		while(fgetc(fp)!='\n');
-		avoid_warning=fscanf(fp,"%d%d%d",&nx,&ny,&nz);
-		avoid_warning++;
-		fclose(fp);
-	}else{
-		ipr=IPR_DEFAULT;
-		inorm=INORM_DEFAULT;
-		itmax=ITMAX_DEFAULT;
-		dt_host=DT_DEFAULT;
-		omega_host=OMEGA_DEFAULT;
-		tolrsd[0]=TOLRSD1_DEF;
-		tolrsd[1]=TOLRSD2_DEF;
-		tolrsd[2]=TOLRSD3_DEF;
-		tolrsd[3]=TOLRSD4_DEF;
-		tolrsd[4]=TOLRSD5_DEF;
-		nx=ISIZ1;
-		ny=ISIZ2;
-		nz=ISIZ3;
-	}
+	ipr=IPR_DEFAULT;
+	inorm=INORM_DEFAULT;
+	itmax=ITMAX_DEFAULT;
+	dt_host=DT_DEFAULT;
+	omega_host=OMEGA_DEFAULT;
+	tolrsd[0]=TOLRSD1_DEF;
+	tolrsd[1]=TOLRSD2_DEF;
+	tolrsd[2]=TOLRSD3_DEF;
+	tolrsd[3]=TOLRSD4_DEF;
+	tolrsd[4]=TOLRSD5_DEF;
+	nx=ISIZ1;
+	ny=ISIZ2;
+	nz=ISIZ3;
 	/*
 	 * ---------------------------------------------------------------------
 	 * check problem size
@@ -2277,35 +2244,35 @@ __global__ static void rhs_gpu_kernel_2(const double* u,
 		flux[threadIdx.x+(3*blockDim.x)]=utmp[threadIdx.x*5+3]*u21;
 		flux[threadIdx.x+(4*blockDim.x)]=(C1*utmp[threadIdx.x*5+4]-C2*q)*u21;
 		__syncthreads();
-		if((threadIdx.x>=1)&&(threadIdx.x<(blockDim.x-1))&&(i<(nx-1))){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]=rtmp[threadIdx.x*5+m]-tx2*(flux[(threadIdx.x+1)+(m*blockDim.x)]-flux[(threadIdx.x-1)+(m*blockDim.x)]);}}
+		if((threadIdx.x>=1)&&(threadIdx.x<(blockDim.x-1))&&(i<(nx-1))){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]=rtmp[threadIdx.x*5+m]-tx2_device*(flux[(threadIdx.x+1)+(m*blockDim.x)]-flux[(threadIdx.x-1)+(m*blockDim.x)]);}}
 		u21i[threadIdx.x]=rhotmp[threadIdx.x]*utmp[threadIdx.x*5+1];
 		u31i[threadIdx.x]=rhotmp[threadIdx.x]*utmp[threadIdx.x*5+2];
 		u41i[threadIdx.x]=rhotmp[threadIdx.x]*utmp[threadIdx.x*5+3];
 		u51i[threadIdx.x]=rhotmp[threadIdx.x]*utmp[threadIdx.x*5+4];
 		__syncthreads();
 		if(threadIdx.x>=1){
-			flux[threadIdx.x+(1*blockDim.x)]=(4.0/3.0)*tx3*(u21i[threadIdx.x]-u21i[threadIdx.x-1]);
-			flux[threadIdx.x+(2*blockDim.x)]=tx3*(u31i[threadIdx.x]-u31i[threadIdx.x-1]);
-			flux[threadIdx.x+(3*blockDim.x)]=tx3*(u41i[threadIdx.x]-u41i[threadIdx.x-1]);
-			flux[threadIdx.x+(4*blockDim.x)]=0.5*(1.0-C1*C5)*tx3*((u21i[threadIdx.x]*u21i[threadIdx.x]+u31i[threadIdx.x]*u31i[threadIdx.x]+u41i[threadIdx.x]*u41i[threadIdx.x])-(u21i[threadIdx.x-1]*u21i[threadIdx.x-1]+u31i[threadIdx.x-1]*u31i[threadIdx.x-1]+u41i[threadIdx.x-1]*u41i[threadIdx.x-1]))+(1.0/6.0)*tx3*(u21i[threadIdx.x]*u21i[threadIdx.x]-u21i[threadIdx.x-1]*u21i[threadIdx.x-1]) + C1*C5*tx3*(u51i[threadIdx.x]-u51i[threadIdx.x-1]);
+			flux[threadIdx.x+(1*blockDim.x)]=(4.0/3.0)*tx3_device*(u21i[threadIdx.x]-u21i[threadIdx.x-1]);
+			flux[threadIdx.x+(2*blockDim.x)]=tx3_device*(u31i[threadIdx.x]-u31i[threadIdx.x-1]);
+			flux[threadIdx.x+(3*blockDim.x)]=tx3_device*(u41i[threadIdx.x]-u41i[threadIdx.x-1]);
+			flux[threadIdx.x+(4*blockDim.x)]=0.5*(1.0-C1*C5)*tx3_device*((u21i[threadIdx.x]*u21i[threadIdx.x]+u31i[threadIdx.x]*u31i[threadIdx.x]+u41i[threadIdx.x]*u41i[threadIdx.x])-(u21i[threadIdx.x-1]*u21i[threadIdx.x-1]+u31i[threadIdx.x-1]*u31i[threadIdx.x-1]+u41i[threadIdx.x-1]*u41i[threadIdx.x-1]))+(1.0/6.0)*tx3_device*(u21i[threadIdx.x]*u21i[threadIdx.x]-u21i[threadIdx.x-1]*u21i[threadIdx.x-1]) + C1*C5*tx3_device*(u51i[threadIdx.x]-u51i[threadIdx.x-1]);
 		}
 		__syncthreads();
 		if((threadIdx.x>=1)&&(threadIdx.x<(blockDim.x-1))&&(i<(nx-1))){
-			rtmp[threadIdx.x*5+0]+=dx1*tx1*(utmp[threadIdx.x*5-5]-2.0*utmp[threadIdx.x*5+0]+utmp[threadIdx.x*5+5]);
-			rtmp[threadIdx.x*5+1]+=tx3*C3*C4*(flux[(threadIdx.x+1)+(1*blockDim.x)]-flux[threadIdx.x+(1*blockDim.x)])+dx2*tx1*(utmp[threadIdx.x*5-4]-2.0*utmp[threadIdx.x*5+1]+utmp[threadIdx.x*5+6]);
-			rtmp[threadIdx.x*5+2]+=tx3*C3*C4*(flux[(threadIdx.x+1)+(2*blockDim.x)]-flux[threadIdx.x+(2*blockDim.x)])+dx3*tx1*(utmp[threadIdx.x*5-3]-2.0*utmp[threadIdx.x*5+2]+utmp[threadIdx.x*5+7]);
-			rtmp[threadIdx.x*5+3]+=tx3*C3*C4*(flux[(threadIdx.x+1)+(3*blockDim.x)]-flux[threadIdx.x+(3*blockDim.x)])+dx4*tx1*(utmp[threadIdx.x*5-2]-2.0*utmp[threadIdx.x*5+3]+utmp[threadIdx.x*5+8]);
-			rtmp[threadIdx.x*5+4]+=tx3*C3*C4*(flux[(threadIdx.x+1)+(4*blockDim.x)]-flux[threadIdx.x+(4*blockDim.x)])+dx5*tx1*(utmp[threadIdx.x*5-1]-2.0*utmp[threadIdx.x*5+4]+utmp[threadIdx.x*5+9]);
+			rtmp[threadIdx.x*5+0]+=dx1_device*tx1_device*(utmp[threadIdx.x*5-5]-2.0*utmp[threadIdx.x*5+0]+utmp[threadIdx.x*5+5]);
+			rtmp[threadIdx.x*5+1]+=tx3_device*C3*C4*(flux[(threadIdx.x+1)+(1*blockDim.x)]-flux[threadIdx.x+(1*blockDim.x)])+dx2_device*tx1_device*(utmp[threadIdx.x*5-4]-2.0*utmp[threadIdx.x*5+1]+utmp[threadIdx.x*5+6]);
+			rtmp[threadIdx.x*5+2]+=tx3_device*C3*C4*(flux[(threadIdx.x+1)+(2*blockDim.x)]-flux[threadIdx.x+(2*blockDim.x)])+dx3_device*tx1_device*(utmp[threadIdx.x*5-3]-2.0*utmp[threadIdx.x*5+2]+utmp[threadIdx.x*5+7]);
+			rtmp[threadIdx.x*5+3]+=tx3_device*C3*C4*(flux[(threadIdx.x+1)+(3*blockDim.x)]-flux[threadIdx.x+(3*blockDim.x)])+dx4_device*tx1_device*(utmp[threadIdx.x*5-2]-2.0*utmp[threadIdx.x*5+3]+utmp[threadIdx.x*5+8]);
+			rtmp[threadIdx.x*5+4]+=tx3_device*C3*C4*(flux[(threadIdx.x+1)+(4*blockDim.x)]-flux[threadIdx.x+(4*blockDim.x)])+dx5_device*tx1_device*(utmp[threadIdx.x*5-1]-2.0*utmp[threadIdx.x*5+4]+utmp[threadIdx.x*5+9]);
 			/*
 			 * ---------------------------------------------------------------------
 			 * fourth-order dissipation
 			 * ---------------------------------------------------------------------
 			 */
-			if(i==1){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp*(5.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]+u(m,3,j,k));}}
-			if(i==2){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp*(-4.0*utmp[threadIdx.x*5+m-5]+6.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]+u(m,4,j,k));}}
-			if((i>=3)&&(i<(nx-3))){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp*(u(m,i-2,j,k)-4.0*utmp[threadIdx.x*5+m-5]+6.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]+u(m,i+2,j,k));}}
-			if(i==(nx-3)){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp*(u(m,nx-5,j,k)-4.0*utmp[threadIdx.x*5+m-5]+6.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]);}}
-			if(i==(nx-2)){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp*(u(m,nx-4,j,k)-4.0*utmp[threadIdx.x*5+m-5]+5.0*utmp[threadIdx.x*5+m]);}}
+			if(i==1){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp_device*(5.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]+u(m,3,j,k));}}
+			if(i==2){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp_device*(-4.0*utmp[threadIdx.x*5+m-5]+6.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]+u(m,4,j,k));}}
+			if((i>=3)&&(i<(nx-3))){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp_device*(u(m,i-2,j,k)-4.0*utmp[threadIdx.x*5+m-5]+6.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]+u(m,i+2,j,k));}}
+			if(i==(nx-3)){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp_device*(u(m,nx-5,j,k)-4.0*utmp[threadIdx.x*5+m-5]+6.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]);}}
+			if(i==(nx-2)){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp_device*(u(m,nx-4,j,k)-4.0*utmp[threadIdx.x*5+m-5]+5.0*utmp[threadIdx.x*5+m]);}}
 		}
 		m=threadIdx.x;
 		rsd(m%5, (i-threadIdx.x)+m/5, j, k)=rtmp[m];
@@ -2377,35 +2344,35 @@ __global__ static void rhs_gpu_kernel_3(const double* u,
 		flux[threadIdx.x+(3*blockDim.x)]=utmp[threadIdx.x*5+3]*u31;
 		flux[threadIdx.x+(4*blockDim.x)]=(C1*utmp[threadIdx.x*5+4]-C2*q)*u31;
 		__syncthreads();
-		if((threadIdx.x>=1)&&(threadIdx.x<(blockDim.x-1))&&(j<(ny-1))){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]=rtmp[threadIdx.x*5+m]-ty2*(flux[(threadIdx.x+1)+(m*blockDim.x)]-flux[(threadIdx.x-1)+(m*blockDim.x)]);}}
+		if((threadIdx.x>=1)&&(threadIdx.x<(blockDim.x-1))&&(j<(ny-1))){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]=rtmp[threadIdx.x*5+m]-ty2_device*(flux[(threadIdx.x+1)+(m*blockDim.x)]-flux[(threadIdx.x-1)+(m*blockDim.x)]);}}
 		u21j[threadIdx.x]=rhotmp[threadIdx.x]*utmp[threadIdx.x*5+1];
 		u31j[threadIdx.x]=rhotmp[threadIdx.x]*utmp[threadIdx.x*5+2];
 		u41j[threadIdx.x]=rhotmp[threadIdx.x]*utmp[threadIdx.x*5+3];
 		u51j[threadIdx.x]=rhotmp[threadIdx.x]*utmp[threadIdx.x*5+4];
 		__syncthreads();
 		if(threadIdx.x>=1){
-			flux[threadIdx.x+(1*blockDim.x)]=ty3*(u21j[threadIdx.x]-u21j[threadIdx.x-1]);
-			flux[threadIdx.x+(2*blockDim.x)]=(4.0/3.0)*ty3*(u31j[threadIdx.x]-u31j[threadIdx.x-1]);
-			flux[threadIdx.x+(3*blockDim.x)]=ty3*(u41j[threadIdx.x]-u41j[threadIdx.x-1]);
-			flux[threadIdx.x+(4*blockDim.x)]=0.5*(1.0-C1*C5)*ty3*((u21j[threadIdx.x]*u21j[threadIdx.x]+u31j[threadIdx.x]*u31j[threadIdx.x]+u41j[threadIdx.x]*u41j[threadIdx.x])-(u21j[threadIdx.x-1]*u21j[threadIdx.x-1]+u31j[threadIdx.x-1]*u31j[threadIdx.x-1]+u41j[threadIdx.x-1]*u41j[threadIdx.x-1]))+(1.0/6.0)*ty3*(u31j[threadIdx.x]*u31j[threadIdx.x]-u31j[threadIdx.x-1]*u31j[threadIdx.x-1])+C1*C5*ty3*(u51j[threadIdx.x]-u51j[threadIdx.x-1]);
+			flux[threadIdx.x+(1*blockDim.x)]=ty3_device*(u21j[threadIdx.x]-u21j[threadIdx.x-1]);
+			flux[threadIdx.x+(2*blockDim.x)]=(4.0/3.0)*ty3_device*(u31j[threadIdx.x]-u31j[threadIdx.x-1]);
+			flux[threadIdx.x+(3*blockDim.x)]=ty3_device*(u41j[threadIdx.x]-u41j[threadIdx.x-1]);
+			flux[threadIdx.x+(4*blockDim.x)]=0.5*(1.0-C1*C5)*ty3_device*((u21j[threadIdx.x]*u21j[threadIdx.x]+u31j[threadIdx.x]*u31j[threadIdx.x]+u41j[threadIdx.x]*u41j[threadIdx.x])-(u21j[threadIdx.x-1]*u21j[threadIdx.x-1]+u31j[threadIdx.x-1]*u31j[threadIdx.x-1]+u41j[threadIdx.x-1]*u41j[threadIdx.x-1]))+(1.0/6.0)*ty3_device*(u31j[threadIdx.x]*u31j[threadIdx.x]-u31j[threadIdx.x-1]*u31j[threadIdx.x-1])+C1*C5*ty3_device*(u51j[threadIdx.x]-u51j[threadIdx.x-1]);
 		}
 		__syncthreads();
 		if((threadIdx.x>=1)&&(threadIdx.x<(blockDim.x-1)&&(j<(ny-1)))){
-			rtmp[threadIdx.x*5+0]+=dy1*ty1*(utmp[5*(threadIdx.x-1)]-2.0*utmp[threadIdx.x*5+0]+utmp[5*(threadIdx.x+1)]);
-			rtmp[threadIdx.x*5+1]+=ty3*C3*C4*(flux[(threadIdx.x+1)+(1*blockDim.x)]-flux[threadIdx.x+(1*blockDim.x)])+dy2*ty1*(utmp[5*threadIdx.x-4]-2.0*utmp[threadIdx.x*5+1]+utmp[5*threadIdx.x+6]);
-			rtmp[threadIdx.x*5+2]+=ty3*C3*C4*(flux[(threadIdx.x+1)+(2*blockDim.x)]-flux[threadIdx.x+(2*blockDim.x)])+dy3*ty1*(utmp[5*threadIdx.x-3]-2.0*utmp[threadIdx.x*5+2]+utmp[5*threadIdx.x+7]);
-			rtmp[threadIdx.x*5+3]+=ty3*C3*C4*(flux[(threadIdx.x+1)+(3*blockDim.x)]-flux[threadIdx.x+(3*blockDim.x)])+dy4*ty1*(utmp[5*threadIdx.x-2]-2.0*utmp[threadIdx.x*5+3]+utmp[5*threadIdx.x+8]);
-			rtmp[threadIdx.x*5+4]+=ty3*C3*C4*(flux[(threadIdx.x+1)+(4*blockDim.x)]-flux[threadIdx.x+(4*blockDim.x)])+dy5*ty1*(utmp[5*threadIdx.x-1]-2.0*utmp[threadIdx.x*5+4]+utmp[5*threadIdx.x+9]);
+			rtmp[threadIdx.x*5+0]+=dy1_device*ty1_device*(utmp[5*(threadIdx.x-1)]-2.0*utmp[threadIdx.x*5+0]+utmp[5*(threadIdx.x+1)]);
+			rtmp[threadIdx.x*5+1]+=ty3_device*C3*C4*(flux[(threadIdx.x+1)+(1*blockDim.x)]-flux[threadIdx.x+(1*blockDim.x)])+dy2_device*ty1_device*(utmp[5*threadIdx.x-4]-2.0*utmp[threadIdx.x*5+1]+utmp[5*threadIdx.x+6]);
+			rtmp[threadIdx.x*5+2]+=ty3_device*C3*C4*(flux[(threadIdx.x+1)+(2*blockDim.x)]-flux[threadIdx.x+(2*blockDim.x)])+dy3_device*ty1_device*(utmp[5*threadIdx.x-3]-2.0*utmp[threadIdx.x*5+2]+utmp[5*threadIdx.x+7]);
+			rtmp[threadIdx.x*5+3]+=ty3_device*C3*C4*(flux[(threadIdx.x+1)+(3*blockDim.x)]-flux[threadIdx.x+(3*blockDim.x)])+dy4_device*ty1_device*(utmp[5*threadIdx.x-2]-2.0*utmp[threadIdx.x*5+3]+utmp[5*threadIdx.x+8]);
+			rtmp[threadIdx.x*5+4]+=ty3_device*C3*C4*(flux[(threadIdx.x+1)+(4*blockDim.x)]-flux[threadIdx.x+(4*blockDim.x)])+dy5_device*ty1_device*(utmp[5*threadIdx.x-1]-2.0*utmp[threadIdx.x*5+4]+utmp[5*threadIdx.x+9]);
 			/*
 			 * ---------------------------------------------------------------------
 			 * fourth-order dissipation
 			 * ---------------------------------------------------------------------
 			 */
-			if(j==1){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp*(5.0*utmp[threadIdx.x*5+m]-4.0*utmp[5*threadIdx.x+m+5]+u(m,i,3,k));}}
-			if(j==2){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp*(-4.0*utmp[threadIdx.x*5+m-5]+6.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]+u(m,i,4,k));}}
-			if((j>=3)&&(j<(ny-3))){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp*(u(m,i,j-2,k)-4.0*utmp[threadIdx.x*5+m-5]+6.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]+u(m,i,j+2,k));}}
-			if(j==(ny-3)){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp*(u(m,i,ny-5,k)-4.0*utmp[threadIdx.x*5+m-5]+6.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]);}}
-			if(j==(ny-2)){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp*(u(m,i,ny-4,k)-4.0*utmp[threadIdx.x*5+m-5]+5.0*utmp[threadIdx.x*5+m]);}}
+			if(j==1){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp_device*(5.0*utmp[threadIdx.x*5+m]-4.0*utmp[5*threadIdx.x+m+5]+u(m,i,3,k));}}
+			if(j==2){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp_device*(-4.0*utmp[threadIdx.x*5+m-5]+6.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]+u(m,i,4,k));}}
+			if((j>=3)&&(j<(ny-3))){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp_device*(u(m,i,j-2,k)-4.0*utmp[threadIdx.x*5+m-5]+6.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]+u(m,i,j+2,k));}}
+			if(j==(ny-3)){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp_device*(u(m,i,ny-5,k)-4.0*utmp[threadIdx.x*5+m-5]+6.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]);}}
+			if(j==(ny-2)){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp_device*(u(m,i,ny-4,k)-4.0*utmp[threadIdx.x*5+m-5]+5.0*utmp[threadIdx.x*5+m]);}}
 		}
 		m=threadIdx.x;
 		rsd(m%5, i, (j-threadIdx.x)+m/5, k)=rtmp[m];
@@ -2477,35 +2444,35 @@ __global__ static void rhs_gpu_kernel_4(const double* u,
 		flux[threadIdx.x+(3*blockDim.x)]=utmp[threadIdx.x*5+3]*u41+C2*(utmp[threadIdx.x*5+4]-q);
 		flux[threadIdx.x+(4*blockDim.x)]=(C1*utmp[threadIdx.x*5+4]-C2*q)*u41;
 		__syncthreads();
-		if((threadIdx.x>=1)&&(threadIdx.x<(blockDim.x-1))&&(k<(nz-1))){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]=rtmp[threadIdx.x*5+m]-tz2*(flux[(threadIdx.x+1)+(m*blockDim.x)]-flux[(threadIdx.x-1)+(m*blockDim.x)]);}}
+		if((threadIdx.x>=1)&&(threadIdx.x<(blockDim.x-1))&&(k<(nz-1))){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]=rtmp[threadIdx.x*5+m]-tz2_device*(flux[(threadIdx.x+1)+(m*blockDim.x)]-flux[(threadIdx.x-1)+(m*blockDim.x)]);}}
 		u21k[threadIdx.x]=rhotmp[threadIdx.x]*utmp[threadIdx.x*5+1];
 		u31k[threadIdx.x]=rhotmp[threadIdx.x]*utmp[threadIdx.x*5+2];
 		u41k[threadIdx.x]=rhotmp[threadIdx.x]*utmp[threadIdx.x*5+3];
 		u51k[threadIdx.x]=rhotmp[threadIdx.x]*utmp[threadIdx.x*5+4];
 		__syncthreads();
 		if(threadIdx.x>=1){
-			flux[threadIdx.x+(1*blockDim.x)]=tz3*(u21k[threadIdx.x]-u21k[threadIdx.x-1]);
-			flux[threadIdx.x+(2*blockDim.x)]=tz3*(u31k[threadIdx.x]-u31k[threadIdx.x-1]);
-			flux[threadIdx.x+(3*blockDim.x)]=(4.0/3.0)*tz3*(u41k[threadIdx.x]-u41k[threadIdx.x-1]);
-			flux[threadIdx.x+(4*blockDim.x)]=0.5*(1.0-C1*C5)*tz3*((u21k[threadIdx.x]*u21k[threadIdx.x]+u31k[threadIdx.x]*u31k[threadIdx.x]+u41k[threadIdx.x]*u41k[threadIdx.x])-(u21k[threadIdx.x-1]*u21k[threadIdx.x-1]+u31k[threadIdx.x-1]*u31k[threadIdx.x-1]+u41k[threadIdx.x-1]*u41k[threadIdx.x-1]))+(1.0/6.0)*tz3*(u41k[threadIdx.x]*u41k[threadIdx.x]-u41k[threadIdx.x-1]*u41k[threadIdx.x-1])+C1*C5*tz3*(u51k[threadIdx.x]-u51k[threadIdx.x-1]);
+			flux[threadIdx.x+(1*blockDim.x)]=tz3_device*(u21k[threadIdx.x]-u21k[threadIdx.x-1]);
+			flux[threadIdx.x+(2*blockDim.x)]=tz3_device*(u31k[threadIdx.x]-u31k[threadIdx.x-1]);
+			flux[threadIdx.x+(3*blockDim.x)]=(4.0/3.0)*tz3_device*(u41k[threadIdx.x]-u41k[threadIdx.x-1]);
+			flux[threadIdx.x+(4*blockDim.x)]=0.5*(1.0-C1*C5)*tz3_device*((u21k[threadIdx.x]*u21k[threadIdx.x]+u31k[threadIdx.x]*u31k[threadIdx.x]+u41k[threadIdx.x]*u41k[threadIdx.x])-(u21k[threadIdx.x-1]*u21k[threadIdx.x-1]+u31k[threadIdx.x-1]*u31k[threadIdx.x-1]+u41k[threadIdx.x-1]*u41k[threadIdx.x-1]))+(1.0/6.0)*tz3_device*(u41k[threadIdx.x]*u41k[threadIdx.x]-u41k[threadIdx.x-1]*u41k[threadIdx.x-1])+C1*C5*tz3_device*(u51k[threadIdx.x]-u51k[threadIdx.x-1]);
 		}
 		__syncthreads();
 		if((threadIdx.x>=1)&&(threadIdx.x<(blockDim.x-1))&&(k<(nz-1))){
-			rtmp[threadIdx.x*5+0]+=dz1*tz1*(utmp[threadIdx.x*5-5]-2.0*utmp[threadIdx.x*5+0]+utmp[threadIdx.x*5+5]);
-			rtmp[threadIdx.x*5+1]+=tz3*C3*C4*(flux[(threadIdx.x+1)+(1*blockDim.x)]-flux[threadIdx.x+(1*blockDim.x)])+dz2*tz1*(utmp[5*threadIdx.x-4]-2.0*utmp[threadIdx.x*5+1]+utmp[threadIdx.x*5+6]);
-			rtmp[threadIdx.x*5+2]+=tz3*C3*C4*(flux[(threadIdx.x+1)+(2*blockDim.x)]-flux[threadIdx.x+(2*blockDim.x)])+dz3*tz1*(utmp[5*threadIdx.x-3]-2.0*utmp[threadIdx.x*5+2]+utmp[threadIdx.x*5+7]);
-			rtmp[threadIdx.x*5+3]+=tz3*C3*C4*(flux[(threadIdx.x+1)+(3*blockDim.x)]-flux[threadIdx.x+(3*blockDim.x)])+dz4*tz1*(utmp[5*threadIdx.x-2]-2.0*utmp[threadIdx.x*5+3]+utmp[threadIdx.x*5+8]);
-			rtmp[threadIdx.x*5+4]+=tz3*C3*C4*(flux[(threadIdx.x+1)+(4*blockDim.x)]-flux[threadIdx.x+(4*blockDim.x)])+dz5*tz1*(utmp[5*threadIdx.x-1]-2.0*utmp[threadIdx.x*5+4]+utmp[threadIdx.x*5+9]);
+			rtmp[threadIdx.x*5+0]+=dz1_device*tz1_device*(utmp[threadIdx.x*5-5]-2.0*utmp[threadIdx.x*5+0]+utmp[threadIdx.x*5+5]);
+			rtmp[threadIdx.x*5+1]+=tz3_device*C3*C4*(flux[(threadIdx.x+1)+(1*blockDim.x)]-flux[threadIdx.x+(1*blockDim.x)])+dz2_device*tz1_device*(utmp[5*threadIdx.x-4]-2.0*utmp[threadIdx.x*5+1]+utmp[threadIdx.x*5+6]);
+			rtmp[threadIdx.x*5+2]+=tz3_device*C3*C4*(flux[(threadIdx.x+1)+(2*blockDim.x)]-flux[threadIdx.x+(2*blockDim.x)])+dz3_device*tz1_device*(utmp[5*threadIdx.x-3]-2.0*utmp[threadIdx.x*5+2]+utmp[threadIdx.x*5+7]);
+			rtmp[threadIdx.x*5+3]+=tz3_device*C3*C4*(flux[(threadIdx.x+1)+(3*blockDim.x)]-flux[threadIdx.x+(3*blockDim.x)])+dz4_device*tz1_device*(utmp[5*threadIdx.x-2]-2.0*utmp[threadIdx.x*5+3]+utmp[threadIdx.x*5+8]);
+			rtmp[threadIdx.x*5+4]+=tz3_device*C3*C4*(flux[(threadIdx.x+1)+(4*blockDim.x)]-flux[threadIdx.x+(4*blockDim.x)])+dz5_device*tz1_device*(utmp[5*threadIdx.x-1]-2.0*utmp[threadIdx.x*5+4]+utmp[threadIdx.x*5+9]);
 			/*
 			 * ---------------------------------------------------------------------
 			 * fourth-order dissipation
 			 * ---------------------------------------------------------------------
 			 */
-			if(k==1){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp*(5.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]+u(m,i,j,3));}}
-			if(k==2){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp*(-4.0*utmp[threadIdx.x*5+m-5]+6.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]+u(m,i,j,4));}}
-			if((k>=3)&&(k<(nz-3))){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp*(u(m,i,j,k-2)-4.0*utmp[threadIdx.x*5+m-5]+6.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]+u(m,i,j,k+2));}}
-			if(k==(nz-3)){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp*(u(m,i,j,nz-5)-4.0*utmp[threadIdx.x*5+m-5]+6.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]);}}
-			if(k==(nz-2)){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp*(u(m,i,j,nz-4)-4.0*utmp[threadIdx.x*5+m-5]+5.0*utmp[threadIdx.x*5+m]);}}
+			if(k==1){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp_device*(5.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]+u(m,i,j,3));}}
+			if(k==2){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp_device*(-4.0*utmp[threadIdx.x*5+m-5]+6.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]+u(m,i,j,4));}}
+			if((k>=3)&&(k<(nz-3))){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp_device*(u(m,i,j,k-2)-4.0*utmp[threadIdx.x*5+m-5]+6.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]+u(m,i,j,k+2));}}
+			if(k==(nz-3)){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp_device*(u(m,i,j,nz-5)-4.0*utmp[threadIdx.x*5+m-5]+6.0*utmp[threadIdx.x*5+m]-4.0*utmp[threadIdx.x*5+m+5]);}}
+			if(k==(nz-2)){for(m=0;m<5;m++){rtmp[threadIdx.x*5+m]-=dssp_device*(u(m,i,j,nz-4)-4.0*utmp[threadIdx.x*5+m-5]+5.0*utmp[threadIdx.x*5+m]);}}
 		}
 		m=threadIdx.x;
 		rsd(m%5, i, j, (k-threadIdx.x)+m/5)=rtmp[m];
@@ -2860,37 +2827,37 @@ static void setcoeff_gpu(){
 	// set device constants
 	// ---------------------------------------------------------------------
 	//
-	hipMemcpyToSymbol(HIP_SYMBOL(dx1), &dx1_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(dx2), &dx2_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(dx3), &dx3_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(dx4), &dx4_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(dx5), &dx5_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(dy1), &dy1_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(dy2), &dy2_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(dy3), &dy3_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(dy4), &dy4_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(dy5), &dy5_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(dz1), &dz1_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(dz2), &dz2_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(dz3), &dz3_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(dz4), &dz4_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(dz5), &dz5_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(dssp), &dssp_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(dxi), &dxi_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(deta), &deta_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(dzeta), &dzeta_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(tx1), &tx1_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(tx2), &tx2_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(tx3), &tx3_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(ty1), &ty1_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(ty2), &ty2_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(ty3), &ty3_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(tz1), &tz1_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(tz2), &tz2_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(tz3), &tz3_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(ce), &ce_host, 13*5*sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(dt), &dt_host, sizeof(double));
-	hipMemcpyToSymbol(HIP_SYMBOL(omega), &omega_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(dx1_device), &dx1_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(dx2_device), &dx2_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(dx3_device), &dx3_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(dx4_device), &dx4_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(dx5_device), &dx5_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(dy1_device), &dy1_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(dy2_device), &dy2_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(dy3_device), &dy3_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(dy4_device), &dy4_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(dy5_device), &dy5_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(dz1_device), &dz1_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(dz2_device), &dz2_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(dz3_device), &dz3_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(dz4_device), &dz4_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(dz5_device), &dz5_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(dssp_device), &dssp_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(dxi_device), &dxi_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(deta_device), &deta_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(dzeta_device), &dzeta_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(tx1_device), &tx1_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(tx2_device), &tx2_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(tx3_device), &tx3_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(ty1_device), &ty1_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(ty2_device), &ty2_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(ty3_device), &ty3_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(tz1_device), &tz1_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(tz2_device), &tz2_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(tz3_device), &tz3_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(ce_device), &ce_host, 13*5*sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(dt_device), &dt_host, sizeof(double));
+	hipMemcpyToSymbol(HIP_SYMBOL(omega_device), &omega_host, sizeof(double));
 }
 
 /*
@@ -3415,11 +3382,11 @@ __global__ static void ssor_gpu_kernel_1(double* rsd,
 	j=blockIdx.y+1;
 	k=blockIdx.x+1;
 	
-	rsd(0,i,j,k)*=dt;
-	rsd(1,i,j,k)*=dt;
-	rsd(2,i,j,k)*=dt;
-	rsd(3,i,j,k)*=dt;
-	rsd(4,i,j,k)*=dt;
+	rsd(0,i,j,k)*=dt_device;
+	rsd(1,i,j,k)*=dt_device;
+	rsd(2,i,j,k)*=dt_device;
+	rsd(3,i,j,k)*=dt_device;
+	rsd(4,i,j,k)*=dt_device;
 }
 
 __global__ static void ssor_gpu_kernel_2(double* u,

@@ -47,6 +47,12 @@ CC_INTEL = ${INTEL_CHIPSTAR}/build/bin/hipcc
 # ---------------------------------------------------------------------------
 # Execute these commands before compiling the NPB for Intel GPUs
 # ---------------------------------------------------------------------------
+# export CHIP_BE=level0
+# export IGC_EnableDPEmulation=1
+
+# ---------------------------------------------------------------------------
+# Other commands regarding ChipStar
+# ---------------------------------------------------------------------------
 # INTEL_CHIPSTAR=~/intel-stuff/chipStar-v1.2.1/
 # export CHIP_DEVICE_TYPE=GPU
 # export CHIP_BE=level0
