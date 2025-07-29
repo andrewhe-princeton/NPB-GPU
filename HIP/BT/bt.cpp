@@ -122,7 +122,6 @@ double buf[PROBLEM_SIZE+1][5];
 double fjac[PROBLEM_SIZE+1][5][5];
 double njac[PROBLEM_SIZE+1][5][5];
 double lhs [PROBLEM_SIZE+1][3][5][5];
-double ce_host[5][13];
 #else
 static double (*us)[JMAXP+1][IMAXP+1]=(double(*)[JMAXP+1][IMAXP+1])malloc(sizeof(double)*((KMAX)*(JMAXP+1)*(IMAXP+1)));
 static double (*vs)[JMAXP+1][IMAXP+1]=(double(*)[JMAXP+1][IMAXP+1])malloc(sizeof(double)*((KMAX)*(JMAXP+1)*(IMAXP+1)));
@@ -140,9 +139,9 @@ static double (*buf)[5]=(double(*)[5])malloc(sizeof(double)*((PROBLEM_SIZE+1)*(5
 static double (*fjac)[5][5]=(double(*)[5][5])malloc(sizeof(double)*((PROBLEM_SIZE+1)*(5)*(5)));
 static double (*njac)[5][5]=(double(*)[5][5])malloc(sizeof(double)*((PROBLEM_SIZE+1)*(5)*(5)));
 double (*lhs)[3][5][5]=(double(*)[3][5][5])malloc(sizeof(double)*((PROBLEM_SIZE+1)*(3)*(5)*(5)));
-static double (*ce_host)[13]=(double(*)[13])malloc(sizeof(double)*((5)*(13)));
 #endif
 int grid_points[3];
+double ce_host[5][13];
 /* gpu variables */
 static double* us_device;
 static double* vs_device; 
@@ -2570,7 +2569,7 @@ static void setup_gpu(){
 
 	/* define gpu_device */
 	if(total_devices==0){
-		printf("\n\n\nNo Nvidia GPU found!\n\n\n");
+		printf("\n\n\nNo GPU found!\n\n\n");
 		exit(-1);
 	}
 	else if((GPU_DEVICE>=0)&&

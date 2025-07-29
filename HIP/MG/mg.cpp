@@ -2047,7 +2047,7 @@ static void setup_gpu(double* a,
 	/* define gpu_device */
 	hipGetDeviceCount(&total_devices);
 	if(total_devices==0){
-		printf("\n\n\n No Nvidia GPU found!!! \n\n\n");
+		printf("\n\n\nNo GPU found!!!\n\n\n");
 		exit(-1);
 	}else if((GPU_DEVICE>=0)&&
 			(GPU_DEVICE<total_devices)){

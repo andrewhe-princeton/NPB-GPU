@@ -139,7 +139,6 @@ static double a_host[ISIZ2][ISIZ1/2*2+1][5][5];
 static double b_host[ISIZ2][ISIZ1/2*2+1][5][5];
 static double c_host[ISIZ2][ISIZ1/2*2+1][5][5];
 static double d_host[ISIZ2][ISIZ1/2*2+1][5][5];
-static double ce_host[13][5];
 #else
 static double (*u_host)[ISIZ2/2*2+1][ISIZ1/2*2+1][5]=(double(*)[ISIZ2/2*2+1][ISIZ1/2*2+1][5])malloc(sizeof(double)*((ISIZ3)*(ISIZ2/2*2+1)*(ISIZ1/2*2+1)*(5)));
 static double (*rsd_host)[ISIZ2/2*2+1][ISIZ1/2*2+1][5]=(double(*)[ISIZ2/2*2+1][ISIZ1/2*2+1][5])malloc(sizeof(double)*((ISIZ3)*(ISIZ2/2*2+1)*(ISIZ1/2*2+1)*(5)));
@@ -151,12 +150,11 @@ static double (*a_host)[ISIZ1/2*2+1][5][5]=(double(*)[ISIZ1/2*2+1][5][5])malloc(
 static double (*b_host)[ISIZ1/2*2+1][5][5]=(double(*)[ISIZ1/2*2+1][5][5])malloc(sizeof(double)*((ISIZ2)*(ISIZ1/2*2+1)*(5)*(5)));
 static double (*c_host)[ISIZ1/2*2+1][5][5]=(double(*)[ISIZ1/2*2+1][5][5])malloc(sizeof(double)*((ISIZ2)*(ISIZ1/2*2+1)*(5)*(5)));
 static double (*d_host)[ISIZ1/2*2+1][5][5]=(double(*)[ISIZ1/2*2+1][5][5])malloc(sizeof(double)*((ISIZ2)*(ISIZ1/2*2+1)*(5)*(5)));
-static double (*ce_host)[5]=(double(*)[5])malloc(sizeof(double)*((13)*(5)));
 #endif
 /* output control parameters */
 static int ipr, inorm;
 /* newton-raphson iteration control parameters */
-static double dt_host, omega_host, tolrsd[5], rsdnm[5], errnm[5], frc;
+static double dt_host, omega_host, tolrsd[5], rsdnm[5], errnm[5], frc, ce_host[13][5];
 static int itmax;
 /* timer */
 static double maxtime;
@@ -2956,7 +2954,7 @@ static void setup_gpu(){
 
 	/* define gpu_device */
 	if(total_devices==0){
-		printf("\n\n\nNo Nvidia GPU found!\n\n\n");
+		printf("\n\n\nNo GPU found!\n\n\n");
 		exit(-1);
 	}else if((GPU_DEVICE>=0)&&
 			(GPU_DEVICE<total_devices)){
