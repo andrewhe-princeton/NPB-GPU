@@ -171,6 +171,8 @@ extern std::string source_additional_routines_complete;
 //
 string DEVICE_NAME;
 Instance* driver;
+int gpu_device_id;
+int total_devices;
 
 /* function prototypes */
 static void bubble(
@@ -590,6 +592,24 @@ int main(int argc, char** argv){
 	}else{
 		mflops = 0.0;
 	}
+
+	driver = Instance::getInstance();
+	driver->init();
+	total_devices = driver->getGpuCount();
+	auto gpus = driver->getGpuList();
+	std::cout << "\n\nGSParLib Found " << total_devices << " GPU devices:" << std::endl;
+    int d = 0;
+    for (auto const& gpu : gpus) {
+        std::cout << "Device #" << d++ << ": \"" << gpu->getName() << "\"";
+        std::cout << " (" << (gpu->isIntegratedMainMemory() ? "integrated" : "dedicated") << ")" << std::endl;
+        std::cout << "    Memory:" << std::endl;
+        std::cout << "      Total global memory:        " << gpu->getGlobalMemorySizeBytes()/(1024 * 1024) << " MB" << std::endl;
+        std::cout << "      Total local memory:         " << gpu->getLocalMemorySizeBytes()/1024 << " KB" << std::endl;
+        std::cout << "      Total shared memory per CU: " << gpu->getSharedMemoryPerComputeUnitSizeBytes()/1024 << " KB" << std::endl;
+        std::cout << "    Number of compute units (CU): " << gpu->getComputeUnitsCount() << std::endl;
+        std::cout << "    Maximum threads per block:    " << gpu->getMaxThreadsPerBlock() << std::endl;
+        std::cout << "    Device clock rate:            " << gpu->getClockRateMHz() << " MHz" << std::endl;
+    }
 
 	c_print_results((char*)"MG",
 			class_npb,
@@ -1512,20 +1532,25 @@ static void zran3(void* pointer_z,
 static void setup_gpu(
 		double* a, 
 		double* c){
+	/* amount of available devices */ 
 	driver = Instance::getInstance();
 	driver->init();
+	total_devices = driver->getGpuCount();
 
-	int numGpus = driver->getGpuCount();
-	if (numGpus == 0) {
-		std::cout << "No GPU found, interrupting the benchmark" << std::endl;
+	/* define gpu_device */	
+	if(total_devices==0){
+		printf("\n\n\nNo GPU found!\n\n\n");
 		exit(-1);
+	}else if((GPU_DEVICE>=0)&&
+			(GPU_DEVICE<total_devices)){
+		gpu_device_id = GPU_DEVICE;
+	}else{
+		gpu_device_id = 0;
 	}
 
 	auto gpus = driver->getGpuList();
-
-	DEVICE_NAME = gpus[0]->getName();	
-
-	auto gpu = driver->getGpu(0);	
+	DEVICE_NAME = gpus[gpu_device_id]->getName();
+	auto gpu = driver->getGpu(gpu_device_id);	
 
 	size_a_device=sizeof(double)*(4);
 	size_c_device=sizeof(double)*(4);

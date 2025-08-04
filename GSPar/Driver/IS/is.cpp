@@ -272,6 +272,8 @@ static void setup_gpu();
 /* global variables */
 string DEVICE_NAME;
 Instance* driver;
+int gpu_device_id;
+int total_devices;
 //
 MemoryObject* test_index_array_device;
 MemoryObject* test_rank_array_device;
@@ -428,6 +430,24 @@ int main(int argc, char** argv){
 	/* This tests that keys are in sequence: sorting of last ranked key seq */
 	/* occurs here, but is an untimed operation */
 	full_verify();
+
+	driver = Instance::getInstance();
+	driver->init();
+	total_devices = driver->getGpuCount();
+	auto gpus = driver->getGpuList();
+	std::cout << "\n\nGSParLib Found " << total_devices << " GPU devices:" << std::endl;
+    int d = 0;
+    for (auto const& gpu : gpus) {
+        std::cout << "Device #" << d++ << ": \"" << gpu->getName() << "\"";
+        std::cout << " (" << (gpu->isIntegratedMainMemory() ? "integrated" : "dedicated") << ")" << std::endl;
+        std::cout << "    Memory:" << std::endl;
+        std::cout << "      Total global memory:        " << gpu->getGlobalMemorySizeBytes()/(1024 * 1024) << " MB" << std::endl;
+        std::cout << "      Total local memory:         " << gpu->getLocalMemorySizeBytes()/1024 << " KB" << std::endl;
+        std::cout << "      Total shared memory per CU: " << gpu->getSharedMemoryPerComputeUnitSizeBytes()/1024 << " KB" << std::endl;
+        std::cout << "    Number of compute units (CU): " << gpu->getComputeUnitsCount() << std::endl;
+        std::cout << "    Maximum threads per block:    " << gpu->getMaxThreadsPerBlock() << std::endl;
+        std::cout << "    Device clock rate:            " << gpu->getClockRateMHz() << " MHz" << std::endl;
+    }
 	
 	/* The final printout */
 	if(passed_verification != 5*MAX_ITERATIONS + 1){passed_verification = 0;}
@@ -826,20 +846,25 @@ void rank_host(int iteration){
 }
 
 static void setup_gpu(){
+	/* amount of available devices */ 
 	driver = Instance::getInstance();
 	driver->init();
+	total_devices = driver->getGpuCount();
 
-	int numGpus = driver->getGpuCount();
-	if (numGpus == 0) {
-		std::cout << "No GPU found, interrupting the benchmark" << std::endl;
+	/* define gpu_device */	
+	if(total_devices==0){
+		printf("\n\n\nNo GPU found!\n\n\n");
 		exit(-1);
+	}else if((GPU_DEVICE>=0)&&
+			(GPU_DEVICE<total_devices)){
+		gpu_device_id = GPU_DEVICE;
+	}else{
+		gpu_device_id = 0;
 	}
 
 	auto gpus = driver->getGpuList();
-
-	DEVICE_NAME = gpus[0]->getName();	
-
-	auto gpu = driver->getGpu(0);
+	DEVICE_NAME = gpus[gpu_device_id]->getName();	
+	auto gpu = driver->getGpu(gpu_device_id);
 
 	threads_per_block_on_rank = IS_THREADS_PER_BLOCK_ON_RANK;
 
