@@ -59,7 +59,7 @@
  */
 
 #include <hip/hip_runtime.h>
-#include "../common/npb-CPP.hpp"
+#include "../common/npb.hpp"
 #include "npbparams.hpp"
 
 #define	MK (16)
@@ -411,7 +411,7 @@ static void setup_gpu(){
 
 	/* define gpu_device */
 	if(total_devices==0){
-		printf("\n\n\nNo Nvidia GPU found!\n\n\n");
+		printf("\n\n\nNo GPU found!\n\n\n");
 		exit(-1);
 	}else if((GPU_DEVICE>=0)&&
 			(GPU_DEVICE<total_devices)){

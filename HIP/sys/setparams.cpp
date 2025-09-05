@@ -136,7 +136,7 @@ int ilog2(int i);
 
 enum benchmark_types {SP, BT, LU, MG, FT, IS, EP, CG, DC};
 
-main(int argc, char *argv[]){
+int main(int argc, char *argv[]){
 	int type;
 	char class_npb, class_old;
 
@@ -192,7 +192,7 @@ main(int argc, char *argv[]){
 #endif
 	}
 
-	exit(0);
+	return 0;
 }
 
 void profiling_flag(FILE* definitions_file){

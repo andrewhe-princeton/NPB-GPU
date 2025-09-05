@@ -117,6 +117,8 @@ static double (*q)=(double*)malloc(sizeof(double)*(NQ));
 /* gpu data */
 string device_name;
 Instance* driver;
+int gpu_device_id;
+int total_devices;
 int amount_of_work;
 int threads_per_block;
 int blocks_per_grid;
@@ -133,6 +135,7 @@ Kernel* kernel_ep;
 extern std::string source_kernel_ep;
 extern std::string source_kernel_ep_complete;
 extern std::string source_additional_routines;
+
 
 /* function prototypes */
 static void setup_gpu();
@@ -306,6 +309,24 @@ int main(int argc, char** argv){
 	for(i=0; i<NQ-1; i++){
 		printf("%3d%15.0f\n", i, q[i]);
 	}
+	
+	driver = Instance::getInstance();
+	driver->init();
+	total_devices = driver->getGpuCount();
+	auto gpus = driver->getGpuList();
+	std::cout << "\n\nGSParLib Found " << total_devices << " GPU devices:" << std::endl;
+    int d = 0;
+    for (auto const& gpu : gpus) {
+        std::cout << "Device #" << d++ << ": \"" << gpu->getName() << "\"";
+        std::cout << " (" << (gpu->isIntegratedMainMemory() ? "integrated" : "dedicated") << ")" << std::endl;
+        std::cout << "    Memory:" << std::endl;
+        std::cout << "      Total global memory:        " << gpu->getGlobalMemorySizeBytes()/(1024 * 1024) << " MB" << std::endl;
+        std::cout << "      Total local memory:         " << gpu->getLocalMemorySizeBytes()/1024 << " KB" << std::endl;
+        std::cout << "      Total shared memory per CU: " << gpu->getSharedMemoryPerComputeUnitSizeBytes()/1024 << " KB" << std::endl;
+        std::cout << "    Number of compute units (CU): " << gpu->getComputeUnitsCount() << std::endl;
+        std::cout << "    Maximum threads per block:    " << gpu->getMaxThreadsPerBlock() << std::endl;
+        std::cout << "    Device clock rate:            " << gpu->getClockRateMHz() << " MHz" << std::endl;
+    }
 
 	c_print_results((char*)"EP",
 			CLASS,
@@ -335,18 +356,26 @@ int main(int argc, char** argv){
 }
 
 static void setup_gpu(){
-	Instance* driver = Instance::getInstance();
+	/* amount of available devices */ 
+	driver = Instance::getInstance();
 	driver->init();
+	total_devices = driver->getGpuCount();
 
-	int numGpus = driver->getGpuCount();
-	if (numGpus == 0) {
-		std::cout << "No GPU found, interrupting the benchmark" << std::endl;
+	/* define gpu_device */	
+	if(total_devices==0){
+		printf("\n\n\nNo GPU found!\n\n\n");
 		exit(-1);
-	}	
+	}else if((GPU_DEVICE>=0)&&
+			(GPU_DEVICE<total_devices)){
+		gpu_device_id = GPU_DEVICE;
+	}else{
+		gpu_device_id = 0;
+	}
 
 	auto gpus = driver->getGpuList();
-	device_name = gpus[0]->getName();
-	auto gpu = driver->getGpu(0);
+	device_name = gpus[gpu_device_id]->getName();
+	auto gpu = driver->getGpu(gpu_device_id);
+
 	amount_of_work = NN;
 
 	threads_per_block = EP_THREADS_PER_BLOCK;

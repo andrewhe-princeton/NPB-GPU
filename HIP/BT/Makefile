@@ -1,20 +1,30 @@
 SHELL=/bin/sh
+
+CLASS=S
 BENCHMARK=bt
 BENCHMARKU=BT
+PARAMETERS=setparams
 
 include ../config/make.def
 
-OBJS =	bt.o \
-	${COMMON}/c_print_results.o ${COMMON}/c_timers.o ${COMMON}/c_wtime.o
+ifeq ($(HIP_PLATFORM),amd)
+	CFLAGS = $(AMD_FLAGS)
+else ifeq ($(HIP_PLATFORM),nvidia)
+	CFLAGS = $(NVIDIA_FLAGS) -maxrregcount=50
+else ifeq ($(HIP_PLATFORM),intel)
+	CFLAGS = $(INTEL_FLAGS)
+	CC = $(CC_INTEL)
+else
+    CFLAGS = $(AMD_FLAGS)
+endif
 
-include ../sys/make.common
+COMPILE_BT=$(CC) $(CFLAGS) $(BENCHMARK).cpp -DCLASS_$(CLASS) -o $(BENCHMARK).$(CLASS)
+SET_PARAMETERS=$(CC) $(SYSDIR)/$(PARAMETERS).cpp -o $(PARAMETERS) && ./$(PARAMETERS) $(BENCHMARK) $(CLASS)
+MOVE_BINARIES=mv $(BENCHMARK).$(CLASS) $(BINDIR) && mv $(PARAMETERS) $(BINDIR)
 
-${PROGRAM}: config ${OBJS}
-	${CLINK} ${CLINKFLAGS} -o ${PROGRAM} ${OBJS} ${C_LIB}
+$(BENCHMARK):
+	$(pwd) $(SET_PARAMETERS) && $(COMPILE_BT) && $(MOVE_BINARIES)
 
-bt.o:             bt.cpp npbparams.hpp
-	${CCOMPILE} bt.cpp
-#	${CCOMPILE} --offload-arch=gfx1101 -mllvm --amdgpu-mode-register=1 bt.cpp
 clean:
-	- rm -f *.o *~ mputil*
-	- rm -f  npbparams.hpp core
+	- rm -f *.o *~ 
+	- rm -f npbparams.hpp core

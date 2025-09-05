@@ -59,7 +59,7 @@
 
 #include <omp.h>
 #include <hip/hip_runtime.h>
-#include "../common/npb-CPP.hpp"
+#include "../common/npb.hpp"
 #include "npbparams.hpp"
 
 /*
@@ -130,10 +130,6 @@
 #define	PI (3.141592653589793238)
 #define	ALPHA (1.0e-6)
 #define AP (-4.0*ALPHA*PI*PI)
-#define OMP_THREADS (3)
-#define TASK_INDEXMAP (0)
-#define TASK_INITIAL_CONDITIONS (1)
-#define TASK_INIT_UI (2)
 #define PROFILING_TOTAL_TIME (0)
 #define PROFILING_INDEXMAP (1)
 #define PROFILING_INITIAL_CONDITIONS (2)
@@ -354,16 +350,10 @@ int main(int argc, char** argv){
 	setup();
 	setup_gpu();
 	init_ui_gpu(u0_device, u1_device, twiddle_device);
-#pragma omp parallel
-	{
-		if(omp_get_thread_num()==TASK_INDEXMAP){
-			compute_indexmap_gpu(twiddle_device);
-		}else if(omp_get_thread_num()==TASK_INITIAL_CONDITIONS){
-			compute_initial_conditions_gpu(u1_device);
-		}else if(omp_get_thread_num()==TASK_INIT_UI){
-			fft_init_gpu(MAXDIM);
-		}		
-	}hipDeviceSynchronize();
+	compute_indexmap_gpu(twiddle_device);
+	compute_initial_conditions_gpu(u1_device);
+	fft_init_gpu(MAXDIM);
+	hipDeviceSynchronize();
 	fft_gpu(1, u1_device, u0_device);
 
 	/*
@@ -391,16 +381,11 @@ int main(int argc, char** argv){
 #endif
 
 	timer_start(PROFILING_TOTAL_TIME);
-#pragma omp parallel
-	{
-		if(omp_get_thread_num()==TASK_INDEXMAP){
-			compute_indexmap_gpu(twiddle_device);
-		}else if(omp_get_thread_num()==TASK_INITIAL_CONDITIONS){
-			compute_initial_conditions_gpu(u1_device);
-		}else if(omp_get_thread_num()==TASK_INIT_UI){
-			fft_init_gpu(MAXDIM);
-		}		
-	}hipDeviceSynchronize();
+	
+	compute_indexmap_gpu(twiddle_device);
+	compute_initial_conditions_gpu(u1_device);
+	fft_init_gpu(MAXDIM);
+	hipDeviceSynchronize();
 	fft_gpu(1, u1_device, u0_device);
 	for(iter=1; iter<=niter; iter++){
 		evolve_gpu(u0_device, u1_device, twiddle_device);
@@ -1501,7 +1486,7 @@ static void setup_gpu(){
 
 	/* define gpu_device */
 	if(total_devices==0){
-		printf("\n\n\nNo Nvidia GPU found!\n\n\n");
+		printf("\n\n\nNo GPU found!\n\n\n");
 		exit(-1);
 	}else if((GPU_DEVICE>=0)&&
 			(GPU_DEVICE<total_devices)){
@@ -1631,8 +1616,6 @@ static void setup_gpu(){
 	hipMalloc(&u1_device, size_u1_device);
 	hipMalloc(&y0_device, size_y0_device);
 	hipMalloc(&y1_device, size_y1_device);
-
-	omp_set_num_threads(OMP_THREADS);	
 }
 
 static void verify(int d1,

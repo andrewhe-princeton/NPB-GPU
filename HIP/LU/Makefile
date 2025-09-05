@@ -1,20 +1,30 @@
 SHELL=/bin/sh
+
+CLASS=S
 BENCHMARK=lu
 BENCHMARKU=LU
+PARAMETERS=setparams
 
 include ../config/make.def
 
-OBJS = lu.o ${COMMON}/c_print_results.o \
-       ${COMMON}/c_timers.o ${COMMON}/c_wtime.o
+ifeq ($(HIP_PLATFORM),amd)
+	CFLAGS = $(AMD_FLAGS)
+else ifeq ($(HIP_PLATFORM),nvidia)
+	CFLAGS = $(NVIDIA_FLAGS)
+else ifeq ($(HIP_PLATFORM),intel)
+	CFLAGS = $(INTEL_FLAGS)
+	CC = $(CC_INTEL)
+else
+    CFLAGS = $(AMD_FLAGS)
+endif
 
-include ../sys/make.common
+COMPILE_LU=$(CC) $(CFLAGS) $(BENCHMARK).cpp -DCLASS_$(CLASS) -o $(BENCHMARK).$(CLASS)
+SET_PARAMETERS=$(CC) $(SYSDIR)/$(PARAMETERS).cpp -o $(PARAMETERS) && ./$(PARAMETERS) $(BENCHMARK) $(CLASS)
+MOVE_BINARIES=mv $(BENCHMARK).$(CLASS) $(BINDIR) && mv $(PARAMETERS) $(BINDIR)
 
-${PROGRAM}: config ${OBJS}
-	${CLINK} ${CLINKFLAGS} -o ${PROGRAM} ${OBJS} ${C_LIB}
-
-lu.o:		lu.cpp npbparams.hpp
-	${CCOMPILE} lu.cpp
+$(BENCHMARK):
+	$(pwd) $(SET_PARAMETERS) && $(COMPILE_LU) && $(MOVE_BINARIES)
 
 clean:
-	- /bin/rm -f npbparams.hpp
-	- /bin/rm -f *.o *~
+	- rm -f *.o *~ 
+	- rm -f npbparams.hpp core

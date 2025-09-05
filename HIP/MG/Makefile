@@ -1,19 +1,29 @@
 SHELL=/bin/sh
+
+CLASS=S
 BENCHMARK=mg
 BENCHMARKU=MG
+PARAMETERS=setparams
 
 include ../config/make.def
 
-OBJS = mg.o ${COMMON}/c_print_results.o  \
-       ${COMMON}/c_${RAND}.o ${COMMON}/c_timers.o ${COMMON}/c_wtime.o
+ifeq ($(HIP_PLATFORM),amd)
+	CFLAGS = $(AMD_FLAGS)
+else ifeq ($(HIP_PLATFORM),nvidia)
+	CFLAGS = $(NVIDIA_FLAGS)
+else ifeq ($(HIP_PLATFORM),intel)
+	CFLAGS = $(INTEL_FLAGS)
+	CC = $(CC_INTEL)
+else
+    CFLAGS = $(AMD_FLAGS)
+endif
 
-include ../sys/make.common
+COMPILE_MG=$(CC) $(CFLAGS) $(BENCHMARK).cpp -DCLASS_$(CLASS) -o $(BENCHMARK).$(CLASS)
+SET_PARAMETERS=$(CC) $(SYSDIR)/$(PARAMETERS).cpp -o $(PARAMETERS) && ./$(PARAMETERS) $(BENCHMARK) $(CLASS)
+MOVE_BINARIES=mv $(BENCHMARK).$(CLASS) $(BINDIR) && mv $(PARAMETERS) $(BINDIR)
 
-${PROGRAM}: config ${OBJS}
-	${CLINK} ${CLINKFLAGS} -o ${PROGRAM} ${OBJS} ${C_LIB}
-
-mg.o:		mg.cpp npbparams.hpp 
-	${CCOMPILE} mg.cpp
+$(BENCHMARK):
+	$(pwd) $(SET_PARAMETERS) && $(COMPILE_MG) && $(MOVE_BINARIES)
 
 clean:
 	- rm -f *.o *~ 

@@ -7,8 +7,11 @@
 # The class is one of "S", "W", "A", "B", and "C". 
 # No blank lines. 
 # The following example builds serial sample sizes of all benchmarks. 
-ft	B
-mg	B
-is	B
-ep	B
-cg	B
+cg S
+ep S
+ft S
+is S
+mg S
+bt S
+lu S
+sp S

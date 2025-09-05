@@ -1,6 +1,6 @@
-# NAS Parallel Benchmarks for GPU
+# NAS Parallel Benchmarks for GPUs
 
-This is a repository aimed at providing GPU parallel codes with different parallel APIs for the NAS Parallel Benchmarks ([NPB](https://www.nas.nasa.gov/publications/npb.html)) from a C/C++ version ([NPB-CPP](https://github.com/GMAP/NPB-CPP)). You can also contribute with this project, writing issues and pull requests. :smile:
+This is a repository aimed at providing GPU parallel codes with different parallel APIs for the NAS Parallel Benchmarks ([NPB](https://www.nas.nasa.gov/publications/npb.html)) from a C/C++ version ([NPB-CPP](https://github.com/GMAP/NPB-CPP)). The parallel versions support GPUs from NVIDIA, AMD, and Intel. You can also contribute with this project, writing issues and pull requests. :smile:
 
 :sound:*News:* CUDA versions for pseudo-applications added and IS improved. :date:11/Feb/2021
 
@@ -10,7 +10,7 @@ This is a repository aimed at providing GPU parallel codes with different parall
 
 :sound:*News:* A new GPU parallel implementation is now available using the [GSParLib API](https://github.com/GMAP/GSParLib). :date:15/Aug/2024
 
-:sound:*News:* A new GPU parallel implementation is now available using HIP. :date:30/Jan/2025
+:sound:*News:* A new GPU parallel implementation is now available using HIP (supporting GPUs from NVIDIA, AMD, and Intel). :date:30/Jan/2025
 
 
 ## How to cite our work :+1:
@@ -19,13 +19,13 @@ This is a repository aimed at providing GPU parallel codes with different parall
 
 [DOI](https://doi.org/10.1109/PDP50117.2020.00009) - Araujo, G.; Griebler, D.; Danelutto, M.; Fernandes, L. G.; **Efficient NAS Benchmark Kernels with CUDA**. *28th Euromicro International Conference on Parallel, Distributed and Network-based Processing (PDP)*, Västerås, 2020. 
   
-## The NPB with CUDA
+## The NPB with GPUs
 
-The parallel CUDA version was implemented from the serial version of [NPB-CPP](https://github.com/GMAP/NPB-CPP).
+The parallel GPU versions were implemented from the serial version of [NPB-CPP](https://github.com/GMAP/NPB-CPP).
 
 ==================================================================
 
-NAS Parallel Benchmarks code contributors with CUDA are:
+NAS Parallel Benchmarks for GPUs code contributors are:
 
 Dalvan Griebler: dalvan.griebler@pucrs.br
 
@@ -52,28 +52,21 @@ Each directory is independent and contains its own implemented version:
 
 ## Software Requiriments
 
-*Warning: our tests were made with GCC and CUDA*
+*Warning: our tests were made with GCC, NVCC, HIPCC, and ChipStar*
 
 ## How to Compile
 
-1. Update the make.def file with the compute capability of the GPU you want to use to compile and run the NPB-GPU:
+1. Go inside the directory of the target API (e.g., `CUDA`, `HIP`, or `GSPar`)
 
-    1. Check the number of available NVIDIA GPUs by executing the following command:
-        ```
-        nvidia-smi --query-gpu=index --format=csv,noheader,nounits | wc -l
-        ```
+2. Update the file `config/make.def` informing the path to the GPU compiler
 
-    2. Find the compute capability of the GPU you want to use by executing the following command (replace GPU_ID with the actual GPU ID):
-        ```
-        nvidia-smi -i GPU_ID --query-gpu=compute_cap --format=csv,noheader,nounits
-        ```
+3. If you choose HIP, also update the file `config/make.def` exporting the vendor of the GPU you want to use (e.g., `nvidia`, `amd`, or `intel`):
 
-    3. Update the `make.def` file by replacing `61` in the following line with the value of GPU compute compute capability you obtained:
-        ```
-        COMPUTE_CAPABILITY = -gencode arch=compute_61,code=sm_61
-        ```
+    ```
+    export HIP_PLATFORM=amd
+    ```
 
-2. Go inside the `CUDA` directory and execute:
+3. Execute the following commands to compile and execute the NPB programs:
 
     ```
     make _BENCHMARK CLASS=_VERSION
@@ -96,10 +89,16 @@ Each directory is independent and contains its own implemented version:
         + Classes D, E, F: large test problems; ~16X size increase from each of the previous Classes
 
 
-    Command example:
+    Command example to compile:
 
     ```
     make ep CLASS=B
+    ```
+
+    Command example to run:
+
+    ```
+    bin/ep.B
     ```
   
 
