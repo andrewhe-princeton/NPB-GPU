@@ -36,7 +36,7 @@ CC = ${HIP_COMPILER}
 # ---------------------------------------------------------------------------
 # Choose a GPU vendor using the options: amd, nvidia, or intel
 # ---------------------------------------------------------------------------
-# export HIP_PLATFORM=amd
+export HIP_PLATFORM=amd
 
 # ---------------------------------------------------------------------------
 # HIP compiler for Intel GPUs (ChipStar)
