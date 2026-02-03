@@ -109,6 +109,193 @@ __device__ void vranlc_device(int n,
 		double* x_seed, 
 		double a, 
 		double* y);
+double randlc(double *x, double a);
+extern void c_print_results(char *name, char class_npb, int n1, int n2,
+			    int n3, int niter, int nthreads, double t,
+			    double mops, char *optype, int passed_verification,
+			    char *npbversion, char *compiletime, char *cc,
+			    char *clink, char *c_lib, char *c_inc,
+			    char *cflags, char *clinkflags, char *rand);
+
+#if defined(USE_POW)
+#define r23 pow(0.5, 23.0)
+#define r46 (r23*r23)
+#define t23 pow(2.0, 23.0)
+#define t46 (t23*t23)
+#else
+#define r23 (0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5)
+#define r46 (r23*r23)
+#define t23 (2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0)
+#define t46 (t23*t23)
+#endif
+
+/*
+ * ---------------------------------------------------------------------
+ *
+ * this routine returns a uniform pseudorandom double precision number in the
+ * range (0, 1) by using the linear congruential generator
+ * 
+ * x_{k+1} = a x_k  (mod 2^46)
+ *
+ * where 0 < x_k < 2^46 and 0 < a < 2^46. this scheme generates 2^44 numbers
+ * before repeating. the argument A is the same as 'a' in the above formula,
+ * and X is the same as x_0.  A and X must be odd double precision integers
+ * in the range (1, 2^46). the returned value RANDLC is normalized to be
+ * between 0 and 1, i.e. RANDLC = 2^(-46) * x_1.  X is updated to contain
+ * the new seed x_1, so that subsequent calls to RANDLC using the same
+ * arguments will generate a continuous sequence.
+ * 
+ * this routine should produce the same results on any computer with at least
+ * 48 mantissa bits in double precision floating point data.  On 64 bit
+ * systems, double precision should be disabled.
+ *
+ * David H. Bailey, October 26, 1990
+ * 
+ * ---------------------------------------------------------------------
+ */
+double randlc(double *x, double a){    
+	double t1,t2,t3,t4,a1,a2,x1,x2,z;
+
+	/*
+	 * ---------------------------------------------------------------------
+	 * break A into two parts such that A = 2^23 * A1 + A2.
+	 * ---------------------------------------------------------------------
+	 */
+	t1 = r23 * a;
+	a1 = (int)t1;
+	a2 = a - t23 * a1;
+
+	/*
+	 * ---------------------------------------------------------------------
+	 * break X into two parts such that X = 2^23 * X1 + X2, compute
+	 * Z = A1 * X2 + A2 * X1  (mod 2^23), and then
+	 * X = 2^23 * Z + A2 * X2  (mod 2^46).
+	 * ---------------------------------------------------------------------
+	 */
+	t1 = r23 * (*x);
+	x1 = (int)t1;
+	x2 = (*x) - t23 * x1;
+	t1 = a1 * x2 + a2 * x1;
+	t2 = (int)(r23 * t1);
+	z = t1 - t23 * t2;
+	t3 = t23 * z + a2 * x2;
+	t4 = (int)(r46 * t3);
+	(*x) = t3 - t46 * t4;
+
+	return (r46 * (*x));
+}
+
+/*****************************************************************/
+/******     C  _  P  R  I  N  T  _  R  E  S  U  L  T  S     ******/
+/*****************************************************************/
+void c_print_results(char* name,
+		char class_npb,
+		int n1, 
+		int n2,
+		int n3,
+		int niter,
+		double t,
+		double mops,
+		char* optype,
+		int passed_verification,
+		char* npbversion,
+		char* compiletime,
+		char* compilerversion,
+		char* libversion,
+		char* cpu_device,
+		char* gpu_device,
+		char* gpu_config,
+		char* cc,
+		char* clink,
+		char* c_lib,
+		char* c_inc,
+		char* cflags,
+		char* clinkflags,
+		char* rand){
+			printf("\n\n %s Benchmark Completed\n", name);
+			printf(" class_npb       =                        %c\n", class_npb);
+			if((name[0]=='I')&&(name[1]=='S')){
+				if(n3==0){
+					long nn = n1;
+					if(n2!=0){nn*=n2;}
+					printf(" Size            =             %12ld\n", nn); /* as in IS */
+				}else{
+					printf(" Size            =             %4dx%4dx%4d\n", n1,n2,n3);
+				}
+			}else{
+				char size[16];
+				int j;
+				if((n2==0) && (n3==0)){
+					if((name[0]=='E')&&(name[1]=='P')){
+						sprintf(size, "%15.0lf", pow(2.0, n1));
+						j = 14;
+						if(size[j] == '.'){
+							size[j] = ' '; 
+							j--;
+						}
+						size[j+1] = '\0';
+						printf(" Size            =          %15s\n", size);
+					}else{
+						printf(" Size            =             %12d\n", n1);
+					}
+				}else{
+					printf(" Size            =           %4dx%4dx%4d\n", n1, n2, n3);
+				}
+			}	
+			printf(" Iterations      =             %12d\n", niter); 
+			printf(" Time in seconds =             %12.2f\n", t);
+			printf(" Mop/s total     =             %12.2f\n", mops);
+			printf(" Operation type  = %24s\n", optype);
+			if(passed_verification < 0){
+				printf( " Verification    =            NOT PERFORMED\n");
+			}else if(passed_verification){
+				printf(" Verification    =               SUCCESSFUL\n");
+			}else{
+				printf(" Verification    =             UNSUCCESSFUL\n");
+			}
+			printf(" Version         =             %12s\n", npbversion);
+			printf(" Compile date    =             %12s\n", compiletime);
+			printf(" NVCC version    =             %12s\n", compilerversion);
+			printf(" CUDA version    =             %12s\n", libversion);
+			printf("\n Compile options:\n");
+			printf("    CC           = %s\n", cc);
+			printf("    CLINK        = %s\n", clink);
+			printf("    C_LIB        = %s\n", c_lib);
+			printf("    C_INC        = %s\n", c_inc);
+			printf("    CFLAGS       = %s\n", cflags);
+			printf("    CLINKFLAGS   = %s\n", clinkflags);
+			printf("    RAND         = %s\n", rand);
+			printf("\n Hardware:\n");
+			printf("    CPU device   = %s\n", cpu_device);
+			printf("    GPU device   = %s\n", gpu_device);
+			printf("\n Software:\n");
+			printf("    Parameters   = %s\n", gpu_config);
+#ifdef SMP
+			evalue = getenv("MP_SET_NUMTHREADS");
+			printf("   MULTICPUS = %s\n", evalue);
+#endif    
+			/* 
+			 * printf(" Please send the results of this run to:\n\n");
+			 * printf(" NPB Development Team\n");
+			 * printf(" Internet: npb@nas.nasa.gov\n \n");
+			 * printf(" If email is not available, send this to:\n\n");
+			 * printf(" MS T27A-1\n");
+			 * printf(" NASA Ames Research Center\n");
+			 * printf(" Moffett Field, CA  94035-1000\n\n");
+			 * printf(" Fax: 650-604-3957\n\n");
+			 */
+			printf("\n");
+			printf("----------------------------------------------------------------------\n");
+			printf(" NPB-CPP is developed by:\n");
+			printf("            Dalvan Griebler <dalvangriebler@gmail.com>\n");
+			printf("            Gabriell Araujo <hexenoften@gmail.com>\n");
+			printf("            Júnior Löff <loffjh@gmail.com>\n");
+			printf("\n");
+			printf(" In case of problems, send an email to us\n");
+			printf("----------------------------------------------------------------------\n");
+			printf("\n");
+		}
+
 
 /* ep */
 int main(int argc, char** argv){
@@ -159,8 +346,8 @@ int main(int argc, char** argv){
 
 	setup_gpu();
 
-	timer_clear(PROFILING_TOTAL_TIME);
-	timer_start(PROFILING_TOTAL_TIME);
+	// timer_clear(PROFILING_TOTAL_TIME);
+	// timer_start(PROFILING_TOTAL_TIME);
 
 	gpu_kernel<<<blocks_per_grid, 
 		threads_per_block>>>(q_device,
@@ -168,8 +355,8 @@ int main(int argc, char** argv){
 				sy_device,
 				an);
 
-	timer_stop(PROFILING_TOTAL_TIME);
-	tm = timer_read(PROFILING_TOTAL_TIME);		
+	// timer_stop(PROFILING_TOTAL_TIME);
+	// tm = timer_read(PROFILING_TOTAL_TIME);		
 
 	cudaMemcpy(q_host, q_device, size_q, cudaMemcpyDeviceToHost);
 	cudaMemcpy(sx_host, sx_device, size_sx, cudaMemcpyDeviceToHost);
@@ -311,6 +498,16 @@ __global__ void gpu_kernel(double* q_global,
 		t3=randlc_device(&t2, t2);
 		kk=ik;
 	} 
+	
+	
+	// for(i=1; i<=100 && kk > 0; i++){
+	// 	ik=kk/2;
+	// 	if((2*ik)!=kk)
+	// 		t3=randlc_device(&t1, t2);
+	// 	kk=ik;
+	// 	if(kk>0)
+	// 		t3=randlc_device(&t2, t2);
+	// } 
 
 	seed=t1;
 	for(ii=0; ii<NK; ii=ii+RECOMPUTATION){
@@ -327,10 +524,12 @@ __global__ void gpu_kernel(double* q_global,
 			x2=2.0*x_local[2*i+1]-1.0;
 			t1=x1*x1+x2*x2;
 			if(t1<=1.0){
-				t2=sqrt(-2.0*log(t1)/t1);
+				// t2=sqrt(-2.0*log(t1)/t1);
+				t2 = 0;
 				t3=(x1*t2);
 				t4=(x2*t2);
-				l=max(fabs(t3), fabs(t4));
+				// l=max(fabs(t3), fabs(t4));
+				l = fabs(t3);
 				q_local[l]+=1.0;
 				sx_local+=t3;
 				sy_local+=t4;
@@ -338,18 +537,18 @@ __global__ void gpu_kernel(double* q_global,
 		}
 	}
 
-	atomicAdd(q_global+blockIdx.x*NQ+0, q_local[0]); 
-	atomicAdd(q_global+blockIdx.x*NQ+1, q_local[1]); 
-	atomicAdd(q_global+blockIdx.x*NQ+2, q_local[2]); 
-	atomicAdd(q_global+blockIdx.x*NQ+3, q_local[3]); 
-	atomicAdd(q_global+blockIdx.x*NQ+4, q_local[4]); 
-	atomicAdd(q_global+blockIdx.x*NQ+5, q_local[5]); 
-	atomicAdd(q_global+blockIdx.x*NQ+6, q_local[6]); 
-	atomicAdd(q_global+blockIdx.x*NQ+7, q_local[7]); 
-	atomicAdd(q_global+blockIdx.x*NQ+8, q_local[8]);
-	atomicAdd(q_global+blockIdx.x*NQ+9, q_local[9]); 
-	atomicAdd(sx_global+blockIdx.x, sx_local); 
-	atomicAdd(sy_global+blockIdx.x, sy_local);
+	// atomicAdd(q_global+blockIdx.x*NQ+0, q_local[0]); 
+	// atomicAdd(q_global+blockIdx.x*NQ+1, q_local[1]); 
+	// atomicAdd(q_global+blockIdx.x*NQ+2, q_local[2]); 
+	// atomicAdd(q_global+blockIdx.x*NQ+3, q_local[3]); 
+	// atomicAdd(q_global+blockIdx.x*NQ+4, q_local[4]); 
+	// atomicAdd(q_global+blockIdx.x*NQ+5, q_local[5]); 
+	// atomicAdd(q_global+blockIdx.x*NQ+6, q_local[6]); 
+	// atomicAdd(q_global+blockIdx.x*NQ+7, q_local[7]); 
+	// atomicAdd(q_global+blockIdx.x*NQ+8, q_local[8]);
+	// atomicAdd(q_global+blockIdx.x*NQ+9, q_local[9]); 
+	// atomicAdd(sx_global+blockIdx.x, sx_local); 
+	// atomicAdd(sy_global+blockIdx.x, sy_local);
 }
 
 __device__ double randlc_device(double* x, 
@@ -407,21 +606,21 @@ static void setup_gpu(){
 	 * }
 	 */
 	/* amount of available devices */ 
-	cudaGetDeviceCount(&total_devices);	
+	// cudaGetDeviceCount(&total_devices);	
 
-	/* define gpu_device */
-	if(total_devices==0){
-		printf("\n\n\nNo Nvidia GPU found!\n\n\n");
-		exit(-1);
-	}else if((GPU_DEVICE>=0)&&
-			(GPU_DEVICE<total_devices)){
-		gpu_device_id = GPU_DEVICE;
-	}else{
-		gpu_device_id = 0;
-	}
+	// /* define gpu_device */
+	// if(total_devices==0){
+	// 	printf("\n\n\nNo Nvidia GPU found!\n\n\n");
+	// 	exit(-1);
+	// }else if((GPU_DEVICE>=0)&&
+	// 		(GPU_DEVICE<total_devices)){
+	// 	gpu_device_id = GPU_DEVICE;
+	// }else{
+	// 	gpu_device_id = 0;
+	// }
 
-	cudaSetDevice(gpu_device_id);	
-	cudaGetDeviceProperties(&gpu_device_properties, gpu_device_id);
+	// cudaSetDevice(gpu_device_id);	
+	// cudaGetDeviceProperties(&gpu_device_properties, gpu_device_id);
 
 	/* define threads_per_block */
 	if((EP_THREADS_PER_BLOCK>=1)&&
