@@ -1,0 +1,707 @@
+ANDREW: mergeKernel: found log entry for alloca a.addr.i in block if.then41
+ANDREW: mergeKernel: found exit block: _ZL3logd.exit
+ANDREW: mergeKernel: matched pattern - entry: if.then41, exit: _ZL3logd.exit, alloca: a.addr.i
+ANDREW: mergeKernel: found 1 inlined log pattern(s)
+ANDREW: mergeKernel: processing pattern for alloca a.addr.i
+ANDREW: mergeKernel: log input:   %26 = load double, double* %t1, align 8, !dbg !1342
+ANDREW: mergeKernel: created log call:   %log_result = call double @log(double %26)
+ANDREW: mergeKernel: deleted result phi node
+ANDREW: mergeKernel: redirected control flow from if.then41 to _ZL3logd.exit
+ANDREW: mergeKernel: found 17 unreachable blocks to delete
+ANDREW: mergeKernel: replaced 1 inlined log(s) with log() calls and cleaned up dead blocks
+mergeKernel: found nvvm sqrt declaration
+mergeKernel: found nvvm fabs.d declaration
+mergeKernel: found nvvm fabs.d declaration
+mergeKernel: found nvvm fabs.d declaration
+mergeKernel: found nvvm fabs.d declaration
+CudaFE: found cudaConfigureCall
+mergeKernel: kernelBB: 
+kcall.configok:                                   ; preds = %for.end17
+  %27 = load double*, double** @q_device, align 8, !dbg !1155
+  %28 = load double*, double** @sx_device, align 8, !dbg !1156
+  %29 = load double*, double** @sy_device, align 8, !dbg !1157
+  %30 = load double, double* %an, align 8, !dbg !1158
+  call void @ep.ll_CudaFE__Z10gpu_kernelPdS_S_d(double* %27, double* %28, double* %29, double %30), !dbg !1154
+  br label %kcall.end, !dbg !1154
+
+mergeKernel: kernelCall:   call void @ep.ll_CudaFE__Z10gpu_kernelPdS_S_d(double* %27, double* %28, double* %29, double %30), !dbg !1154
+mergeKernel: kernel call:   call void @ep.ll_CudaFE__Z10gpu_kernelPdS_S_d(double* %27, double* %28, double* %29, double %30), !dbg !1154
+mergeKernel: kernel call:   call void @ep.ll_CudaFE__Z10gpu_kernelPdS_S_d(double* %27, double* %28, double* %29, double %30), !dbg !1154
+MergeKernel: blocks per grid:
+mergeKernel: Dim 1 :   %13 = load i32, i32* @blocks_per_grid, align 4, !dbg !1151
+mergeKernel: Dim 2 : i32 1
+mergeKernel: Dim 3 : i32 1
+MergeKernel: threads per block:
+mergeKernel: Dim 1 :   %14 = load i32, i32* @threads_per_block, align 4, !dbg !1152
+mergeKernel: Dim 2 : i32 1
+mergeKernel: Dim 3 : i32 1
+mergeKernel: found kernelName: _Z10gpu_kernelPdS_S_d
+MergeKernel: found deviceKernel: 
+; Function Attrs: convergent noinline nounwind
+define dso_local void @_Z10gpu_kernelPdS_S_d(double* %q_global, double* %sx_global, double* %sy_global, double %an) #0 !dbg !1046 {
+entry:
+  %a.addr.i = alloca double, align 8
+  call void @llvm.dbg.declare(metadata double* %a.addr.i, metadata !1049, metadata !DIExpression()), !dbg !1052
+  %x.addr.i = alloca double, align 8
+  call void @llvm.dbg.declare(metadata double* %x.addr.i, metadata !1062, metadata !DIExpression()), !dbg !1064
+  %f.addr.i67 = alloca double, align 8
+  call void @llvm.dbg.declare(metadata double* %f.addr.i67, metadata !1066, metadata !DIExpression()), !dbg !1068
+  %f.addr.i66 = alloca double, align 8
+  call void @llvm.dbg.declare(metadata double* %f.addr.i66, metadata !1066, metadata !DIExpression()), !dbg !1070
+  %f.addr.i65 = alloca double, align 8
+  call void @llvm.dbg.declare(metadata double* %f.addr.i65, metadata !1066, metadata !DIExpression()), !dbg !1072
+  %f.addr.i = alloca double, align 8
+  call void @llvm.dbg.declare(metadata double* %f.addr.i, metadata !1066, metadata !DIExpression()), !dbg !1074
+  %q_global.addr = alloca double*, align 8
+  %sx_global.addr = alloca double*, align 8
+  %sy_global.addr = alloca double*, align 8
+  %an.addr = alloca double, align 8
+  %x_local = alloca [256 x double], align 8
+  %q_local = alloca [10 x double], align 8
+  %sx_local = alloca double, align 8
+  %sy_local = alloca double, align 8
+  %t1 = alloca double, align 8
+  %t2 = alloca double, align 8
+  %t3 = alloca double, align 8
+  %t4 = alloca double, align 8
+  %x1 = alloca double, align 8
+  %x2 = alloca double, align 8
+  %seed = alloca double, align 8
+  %i = alloca i32, align 4
+  %ii = alloca i32, align 4
+  %ik = alloca i32, align 4
+  %kk = alloca i32, align 4
+  %l = alloca i32, align 4
+  store double* %q_global, double** %q_global.addr, align 8
+  call void @llvm.dbg.declare(metadata double** %q_global.addr, metadata !1076, metadata !DIExpression()), !dbg !1077
+  store double* %sx_global, double** %sx_global.addr, align 8
+  call void @llvm.dbg.declare(metadata double** %sx_global.addr, metadata !1078, metadata !DIExpression()), !dbg !1079
+  store double* %sy_global, double** %sy_global.addr, align 8
+  call void @llvm.dbg.declare(metadata double** %sy_global.addr, metadata !1080, metadata !DIExpression()), !dbg !1081
+  store double %an, double* %an.addr, align 8
+  call void @llvm.dbg.declare(metadata double* %an.addr, metadata !1082, metadata !DIExpression()), !dbg !1083
+  call void @llvm.dbg.declare(metadata [256 x double]* %x_local, metadata !1084, metadata !DIExpression()), !dbg !1086
+  call void @llvm.dbg.declare(metadata [10 x double]* %q_local, metadata !1087, metadata !DIExpression()), !dbg !1091
+  call void @llvm.dbg.declare(metadata double* %sx_local, metadata !1092, metadata !DIExpression()), !dbg !1093
+  call void @llvm.dbg.declare(metadata double* %sy_local, metadata !1094, metadata !DIExpression()), !dbg !1095
+  call void @llvm.dbg.declare(metadata double* %t1, metadata !1096, metadata !DIExpression()), !dbg !1097
+  call void @llvm.dbg.declare(metadata double* %t2, metadata !1098, metadata !DIExpression()), !dbg !1099
+  call void @llvm.dbg.declare(metadata double* %t3, metadata !1100, metadata !DIExpression()), !dbg !1101
+  call void @llvm.dbg.declare(metadata double* %t4, metadata !1102, metadata !DIExpression()), !dbg !1103
+  call void @llvm.dbg.declare(metadata double* %x1, metadata !1104, metadata !DIExpression()), !dbg !1105
+  call void @llvm.dbg.declare(metadata double* %x2, metadata !1106, metadata !DIExpression()), !dbg !1107
+  call void @llvm.dbg.declare(metadata double* %seed, metadata !1108, metadata !DIExpression()), !dbg !1109
+  call void @llvm.dbg.declare(metadata i32* %i, metadata !1110, metadata !DIExpression()), !dbg !1111
+  call void @llvm.dbg.declare(metadata i32* %ii, metadata !1112, metadata !DIExpression()), !dbg !1113
+  call void @llvm.dbg.declare(metadata i32* %ik, metadata !1114, metadata !DIExpression()), !dbg !1115
+  call void @llvm.dbg.declare(metadata i32* %kk, metadata !1116, metadata !DIExpression()), !dbg !1117
+  call void @llvm.dbg.declare(metadata i32* %l, metadata !1118, metadata !DIExpression()), !dbg !1119
+  %arrayidx = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 0, !dbg !1120
+  store double 0.000000e+00, double* %arrayidx, align 8, !dbg !1121
+  %arrayidx1 = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 1, !dbg !1122
+  store double 0.000000e+00, double* %arrayidx1, align 8, !dbg !1123
+  %arrayidx2 = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 2, !dbg !1124
+  store double 0.000000e+00, double* %arrayidx2, align 8, !dbg !1125
+  %arrayidx3 = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 3, !dbg !1126
+  store double 0.000000e+00, double* %arrayidx3, align 8, !dbg !1127
+  %arrayidx4 = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 4, !dbg !1128
+  store double 0.000000e+00, double* %arrayidx4, align 8, !dbg !1129
+  %arrayidx5 = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 5, !dbg !1130
+  store double 0.000000e+00, double* %arrayidx5, align 8, !dbg !1131
+  %arrayidx6 = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 6, !dbg !1132
+  store double 0.000000e+00, double* %arrayidx6, align 8, !dbg !1133
+  %arrayidx7 = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 7, !dbg !1134
+  store double 0.000000e+00, double* %arrayidx7, align 8, !dbg !1135
+  %arrayidx8 = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 8, !dbg !1136
+  store double 0.000000e+00, double* %arrayidx8, align 8, !dbg !1137
+  %arrayidx9 = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 9, !dbg !1138
+  store double 0.000000e+00, double* %arrayidx9, align 8, !dbg !1139
+  store double 0.000000e+00, double* %sx_local, align 8, !dbg !1140
+  store double 0.000000e+00, double* %sy_local, align 8, !dbg !1141
+  %0 = call i32 @llvm.nvvm.read.ptx.sreg.ctaid.x() #12, !dbg !1142, !range !1179
+  %1 = call i32 @llvm.nvvm.read.ptx.sreg.ntid.x() #12, !dbg !1180, !range !1224
+  %mul = mul i32 %0, %1, !dbg !1225
+  %2 = call i32 @llvm.nvvm.read.ptx.sreg.tid.x() #12, !dbg !1226, !range !1254
+  %add = add i32 %mul, %2, !dbg !1255
+  store i32 %add, i32* %kk, align 4, !dbg !1256
+  %3 = load i32, i32* %kk, align 4, !dbg !1257
+  %cmp = icmp sge i32 %3, 4096, !dbg !1259
+  br i1 %cmp, label %if.then, label %if.end, !dbg !1260
+
+if.then:                                          ; preds = %entry
+  br label %for.end64, !dbg !1261
+
+if.end:                                           ; preds = %entry
+  store double 0x41B033C4D7000000, double* %t1, align 8, !dbg !1263
+  %4 = load double, double* %an.addr, align 8, !dbg !1264
+  store double %4, double* %t2, align 8, !dbg !1265
+  store i32 1, i32* %i, align 4, !dbg !1266
+  br label %for.cond, !dbg !1268
+
+for.cond:                                         ; preds = %for.inc, %if.end
+  %5 = load i32, i32* %i, align 4, !dbg !1269
+  %cmp12 = icmp sle i32 %5, 100, !dbg !1271
+  br i1 %cmp12, label %for.body, label %for.end, !dbg !1272
+
+for.body:                                         ; preds = %for.cond
+  %6 = load i32, i32* %kk, align 4, !dbg !1273
+  %div = sdiv i32 %6, 2, !dbg !1275
+  store i32 %div, i32* %ik, align 4, !dbg !1276
+  %7 = load i32, i32* %ik, align 4, !dbg !1277
+  %mul13 = mul nsw i32 2, %7, !dbg !1279
+  %8 = load i32, i32* %kk, align 4, !dbg !1280
+  %cmp14 = icmp ne i32 %mul13, %8, !dbg !1281
+  br i1 %cmp14, label %if.then15, label %if.end17, !dbg !1282
+
+if.then15:                                        ; preds = %for.body
+  %9 = load double, double* %t2, align 8, !dbg !1283
+  %call16 = call double @_Z13randlc_devicePdd(double* %t1, double %9) #13, !dbg !1285
+  store double %call16, double* %t3, align 8, !dbg !1286
+  br label %if.end17, !dbg !1287
+
+if.end17:                                         ; preds = %if.then15, %for.body
+  %10 = load i32, i32* %ik, align 4, !dbg !1288
+  %cmp18 = icmp eq i32 %10, 0, !dbg !1290
+  br i1 %cmp18, label %if.then19, label %if.end20, !dbg !1291
+
+if.then19:                                        ; preds = %if.end17
+  br label %for.end, !dbg !1292
+
+if.end20:                                         ; preds = %if.end17
+  %11 = load double, double* %t2, align 8, !dbg !1294
+  %call21 = call double @_Z13randlc_devicePdd(double* %t2, double %11) #13, !dbg !1295
+  store double %call21, double* %t3, align 8, !dbg !1296
+  %12 = load i32, i32* %ik, align 4, !dbg !1297
+  store i32 %12, i32* %kk, align 4, !dbg !1298
+  br label %for.inc, !dbg !1299
+
+for.inc:                                          ; preds = %if.end20
+  %13 = load i32, i32* %i, align 4, !dbg !1300
+  %inc = add nsw i32 %13, 1, !dbg !1300
+  store i32 %inc, i32* %i, align 4, !dbg !1300
+  br label %for.cond, !dbg !1301, !llvm.loop !1302
+
+for.end:                                          ; preds = %if.then19, %for.cond
+  %14 = load double, double* %t1, align 8, !dbg !1304
+  store double %14, double* %seed, align 8, !dbg !1305
+  store i32 0, i32* %ii, align 4, !dbg !1306
+  br label %for.cond22, !dbg !1307
+
+for.cond22:                                       ; preds = %for.inc62, %for.end
+  %15 = load i32, i32* %ii, align 4, !dbg !1308
+  %cmp23 = icmp slt i32 %15, 65536, !dbg !1309
+  br i1 %cmp23, label %for.body24, label %for.end64, !dbg !1310
+
+for.body24:                                       ; preds = %for.cond22
+  %arraydecay = getelementptr inbounds [256 x double], [256 x double]* %x_local, i64 0, i64 0, !dbg !1311
+  call void @_Z13vranlc_deviceiPddS_(i32 256, double* %seed, double 0x41D2309CE5400000, double* %arraydecay) #13, !dbg !1312
+  store i32 0, i32* %i, align 4, !dbg !1313
+  br label %for.cond25, !dbg !1314
+
+for.cond25:                                       ; preds = %for.inc59, %for.body24
+  %16 = load i32, i32* %i, align 4, !dbg !1315
+  %cmp26 = icmp slt i32 %16, 128, !dbg !1316
+  br i1 %cmp26, label %for.body27, label %for.end61, !dbg !1317
+
+for.body27:                                       ; preds = %for.cond25
+  %17 = load i32, i32* %i, align 4, !dbg !1318
+  %mul28 = mul nsw i32 2, %17, !dbg !1319
+  %idxprom = sext i32 %mul28 to i64, !dbg !1320
+  %arrayidx29 = getelementptr inbounds [256 x double], [256 x double]* %x_local, i64 0, i64 %idxprom, !dbg !1320
+  %18 = load double, double* %arrayidx29, align 8, !dbg !1320
+  %mul30 = fmul contract double 2.000000e+00, %18, !dbg !1321
+  %sub = fsub contract double %mul30, 1.000000e+00, !dbg !1322
+  store double %sub, double* %x1, align 8, !dbg !1323
+  %19 = load i32, i32* %i, align 4, !dbg !1324
+  %mul31 = mul nsw i32 2, %19, !dbg !1325
+  %add32 = add nsw i32 %mul31, 1, !dbg !1326
+  %idxprom33 = sext i32 %add32 to i64, !dbg !1327
+  %arrayidx34 = getelementptr inbounds [256 x double], [256 x double]* %x_local, i64 0, i64 %idxprom33, !dbg !1327
+  %20 = load double, double* %arrayidx34, align 8, !dbg !1327
+  %mul35 = fmul contract double 2.000000e+00, %20, !dbg !1328
+  %sub36 = fsub contract double %mul35, 1.000000e+00, !dbg !1329
+  store double %sub36, double* %x2, align 8, !dbg !1330
+  %21 = load double, double* %x1, align 8, !dbg !1331
+  %22 = load double, double* %x1, align 8, !dbg !1332
+  %mul37 = fmul contract double %21, %22, !dbg !1333
+  %23 = load double, double* %x2, align 8, !dbg !1334
+  %24 = load double, double* %x2, align 8, !dbg !1335
+  %mul38 = fmul contract double %23, %24, !dbg !1336
+  %add39 = fadd contract double %mul37, %mul38, !dbg !1337
+  store double %add39, double* %t1, align 8, !dbg !1338
+  %25 = load double, double* %t1, align 8, !dbg !1339
+  %cmp40 = fcmp ole double %25, 1.000000e+00, !dbg !1340
+  br i1 %cmp40, label %if.then41, label %if.end58, !dbg !1341
+
+if.then41:                                        ; preds = %for.body27
+  %26 = load double, double* %t1, align 8, !dbg !1342
+  store double %26, double* %a.addr.i, align 8
+  %log_result = call double @log(double %26)
+  %27 = load double, double* %a.addr.i, align 8, !dbg !1343
+  %28 = call i32 @llvm.nvvm.d2i.hi(double %27) #12, !dbg !1344
+  %29 = call i32 @llvm.nvvm.d2i.lo(double %27) #12, !dbg !1344
+  %30 = fcmp ogt double %27, 0.000000e+00, !dbg !1344
+  br label %_ZL3logd.exit
+
+_ZL3logd.exit:                                    ; preds = %if.then41
+  %mul43 = fmul contract double -2.000000e+00, %log_result, !dbg !1345
+  %31 = load double, double* %t1, align 8, !dbg !1346
+  %div44 = fdiv double %mul43, %31, !dbg !1347
+  store double %div44, double* %x.addr.i, align 8
+  %32 = load double, double* %x.addr.i, align 8, !dbg !1348
+  %33 = call double @sqrt(double %32)
+  store double %33, double* %t2, align 8, !dbg !1349
+  %34 = load double, double* %x1, align 8, !dbg !1350
+  %35 = load double, double* %t2, align 8, !dbg !1351
+  %mul46 = fmul contract double %34, %35, !dbg !1352
+  store double %mul46, double* %t3, align 8, !dbg !1353
+  %36 = load double, double* %x2, align 8, !dbg !1354
+  %37 = load double, double* %t2, align 8, !dbg !1355
+  %mul47 = fmul contract double %36, %37, !dbg !1356
+  store double %mul47, double* %t4, align 8, !dbg !1357
+  %38 = load double, double* %t3, align 8, !dbg !1358
+  store double %38, double* %f.addr.i67, align 8
+  %39 = load double, double* %f.addr.i67, align 8, !dbg !1359
+  %40 = call double @fabs(double %39)
+  %41 = load double, double* %t4, align 8, !dbg !1358
+  store double %41, double* %f.addr.i66, align 8
+  %42 = load double, double* %f.addr.i66, align 8, !dbg !1360
+  %43 = call double @fabs(double %42)
+  %cmp50 = fcmp ogt double %40, %43, !dbg !1358
+  br i1 %cmp50, label %cond.true, label %cond.false, !dbg !1358
+
+cond.true:                                        ; preds = %_ZL3logd.exit
+  %44 = load double, double* %t3, align 8, !dbg !1358
+  store double %44, double* %f.addr.i65, align 8
+  %45 = load double, double* %f.addr.i65, align 8, !dbg !1361
+  %46 = call double @fabs(double %45)
+  br label %cond.end, !dbg !1358
+
+cond.false:                                       ; preds = %_ZL3logd.exit
+  %47 = load double, double* %t4, align 8, !dbg !1358
+  store double %47, double* %f.addr.i, align 8
+  %48 = load double, double* %f.addr.i, align 8, !dbg !1362
+  %49 = call double @fabs(double %48)
+  br label %cond.end, !dbg !1358
+
+cond.end:                                         ; preds = %cond.false, %cond.true
+  %cond = phi double [ %46, %cond.true ], [ %49, %cond.false ], !dbg !1358
+  %conv = fptosi double %cond to i32, !dbg !1358
+  store i32 %conv, i32* %l, align 4, !dbg !1363
+  %50 = load i32, i32* %l, align 4, !dbg !1364
+  %idxprom53 = sext i32 %50 to i64, !dbg !1365
+  %arrayidx54 = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 %idxprom53, !dbg !1365
+  %51 = load double, double* %arrayidx54, align 8, !dbg !1366
+  %add55 = fadd contract double %51, 1.000000e+00, !dbg !1366
+  store double %add55, double* %arrayidx54, align 8, !dbg !1366
+  %52 = load double, double* %sx_local, align 8, !dbg !1367
+  %53 = load double, double* %t3, align 8, !dbg !1368
+  %add56 = fadd contract double %52, %53, !dbg !1369
+  store double %add56, double* %sx_local, align 8, !dbg !1370
+  %54 = load double, double* %t4, align 8, !dbg !1371
+  %55 = load double, double* %sy_local, align 8, !dbg !1372
+  %add57 = fadd contract double %55, %54, !dbg !1372
+  store double %add57, double* %sy_local, align 8, !dbg !1372
+  br label %if.end58, !dbg !1373
+
+if.end58:                                         ; preds = %cond.end, %for.body27
+  br label %for.inc59, !dbg !1374
+
+for.inc59:                                        ; preds = %if.end58
+  %56 = load i32, i32* %i, align 4, !dbg !1375
+  %inc60 = add nsw i32 %56, 1, !dbg !1375
+  store i32 %inc60, i32* %i, align 4, !dbg !1375
+  br label %for.cond25, !dbg !1376, !llvm.loop !1377
+
+for.end61:                                        ; preds = %for.cond25
+  br label %for.inc62, !dbg !1379
+
+for.inc62:                                        ; preds = %for.end61
+  %57 = load i32, i32* %ii, align 4, !dbg !1380
+  %add63 = add nsw i32 %57, 128, !dbg !1381
+  store i32 %add63, i32* %ii, align 4, !dbg !1382
+  br label %for.cond22, !dbg !1383, !llvm.loop !1384
+
+for.end64:                                        ; preds = %for.cond22, %if.then
+  ret void, !dbg !1386
+}
+
+MergeKernel: created new Function: 
+declare void @gpu_kernel(double*, double*, double*, double, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32)
+
+
+; Function Attrs: convergent noinline nounwind
+define dso_local void @gpu_kernel(double* %q_global, double* %sx_global, double* %sy_global, double %an, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32) #0 {
+entry:
+  %a.addr.i = alloca double, align 8
+  call void @llvm.dbg.declare(metadata double* %a.addr.i, metadata !1046, metadata !DIExpression()), !dbg !1049
+  %x.addr.i = alloca double, align 8
+  call void @llvm.dbg.declare(metadata double* %x.addr.i, metadata !1062, metadata !DIExpression()), !dbg !1064
+  %f.addr.i67 = alloca double, align 8
+  call void @llvm.dbg.declare(metadata double* %f.addr.i67, metadata !1066, metadata !DIExpression()), !dbg !1068
+  %f.addr.i66 = alloca double, align 8
+  call void @llvm.dbg.declare(metadata double* %f.addr.i66, metadata !1066, metadata !DIExpression()), !dbg !1070
+  %f.addr.i65 = alloca double, align 8
+  call void @llvm.dbg.declare(metadata double* %f.addr.i65, metadata !1066, metadata !DIExpression()), !dbg !1072
+  %f.addr.i = alloca double, align 8
+  call void @llvm.dbg.declare(metadata double* %f.addr.i, metadata !1066, metadata !DIExpression()), !dbg !1074
+  %q_global.addr = alloca double*, align 8
+  %sx_global.addr = alloca double*, align 8
+  %sy_global.addr = alloca double*, align 8
+  %an.addr = alloca double, align 8
+  %x_local = alloca [256 x double], align 8
+  %q_local = alloca [10 x double], align 8
+  %sx_local = alloca double, align 8
+  %sy_local = alloca double, align 8
+  %t1 = alloca double, align 8
+  %t2 = alloca double, align 8
+  %t3 = alloca double, align 8
+  %t4 = alloca double, align 8
+  %x1 = alloca double, align 8
+  %x2 = alloca double, align 8
+  %seed = alloca double, align 8
+  %i = alloca i32, align 4
+  %ii = alloca i32, align 4
+  %ik = alloca i32, align 4
+  %kk = alloca i32, align 4
+  %l = alloca i32, align 4
+  store double* %q_global, double** %q_global.addr, align 8
+  call void @llvm.dbg.declare(metadata double** %q_global.addr, metadata !1076, metadata !DIExpression()), !dbg !1077
+  store double* %sx_global, double** %sx_global.addr, align 8
+  call void @llvm.dbg.declare(metadata double** %sx_global.addr, metadata !1078, metadata !DIExpression()), !dbg !1079
+  store double* %sy_global, double** %sy_global.addr, align 8
+  call void @llvm.dbg.declare(metadata double** %sy_global.addr, metadata !1080, metadata !DIExpression()), !dbg !1081
+  store double %an, double* %an.addr, align 8
+  call void @llvm.dbg.declare(metadata double* %an.addr, metadata !1082, metadata !DIExpression()), !dbg !1083
+  call void @llvm.dbg.declare(metadata [256 x double]* %x_local, metadata !1084, metadata !DIExpression()), !dbg !1086
+  call void @llvm.dbg.declare(metadata [10 x double]* %q_local, metadata !1087, metadata !DIExpression()), !dbg !1091
+  call void @llvm.dbg.declare(metadata double* %sx_local, metadata !1092, metadata !DIExpression()), !dbg !1093
+  call void @llvm.dbg.declare(metadata double* %sy_local, metadata !1094, metadata !DIExpression()), !dbg !1095
+  call void @llvm.dbg.declare(metadata double* %t1, metadata !1096, metadata !DIExpression()), !dbg !1097
+  call void @llvm.dbg.declare(metadata double* %t2, metadata !1098, metadata !DIExpression()), !dbg !1099
+  call void @llvm.dbg.declare(metadata double* %t3, metadata !1100, metadata !DIExpression()), !dbg !1101
+  call void @llvm.dbg.declare(metadata double* %t4, metadata !1102, metadata !DIExpression()), !dbg !1103
+  call void @llvm.dbg.declare(metadata double* %x1, metadata !1104, metadata !DIExpression()), !dbg !1105
+  call void @llvm.dbg.declare(metadata double* %x2, metadata !1106, metadata !DIExpression()), !dbg !1107
+  call void @llvm.dbg.declare(metadata double* %seed, metadata !1108, metadata !DIExpression()), !dbg !1109
+  call void @llvm.dbg.declare(metadata i32* %i, metadata !1110, metadata !DIExpression()), !dbg !1111
+  call void @llvm.dbg.declare(metadata i32* %ii, metadata !1112, metadata !DIExpression()), !dbg !1113
+  call void @llvm.dbg.declare(metadata i32* %ik, metadata !1114, metadata !DIExpression()), !dbg !1115
+  call void @llvm.dbg.declare(metadata i32* %kk, metadata !1116, metadata !DIExpression()), !dbg !1117
+  call void @llvm.dbg.declare(metadata i32* %l, metadata !1118, metadata !DIExpression()), !dbg !1119
+  %arrayidx = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 0, !dbg !1120
+  store double 0.000000e+00, double* %arrayidx, align 8, !dbg !1121
+  %arrayidx1 = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 1, !dbg !1122
+  store double 0.000000e+00, double* %arrayidx1, align 8, !dbg !1123
+  %arrayidx2 = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 2, !dbg !1124
+  store double 0.000000e+00, double* %arrayidx2, align 8, !dbg !1125
+  %arrayidx3 = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 3, !dbg !1126
+  store double 0.000000e+00, double* %arrayidx3, align 8, !dbg !1127
+  %arrayidx4 = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 4, !dbg !1128
+  store double 0.000000e+00, double* %arrayidx4, align 8, !dbg !1129
+  %arrayidx5 = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 5, !dbg !1130
+  store double 0.000000e+00, double* %arrayidx5, align 8, !dbg !1131
+  %arrayidx6 = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 6, !dbg !1132
+  store double 0.000000e+00, double* %arrayidx6, align 8, !dbg !1133
+  %arrayidx7 = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 7, !dbg !1134
+  store double 0.000000e+00, double* %arrayidx7, align 8, !dbg !1135
+  %arrayidx8 = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 8, !dbg !1136
+  store double 0.000000e+00, double* %arrayidx8, align 8, !dbg !1137
+  %arrayidx9 = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 9, !dbg !1138
+  store double 0.000000e+00, double* %arrayidx9, align 8, !dbg !1139
+  store double 0.000000e+00, double* %sx_local, align 8, !dbg !1140
+  store double 0.000000e+00, double* %sy_local, align 8, !dbg !1141
+  %12 = call i32 @llvm.nvvm.read.ptx.sreg.ctaid.x() #12, !dbg !1142, !range !1179
+  %13 = call i32 @llvm.nvvm.read.ptx.sreg.ntid.x() #12, !dbg !1180, !range !1224
+  %mul = mul i32 %12, %13, !dbg !1225
+  %14 = call i32 @llvm.nvvm.read.ptx.sreg.tid.x() #12, !dbg !1226, !range !1254
+  %add = add i32 %mul, %14, !dbg !1255
+  store i32 %add, i32* %kk, align 4, !dbg !1256
+  %15 = load i32, i32* %kk, align 4, !dbg !1257
+  %cmp = icmp sge i32 %15, 4096, !dbg !1259
+  br i1 %cmp, label %if.then, label %if.end, !dbg !1260
+
+if.then:                                          ; preds = %entry
+  br label %for.end64, !dbg !1261
+
+if.end:                                           ; preds = %entry
+  store double 0x41B033C4D7000000, double* %t1, align 8, !dbg !1263
+  %16 = load double, double* %an.addr, align 8, !dbg !1264
+  store double %16, double* %t2, align 8, !dbg !1265
+  store i32 1, i32* %i, align 4, !dbg !1266
+  br label %for.cond, !dbg !1268
+
+for.cond:                                         ; preds = %for.inc, %if.end
+  %17 = load i32, i32* %i, align 4, !dbg !1269
+  %cmp12 = icmp sle i32 %17, 100, !dbg !1271
+  br i1 %cmp12, label %for.body, label %for.end, !dbg !1272
+
+for.body:                                         ; preds = %for.cond
+  %18 = load i32, i32* %kk, align 4, !dbg !1273
+  %div = sdiv i32 %18, 2, !dbg !1275
+  store i32 %div, i32* %ik, align 4, !dbg !1276
+  %19 = load i32, i32* %ik, align 4, !dbg !1277
+  %mul13 = mul nsw i32 2, %19, !dbg !1279
+  %20 = load i32, i32* %kk, align 4, !dbg !1280
+  %cmp14 = icmp ne i32 %mul13, %20, !dbg !1281
+  br i1 %cmp14, label %if.then15, label %if.end17, !dbg !1282
+
+if.then15:                                        ; preds = %for.body
+  %21 = load double, double* %t2, align 8, !dbg !1283
+  %call16 = call double @_Z13randlc_devicePdd(double* %t1, double %21) #13, !dbg !1285
+  store double %call16, double* %t3, align 8, !dbg !1286
+  br label %if.end17, !dbg !1287
+
+if.end17:                                         ; preds = %if.then15, %for.body
+  %22 = load i32, i32* %ik, align 4, !dbg !1288
+  %cmp18 = icmp eq i32 %22, 0, !dbg !1290
+  br i1 %cmp18, label %if.then19, label %if.end20, !dbg !1291
+
+if.then19:                                        ; preds = %if.end17
+  br label %for.end, !dbg !1292
+
+if.end20:                                         ; preds = %if.end17
+  %23 = load double, double* %t2, align 8, !dbg !1294
+  %call21 = call double @_Z13randlc_devicePdd(double* %t2, double %23) #13, !dbg !1295
+  store double %call21, double* %t3, align 8, !dbg !1296
+  %24 = load i32, i32* %ik, align 4, !dbg !1297
+  store i32 %24, i32* %kk, align 4, !dbg !1298
+  br label %for.inc, !dbg !1299
+
+for.inc:                                          ; preds = %if.end20
+  %25 = load i32, i32* %i, align 4, !dbg !1300
+  %inc = add nsw i32 %25, 1, !dbg !1300
+  store i32 %inc, i32* %i, align 4, !dbg !1300
+  br label %for.cond, !dbg !1301, !llvm.loop !1302
+
+for.end:                                          ; preds = %if.then19, %for.cond
+  %26 = load double, double* %t1, align 8, !dbg !1304
+  store double %26, double* %seed, align 8, !dbg !1305
+  store i32 0, i32* %ii, align 4, !dbg !1306
+  br label %for.cond22, !dbg !1307
+
+for.cond22:                                       ; preds = %for.inc62, %for.end
+  %27 = load i32, i32* %ii, align 4, !dbg !1308
+  %cmp23 = icmp slt i32 %27, 65536, !dbg !1309
+  br i1 %cmp23, label %for.body24, label %for.end64, !dbg !1310
+
+for.body24:                                       ; preds = %for.cond22
+  %arraydecay = getelementptr inbounds [256 x double], [256 x double]* %x_local, i64 0, i64 0, !dbg !1311
+  call void @_Z13vranlc_deviceiPddS_(i32 256, double* %seed, double 0x41D2309CE5400000, double* %arraydecay) #13, !dbg !1312
+  store i32 0, i32* %i, align 4, !dbg !1313
+  br label %for.cond25, !dbg !1314
+
+for.cond25:                                       ; preds = %for.inc59, %for.body24
+  %28 = load i32, i32* %i, align 4, !dbg !1315
+  %cmp26 = icmp slt i32 %28, 128, !dbg !1316
+  br i1 %cmp26, label %for.body27, label %for.end61, !dbg !1317
+
+for.body27:                                       ; preds = %for.cond25
+  %29 = load i32, i32* %i, align 4, !dbg !1318
+  %mul28 = mul nsw i32 2, %29, !dbg !1319
+  %idxprom = sext i32 %mul28 to i64, !dbg !1320
+  %arrayidx29 = getelementptr inbounds [256 x double], [256 x double]* %x_local, i64 0, i64 %idxprom, !dbg !1320
+  %30 = load double, double* %arrayidx29, align 8, !dbg !1320
+  %mul30 = fmul contract double 2.000000e+00, %30, !dbg !1321
+  %sub = fsub contract double %mul30, 1.000000e+00, !dbg !1322
+  store double %sub, double* %x1, align 8, !dbg !1323
+  %31 = load i32, i32* %i, align 4, !dbg !1324
+  %mul31 = mul nsw i32 2, %31, !dbg !1325
+  %add32 = add nsw i32 %mul31, 1, !dbg !1326
+  %idxprom33 = sext i32 %add32 to i64, !dbg !1327
+  %arrayidx34 = getelementptr inbounds [256 x double], [256 x double]* %x_local, i64 0, i64 %idxprom33, !dbg !1327
+  %32 = load double, double* %arrayidx34, align 8, !dbg !1327
+  %mul35 = fmul contract double 2.000000e+00, %32, !dbg !1328
+  %sub36 = fsub contract double %mul35, 1.000000e+00, !dbg !1329
+  store double %sub36, double* %x2, align 8, !dbg !1330
+  %33 = load double, double* %x1, align 8, !dbg !1331
+  %34 = load double, double* %x1, align 8, !dbg !1332
+  %mul37 = fmul contract double %33, %34, !dbg !1333
+  %35 = load double, double* %x2, align 8, !dbg !1334
+  %36 = load double, double* %x2, align 8, !dbg !1335
+  %mul38 = fmul contract double %35, %36, !dbg !1336
+  %add39 = fadd contract double %mul37, %mul38, !dbg !1337
+  store double %add39, double* %t1, align 8, !dbg !1338
+  %37 = load double, double* %t1, align 8, !dbg !1339
+  %cmp40 = fcmp ole double %37, 1.000000e+00, !dbg !1340
+  br i1 %cmp40, label %if.then41, label %if.end58, !dbg !1341
+
+if.then41:                                        ; preds = %for.body27
+  %38 = load double, double* %t1, align 8, !dbg !1342
+  store double %38, double* %a.addr.i, align 8
+  %log_result = call double @log(double %38)
+  %39 = load double, double* %a.addr.i, align 8, !dbg !1343
+  %40 = call i32 @llvm.nvvm.d2i.hi(double %39) #12, !dbg !1344
+  %41 = call i32 @llvm.nvvm.d2i.lo(double %39) #12, !dbg !1344
+  %42 = fcmp ogt double %39, 0.000000e+00, !dbg !1344
+  br label %_ZL3logd.exit
+
+_ZL3logd.exit:                                    ; preds = %if.then41
+  %mul43 = fmul contract double -2.000000e+00, %log_result, !dbg !1345
+  %43 = load double, double* %t1, align 8, !dbg !1346
+  %div44 = fdiv double %mul43, %43, !dbg !1347
+  store double %div44, double* %x.addr.i, align 8
+  %44 = load double, double* %x.addr.i, align 8, !dbg !1348
+  %45 = call double @sqrt(double %44)
+  store double %45, double* %t2, align 8, !dbg !1349
+  %46 = load double, double* %x1, align 8, !dbg !1350
+  %47 = load double, double* %t2, align 8, !dbg !1351
+  %mul46 = fmul contract double %46, %47, !dbg !1352
+  store double %mul46, double* %t3, align 8, !dbg !1353
+  %48 = load double, double* %x2, align 8, !dbg !1354
+  %49 = load double, double* %t2, align 8, !dbg !1355
+  %mul47 = fmul contract double %48, %49, !dbg !1356
+  store double %mul47, double* %t4, align 8, !dbg !1357
+  %50 = load double, double* %t3, align 8, !dbg !1358
+  store double %50, double* %f.addr.i67, align 8
+  %51 = load double, double* %f.addr.i67, align 8, !dbg !1359
+  %52 = call double @fabs(double %51)
+  %53 = load double, double* %t4, align 8, !dbg !1358
+  store double %53, double* %f.addr.i66, align 8
+  %54 = load double, double* %f.addr.i66, align 8, !dbg !1360
+  %55 = call double @fabs(double %54)
+  %cmp50 = fcmp ogt double %52, %55, !dbg !1358
+  br i1 %cmp50, label %cond.true, label %cond.false, !dbg !1358
+
+cond.true:                                        ; preds = %_ZL3logd.exit
+  %56 = load double, double* %t3, align 8, !dbg !1358
+  store double %56, double* %f.addr.i65, align 8
+  %57 = load double, double* %f.addr.i65, align 8, !dbg !1361
+  %58 = call double @fabs(double %57)
+  br label %cond.end, !dbg !1358
+
+cond.false:                                       ; preds = %_ZL3logd.exit
+  %59 = load double, double* %t4, align 8, !dbg !1358
+  store double %59, double* %f.addr.i, align 8
+  %60 = load double, double* %f.addr.i, align 8, !dbg !1362
+  %61 = call double @fabs(double %60)
+  br label %cond.end, !dbg !1358
+
+cond.end:                                         ; preds = %cond.false, %cond.true
+  %cond = phi double [ %58, %cond.true ], [ %61, %cond.false ], !dbg !1358
+  %conv = fptosi double %cond to i32, !dbg !1358
+  store i32 %conv, i32* %l, align 4, !dbg !1363
+  %62 = load i32, i32* %l, align 4, !dbg !1364
+  %idxprom53 = sext i32 %62 to i64, !dbg !1365
+  %arrayidx54 = getelementptr inbounds [10 x double], [10 x double]* %q_local, i64 0, i64 %idxprom53, !dbg !1365
+  %63 = load double, double* %arrayidx54, align 8, !dbg !1366
+  %add55 = fadd contract double %63, 1.000000e+00, !dbg !1366
+  store double %add55, double* %arrayidx54, align 8, !dbg !1366
+  %64 = load double, double* %sx_local, align 8, !dbg !1367
+  %65 = load double, double* %t3, align 8, !dbg !1368
+  %add56 = fadd contract double %64, %65, !dbg !1369
+  store double %add56, double* %sx_local, align 8, !dbg !1370
+  %66 = load double, double* %t4, align 8, !dbg !1371
+  %67 = load double, double* %sy_local, align 8, !dbg !1372
+  %add57 = fadd contract double %67, %66, !dbg !1372
+  store double %add57, double* %sy_local, align 8, !dbg !1372
+  br label %if.end58, !dbg !1373
+
+if.end58:                                         ; preds = %cond.end, %for.body27
+  br label %for.inc59, !dbg !1374
+
+for.inc59:                                        ; preds = %if.end58
+  %68 = load i32, i32* %i, align 4, !dbg !1375
+  %inc60 = add nsw i32 %68, 1, !dbg !1375
+  store i32 %inc60, i32* %i, align 4, !dbg !1375
+  br label %for.cond25, !dbg !1376, !llvm.loop !1377
+
+for.end61:                                        ; preds = %for.cond25
+  br label %for.inc62, !dbg !1379
+
+for.inc62:                                        ; preds = %for.end61
+  %69 = load i32, i32* %ii, align 4, !dbg !1380
+  %add63 = add nsw i32 %69, 128, !dbg !1381
+  store i32 %add63, i32* %ii, align 4, !dbg !1382
+  br label %for.cond22, !dbg !1383, !llvm.loop !1384
+
+for.end64:                                        ; preds = %for.cond22, %if.then
+  ret void, !dbg !1386
+}
+
+mergeKernel: cudaCall2remove:   %0 = call i32 @llvm.nvvm.read.ptx.sreg.ctaid.x() #12, !dbg !1142, !range !1179
+mergeKernel: what do I belong to?
+	entrymergeKernel: cudaCall2remove:   %0 = call i32 @llvm.nvvm.read.ptx.sreg.ntid.x() #12, !dbg !1142, !range !1195
+mergeKernel: what do I belong to?
+	entrymergeKernel: cudaCall2remove:   %0 = call i32 @llvm.nvvm.read.ptx.sreg.tid.x() #12, !dbg !1143, !range !1180
+mergeKernel: what do I belong to?
+	entryANDREW: mergeKernel: originalLd   %31 = load double*, double** @q_host, align 8, !dbg !1159
+mergeKernel: found originalAlloc @q_host = dso_local global double* null, align 8, !dbg !0
+mergeKernel: found originalAlloc user  store double* %8, double** @q_host, align 8, !dbg !1075
+mergeKernel: found originalAlloc store:  store double* %8, double** @q_host, align 8, !dbg !1075
+mergeKernel: found originalAlloc cast:  %8 = bitcast i8* %call to double*, !dbg !1074
+mergeKernel: found originalAlloc ci:  %call = call noalias i8* @malloc(i64 %7) #12, !dbg !1073
+mergeKernel: found originalAlloc user  %49 = load double*, double** @q_host, align 8, !dbg !1187
+mergeKernel: found originalAlloc user  %31 = load double*, double** @q_host, align 8, !dbg !1159
+ANDREW: mergeKernel: originalLd   %36 = load double*, double** @sx_host, align 8, !dbg !1164
+mergeKernel: found originalAlloc @sx_host = dso_local global double* null, align 8, !dbg !107
+mergeKernel: found originalAlloc user  store double* %10, double** @sx_host, align 8, !dbg !1081
+mergeKernel: found originalAlloc store:  store double* %10, double** @sx_host, align 8, !dbg !1081
+mergeKernel: found originalAlloc cast:  %10 = bitcast i8* %call8 to double*, !dbg !1080
+mergeKernel: found originalAlloc ci:  %call8 = call noalias i8* @malloc(i64 %9) #12, !dbg !1079
+mergeKernel: found originalAlloc user  %57 = load double*, double** @sx_host, align 8, !dbg !1202
+mergeKernel: found originalAlloc user  %36 = load double*, double** @sx_host, align 8, !dbg !1164
+ANDREW: mergeKernel: originalLd   %41 = load double*, double** @sy_host, align 8, !dbg !1168
+mergeKernel: found originalAlloc @sy_host = dso_local global double* null, align 8, !dbg !111
+mergeKernel: found originalAlloc user  store double* %12, double** @sy_host, align 8, !dbg !1087
+mergeKernel: found originalAlloc store:  store double* %12, double** @sy_host, align 8, !dbg !1087
+mergeKernel: found originalAlloc cast:  %12 = bitcast i8* %call9 to double*, !dbg !1086
+mergeKernel: found originalAlloc ci:  %call9 = call noalias i8* @malloc(i64 %11) #12, !dbg !1085
+mergeKernel: found originalAlloc user  %61 = load double*, double** @sy_host, align 8, !dbg !1205
+mergeKernel: found originalAlloc user  %41 = load double*, double** @sy_host, align 8, !dbg !1168
+mergeKernel: create metadata  br i1 %exitCheck.1, label %kcall.configok, label %latch.0, !tulip.doall.loop.block !1155
+mergeKernel: create metadata  br i1 %exitCheck.0, label %header.1, label %kcall.end, !tulip.doall.loop.grid !1155
+  call void @ep.ll_CudaFE__Z10gpu_kernelPdS_S_d(double* %27, double* %28, double* %29, double %30), !dbg !1154
+SUSAN: original arg   %27 = load double*, double** @q_host, align 8, !dbg !1156
+SUSAN: original arg   %28 = load double*, double** @sx_host, align 8, !dbg !1157
+SUSAN: original arg   %29 = load double*, double** @sy_host, align 8, !dbg !1158
+SUSAN: original arg   %30 = load double, double* %an, align 8, !dbg !1159
+SUSAN: itnum:   %13 = load i32, i32* @blocks_per_grid, align 4, !dbg !1151
+SUSAN: itnum: i32 1
+SUSAN: itnum: i32 1
+SUSAN: itnum:   %14 = load i32, i32* @threads_per_block, align 4, !dbg !1152
+SUSAN: itnum: i32 1
+SUSAN: itnum: i32 1
+mergeKernel: indvar   %indvar.0 = phi i32 [ 0, %for.end17 ], [ %indvar.next.0, %latch.0 ]
+mergeKernel: indvar i32 0
+mergeKernel: indvar i32 0
+mergeKernel: indvar   %indvar.1 = phi i32 [ 0, %header.0 ], [ %indvar.next.1, %latch.1 ]
+mergeKernel: indvar i32 0
+mergeKernel: indvar i32 0
+mergeKernel: new function kernel Args:   %27 = load double*, double** @q_host, align 8, !dbg !1156
+mergeKernel: new function kernel Args:   %28 = load double*, double** @sx_host, align 8, !dbg !1157
+mergeKernel: new function kernel Args:   %29 = load double*, double** @sy_host, align 8, !dbg !1158
+mergeKernel: new function kernel Args:   %30 = load double, double* %an, align 8, !dbg !1159
+mergeKernel: new function kernel Args:   %13 = load i32, i32* @blocks_per_grid, align 4, !dbg !1151
+mergeKernel: new function kernel Args: i32 1
+mergeKernel: new function kernel Args: i32 1
+mergeKernel: new function kernel Args:   %14 = load i32, i32* @threads_per_block, align 4, !dbg !1152
+mergeKernel: new function kernel Args: i32 1
+mergeKernel: new function kernel Args: i32 1
+mergeKernel: new function kernel Args:   %indvar.0 = phi i32 [ 0, %for.end17 ], [ %indvar.next.0, %latch.0 ]
+mergeKernel: new function kernel Args: i32 0
+mergeKernel: new function kernel Args: i32 0
+mergeKernel: new function kernel Args:   %indvar.1 = phi i32 [ 0, %header.0 ], [ %indvar.next.1, %latch.1 ]
+mergeKernel: new function kernel Args: i32 0
+mergeKernel: new function kernel Args: i32 0
+16
+16
+gpu_kernel type: void (double*, double*, double*, double, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32)
+double*   %27 = load double*, double** @q_host, align 8, !dbg !1156
+double*   %28 = load double*, double** @sx_host, align 8, !dbg !1157
+double*   %29 = load double*, double** @sy_host, align 8, !dbg !1158
+double   %30 = load double, double* %an, align 8, !dbg !1159
+i32   %13 = load i32, i32* @blocks_per_grid, align 4, !dbg !1151
+i32 i32 1
+i32 i32 1
+i32   %14 = load i32, i32* @threads_per_block, align 4, !dbg !1152
+i32 i32 1
+i32 i32 1
+i32   %indvar.0 = phi i32 [ 0, %for.end17 ], [ %indvar.next.0, %latch.0 ]
+i32 i32 0
+i32 i32 0
+i32   %indvar.1 = phi i32 [ 0, %header.0 ], [ %indvar.next.1, %latch.1 ]
+i32 i32 0
+i32 i32 0
+Finished making call for gpu_kernel
+ANDREW: mergeKernel: found exit block: _ZL3logd.exit
