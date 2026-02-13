@@ -124,6 +124,8 @@ struct __FIXME__l_unnamed_1 {
 /* Function Declarations */
 double randlc_device(double*, double) __ATTRIBUTELIST__((noinline, nothrow));
 void vranlc_device(uint32_t, double*, double, double*) __ATTRIBUTELIST__((noinline, nothrow));
+double atomicAdd(double*, double) __ATTRIBUTELIST__((noinline, nothrow));
+uint64_t atomicCAS(uint64_t*, uint64_t, uint64_t) __ATTRIBUTELIST__((noinline, nothrow));
 double randlc(double*, double) __ATTRIBUTELIST__((noinline, nothrow));
 void c_print_results(uint8_t*, int8_t, uint32_t, uint32_t, uint32_t, uint32_t, double, double, uint8_t*, uint32_t, uint8_t*, uint8_t*, uint8_t*, uint8_t*, uint8_t*, uint8_t*, uint8_t*, uint8_t*, uint8_t*, uint8_t*, uint8_t*, uint8_t*, uint8_t*, uint8_t*) __ATTRIBUTELIST__((noinline));
 double pow(double, double) __ATTRIBUTELIST__((nothrow));
@@ -282,7 +284,6 @@ void vranlc_device(uint32_t n, double* x_seed, double a, double* y) {
 
   a2 = (a - (8388608 * (double)(((int32_t)(1.1920928955078125E-7 * a)))));
   x = *x_seed;
-  x = x;
 // INSERT COMMENT LOOP: vranlc_device::for.cond
 for(int64_t i = 0; i < n;   i = i + 1) {
   double x2 = (x - (8388608 * (double)(((int32_t)(1.1920928955078125E-7 * x)))));
@@ -342,6 +343,7 @@ void c_print_results(uint8_t* name, int8_t class_npb, uint32_t n1, uint32_t n2, 
   if (name[1] == 80) { // IFELSE MARKER: land.lhs.true23 IF
   __FIXME__call29 = pow(2, (double)(n1));
   sprintf(size, (_OC_str_OC_4), __FIXME__call29);
+  j = 14;
   if (size[14] == 46) { // IFELSE MARKER: if.then27 IF
   size[14] = 32;
   j = 13;
@@ -368,6 +370,7 @@ void c_print_results(uint8_t* name, int8_t class_npb, uint32_t n1, uint32_t n2, 
   if (name[1] == 80) { // IFELSE MARKER: land.lhs.true23 IF
   __FIXME__call29 = pow(2, (double)(n1));
   sprintf(size, (_OC_str_OC_4), __FIXME__call29);
+  j = 14;
   if (size[14] == 46) { // IFELSE MARKER: if.then27 IF
   size[14] = 32;
   j = 13;
@@ -461,6 +464,7 @@ int main(int argc, char ** argv) {
   _ZL1q = ((double*)__FIXME__call);
   __FIXME__call1 = pow(2, 29);
   sprintf(size, (_OC_str_OC_39), __FIXME__call1);
+  j = 14;
   if (size[14] == 46) { // IFELSE MARKER: entry IF
   j = 13;
   }
@@ -509,9 +513,11 @@ for(int64_t i = 0; i < 10;   i = i + 1) {
   gc = (gc + _ZL1q[i]);
 }
 // INSERT COMMENT IFELSE: main::for.end55
+  verified = 1;
   if (1 != 0) { // IFELSE MARKER: for.end55 IF
   sx_err = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_fabs_OC_f64(((sx - -4295.8751656298919) / -4295.8751656298919));
   sy_err = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_fabs_OC_f64(((sy - -15807.325736784311) / -15807.325736784311));
+  __FIXME__2 = 0;
   if (llvm_fcmp_ole(sx_err, 1.0E-8)) { // IFELSE MARKER: if.then57 IF
   }
   }
@@ -546,6 +552,8 @@ void setup_gpu(void) {
   uint8_t* __FIXME__call9;
 
 // INSERT COMMENT IFELSE: setup_gpu::entry
+  *(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4) = 32;
+  *(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6) = 32;
   if (32 <= ((int32_t)*(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: entry IF
   threads_per_block = 32;
   } else { // IFELSE MARKER: entry ELSE
@@ -650,6 +658,30 @@ for(int64_t i = 0; i < 128;   i = i + 1) {
   }
 }
 }
+  #pragma omp atomic update
+  *((q_global+__FIXME__blockIdx_2e_x * 10)) += q_local[0];
+  #pragma omp atomic update
+  *(((q_global+__FIXME__blockIdx_2e_x * 10)+1)) += q_local[1];
+  #pragma omp atomic update
+  *(((q_global+__FIXME__blockIdx_2e_x * 10)+2)) += q_local[2];
+  #pragma omp atomic update
+  *(((q_global+__FIXME__blockIdx_2e_x * 10)+3)) += q_local[3];
+  #pragma omp atomic update
+  *(((q_global+__FIXME__blockIdx_2e_x * 10)+4)) += q_local[4];
+  #pragma omp atomic update
+  *(((q_global+__FIXME__blockIdx_2e_x * 10)+5)) += q_local[5];
+  #pragma omp atomic update
+  *(((q_global+__FIXME__blockIdx_2e_x * 10)+6)) += q_local[6];
+  #pragma omp atomic update
+  *(((q_global+__FIXME__blockIdx_2e_x * 10)+7)) += q_local[7];
+  #pragma omp atomic update
+  *(((q_global+__FIXME__blockIdx_2e_x * 10)+8)) += q_local[8];
+  #pragma omp atomic update
+  *(((q_global+__FIXME__blockIdx_2e_x * 10)+9)) += q_local[9];
+  #pragma omp atomic update
+  *((sx_global+__FIXME__blockIdx_2e_x)) += sx_local;
+  #pragma omp atomic update
+  *((sy_global+__FIXME__blockIdx_2e_x)) += sy_local;
   return;
 }
 // FUNCTION ORDER ID 6 END

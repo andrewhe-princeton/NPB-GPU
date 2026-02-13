@@ -536,18 +536,18 @@ __global__ void gpu_kernel(double* q_global,
 		}
 	}
 
-	// atomicAdd(q_global+blockIdx.x*NQ+0, q_local[0]); 
-	// atomicAdd(q_global+blockIdx.x*NQ+1, q_local[1]); 
-	// atomicAdd(q_global+blockIdx.x*NQ+2, q_local[2]); 
-	// atomicAdd(q_global+blockIdx.x*NQ+3, q_local[3]); 
-	// atomicAdd(q_global+blockIdx.x*NQ+4, q_local[4]); 
-	// atomicAdd(q_global+blockIdx.x*NQ+5, q_local[5]); 
-	// atomicAdd(q_global+blockIdx.x*NQ+6, q_local[6]); 
-	// atomicAdd(q_global+blockIdx.x*NQ+7, q_local[7]); 
-	// atomicAdd(q_global+blockIdx.x*NQ+8, q_local[8]);
-	// atomicAdd(q_global+blockIdx.x*NQ+9, q_local[9]); 
-	// atomicAdd(sx_global+blockIdx.x, sx_local); 
-	// atomicAdd(sy_global+blockIdx.x, sy_local);
+	atomicAdd(q_global+blockIdx.x*NQ+0, q_local[0]); 
+	atomicAdd(q_global+blockIdx.x*NQ+1, q_local[1]); 
+	atomicAdd(q_global+blockIdx.x*NQ+2, q_local[2]); 
+	atomicAdd(q_global+blockIdx.x*NQ+3, q_local[3]); 
+	atomicAdd(q_global+blockIdx.x*NQ+4, q_local[4]); 
+	atomicAdd(q_global+blockIdx.x*NQ+5, q_local[5]); 
+	atomicAdd(q_global+blockIdx.x*NQ+6, q_local[6]); 
+	atomicAdd(q_global+blockIdx.x*NQ+7, q_local[7]); 
+	atomicAdd(q_global+blockIdx.x*NQ+8, q_local[8]);
+	atomicAdd(q_global+blockIdx.x*NQ+9, q_local[9]); 
+	atomicAdd(sx_global+blockIdx.x, sx_local); 
+	atomicAdd(sy_global+blockIdx.x, sy_local);
 }
 
 __device__ double randlc_device(double* x, 
@@ -620,7 +620,9 @@ static void setup_gpu(){
 
 	// cudaSetDevice(gpu_device_id);	
 	// cudaGetDeviceProperties(&gpu_device_properties, gpu_device_id);
-
+	
+	gpu_device_properties.warpSize = 32;
+	gpu_device_properties.maxThreadsPerBlock = 32;
 	/* define threads_per_block */
 	if((EP_THREADS_PER_BLOCK>=1)&&
 			(EP_THREADS_PER_BLOCK<=gpu_device_properties.maxThreadsPerBlock)){

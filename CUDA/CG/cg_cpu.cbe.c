@@ -456,6 +456,7 @@ void c_print_results(uint8_t* name, int8_t class_npb, uint32_t n1, uint32_t n2, 
   if (name[1] == 80) { // IFELSE MARKER: land.lhs.true23 IF
   __FIXME__call29 = pow(2, (double)(n1));
   sprintf(size, (_OC_str_OC_4), __FIXME__call29);
+  j = 14;
   if (size[14] == 46) { // IFELSE MARKER: if.then27 IF
   size[14] = 32;
   j = 13;
@@ -482,6 +483,7 @@ void c_print_results(uint8_t* name, int8_t class_npb, uint32_t n1, uint32_t n2, 
   if (name[1] == 80) { // IFELSE MARKER: land.lhs.true23 IF
   __FIXME__call29 = pow(2, (double)(n1));
   sprintf(size, (_OC_str_OC_4), __FIXME__call29);
+  j = 14;
   if (size[14] == 46) { // IFELSE MARKER: if.then27 IF
   size[14] = 32;
   j = 13;
@@ -779,6 +781,7 @@ for(int64_t j = 0; j < _ZL3naa + 1;   j = j + 1) {
 for(int64_t j = 0; j < (_ZL7lastcol - _ZL8firstcol) + 1;   j = j + 1) {
   rho = (__FIXME__rho_2e_1 + (r[j] * r[j]));
 }
+  __FIXME__rho_2e_1 = rho;
 // INSERT COMMENT LOOP: conj_grad::for.cond23
 for(int32_t cgit = 1; cgit < 26;   cgit = cgit + 1) {
 for(int64_t j = 0; j < (_ZL7lastrow - _ZL8firstrow) + 1;   j = j + 1) {

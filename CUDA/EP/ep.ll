@@ -868,137 +868,139 @@ declare dso_local noalias i8* @malloc(i64) #4
 ; Function Attrs: noinline uwtable
 define internal void @_ZL9setup_gpuv() #2 !dbg !1533 {
 entry:
-  %0 = load i32, i32* getelementptr inbounds (%struct.cudaDeviceProp, %struct.cudaDeviceProp* @gpu_device_properties, i32 0, i32 6), align 8, !dbg !1534
-  %cmp = icmp sle i32 32, %0, !dbg !1536
-  br i1 %cmp, label %if.then, label %if.else, !dbg !1537
+  store i32 32, i32* getelementptr inbounds (%struct.cudaDeviceProp, %struct.cudaDeviceProp* @gpu_device_properties, i32 0, i32 4), align 4, !dbg !1534
+  store i32 32, i32* getelementptr inbounds (%struct.cudaDeviceProp, %struct.cudaDeviceProp* @gpu_device_properties, i32 0, i32 6), align 8, !dbg !1535
+  %0 = load i32, i32* getelementptr inbounds (%struct.cudaDeviceProp, %struct.cudaDeviceProp* @gpu_device_properties, i32 0, i32 6), align 8, !dbg !1536
+  %cmp = icmp sle i32 32, %0, !dbg !1538
+  br i1 %cmp, label %if.then, label %if.else, !dbg !1539
 
 if.then:                                          ; preds = %entry
-  store i32 32, i32* @threads_per_block, align 4, !dbg !1538
-  br label %if.end, !dbg !1540
+  store i32 32, i32* @threads_per_block, align 4, !dbg !1540
+  br label %if.end, !dbg !1542
 
 if.else:                                          ; preds = %entry
-  %1 = load i32, i32* getelementptr inbounds (%struct.cudaDeviceProp, %struct.cudaDeviceProp* @gpu_device_properties, i32 0, i32 4), align 4, !dbg !1541
-  store i32 %1, i32* @threads_per_block, align 4, !dbg !1543
+  %1 = load i32, i32* getelementptr inbounds (%struct.cudaDeviceProp, %struct.cudaDeviceProp* @gpu_device_properties, i32 0, i32 4), align 4, !dbg !1543
+  store i32 %1, i32* @threads_per_block, align 4, !dbg !1545
   br label %if.end
 
 if.end:                                           ; preds = %if.else, %if.then
-  %2 = load i32, i32* @threads_per_block, align 4, !dbg !1544
-  %conv = sitofp i32 %2 to double, !dbg !1544
-  %div = fdiv double 4.096000e+03, %conv, !dbg !1545
-  %3 = call double @llvm.ceil.f64(double %div), !dbg !1546
-  %conv1 = fptosi double %3 to i32, !dbg !1547
-  store i32 %conv1, i32* @blocks_per_grid, align 4, !dbg !1548
-  %4 = load i32, i32* @blocks_per_grid, align 4, !dbg !1549
-  %mul = mul nsw i32 %4, 10, !dbg !1550
-  %conv2 = sext i32 %mul to i64, !dbg !1549
-  %mul3 = mul i64 %conv2, 8, !dbg !1551
-  store i64 %mul3, i64* @size_q, align 8, !dbg !1552
-  %5 = load i32, i32* @blocks_per_grid, align 4, !dbg !1553
-  %conv4 = sext i32 %5 to i64, !dbg !1553
-  %mul5 = mul i64 %conv4, 8, !dbg !1554
-  store i64 %mul5, i64* @size_sx, align 8, !dbg !1555
-  %6 = load i32, i32* @blocks_per_grid, align 4, !dbg !1556
-  %conv6 = sext i32 %6 to i64, !dbg !1556
-  %mul7 = mul i64 %conv6, 8, !dbg !1557
-  store i64 %mul7, i64* @size_sy, align 8, !dbg !1558
-  %7 = load i64, i64* @size_q, align 8, !dbg !1559
-  %call = call noalias i8* @malloc(i64 %7) #7, !dbg !1560
-  %8 = bitcast i8* %call to double*, !dbg !1561
-  store double* %8, double** @q_host, align 8, !dbg !1562
-  %9 = load i64, i64* @size_sx, align 8, !dbg !1563
-  %call8 = call noalias i8* @malloc(i64 %9) #7, !dbg !1564
-  %10 = bitcast i8* %call8 to double*, !dbg !1565
-  store double* %10, double** @sx_host, align 8, !dbg !1566
-  %11 = load i64, i64* @size_sy, align 8, !dbg !1567
-  %call9 = call noalias i8* @malloc(i64 %11) #7, !dbg !1568
-  %12 = bitcast i8* %call9 to double*, !dbg !1569
-  store double* %12, double** @sy_host, align 8, !dbg !1570
-  %13 = load i64, i64* @size_q, align 8, !dbg !1571
-  %call10 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @q_device, i64 %13), !dbg !1572
-  %14 = load i64, i64* @size_sx, align 8, !dbg !1573
-  %call11 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @sx_device, i64 %14), !dbg !1574
-  %15 = load i64, i64* @size_sy, align 8, !dbg !1575
-  %call12 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @sy_device, i64 %15), !dbg !1576
-  ret void, !dbg !1577
+  %2 = load i32, i32* @threads_per_block, align 4, !dbg !1546
+  %conv = sitofp i32 %2 to double, !dbg !1546
+  %div = fdiv double 4.096000e+03, %conv, !dbg !1547
+  %3 = call double @llvm.ceil.f64(double %div), !dbg !1548
+  %conv1 = fptosi double %3 to i32, !dbg !1549
+  store i32 %conv1, i32* @blocks_per_grid, align 4, !dbg !1550
+  %4 = load i32, i32* @blocks_per_grid, align 4, !dbg !1551
+  %mul = mul nsw i32 %4, 10, !dbg !1552
+  %conv2 = sext i32 %mul to i64, !dbg !1551
+  %mul3 = mul i64 %conv2, 8, !dbg !1553
+  store i64 %mul3, i64* @size_q, align 8, !dbg !1554
+  %5 = load i32, i32* @blocks_per_grid, align 4, !dbg !1555
+  %conv4 = sext i32 %5 to i64, !dbg !1555
+  %mul5 = mul i64 %conv4, 8, !dbg !1556
+  store i64 %mul5, i64* @size_sx, align 8, !dbg !1557
+  %6 = load i32, i32* @blocks_per_grid, align 4, !dbg !1558
+  %conv6 = sext i32 %6 to i64, !dbg !1558
+  %mul7 = mul i64 %conv6, 8, !dbg !1559
+  store i64 %mul7, i64* @size_sy, align 8, !dbg !1560
+  %7 = load i64, i64* @size_q, align 8, !dbg !1561
+  %call = call noalias i8* @malloc(i64 %7) #7, !dbg !1562
+  %8 = bitcast i8* %call to double*, !dbg !1563
+  store double* %8, double** @q_host, align 8, !dbg !1564
+  %9 = load i64, i64* @size_sx, align 8, !dbg !1565
+  %call8 = call noalias i8* @malloc(i64 %9) #7, !dbg !1566
+  %10 = bitcast i8* %call8 to double*, !dbg !1567
+  store double* %10, double** @sx_host, align 8, !dbg !1568
+  %11 = load i64, i64* @size_sy, align 8, !dbg !1569
+  %call9 = call noalias i8* @malloc(i64 %11) #7, !dbg !1570
+  %12 = bitcast i8* %call9 to double*, !dbg !1571
+  store double* %12, double** @sy_host, align 8, !dbg !1572
+  %13 = load i64, i64* @size_q, align 8, !dbg !1573
+  %call10 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @q_device, i64 %13), !dbg !1574
+  %14 = load i64, i64* @size_sx, align 8, !dbg !1575
+  %call11 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @sx_device, i64 %14), !dbg !1576
+  %15 = load i64, i64* @size_sy, align 8, !dbg !1577
+  %call12 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @sy_device, i64 %15), !dbg !1578
+  ret void, !dbg !1579
 }
 
 declare dso_local i32 @cudaConfigureCall(i64, i32, i64, i32, i64, %struct.CUstream_st*) #3
 
 ; Function Attrs: noinline nounwind uwtable
-define linkonce_odr dso_local void @_ZN4dim3C2Ejjj(%struct.dim3* %this, i32 %vx, i32 %vy, i32 %vz) unnamed_addr #0 comdat align 2 !dbg !1578 {
+define linkonce_odr dso_local void @_ZN4dim3C2Ejjj(%struct.dim3* %this, i32 %vx, i32 %vy, i32 %vz) unnamed_addr #0 comdat align 2 !dbg !1580 {
 entry:
   %this.addr = alloca %struct.dim3*, align 8
   %vx.addr = alloca i32, align 4
   %vy.addr = alloca i32, align 4
   %vz.addr = alloca i32, align 4
   store %struct.dim3* %this, %struct.dim3** %this.addr, align 8
-  call void @llvm.dbg.declare(metadata %struct.dim3** %this.addr, metadata !1601, metadata !DIExpression()), !dbg !1603
+  call void @llvm.dbg.declare(metadata %struct.dim3** %this.addr, metadata !1603, metadata !DIExpression()), !dbg !1605
   store i32 %vx, i32* %vx.addr, align 4
-  call void @llvm.dbg.declare(metadata i32* %vx.addr, metadata !1604, metadata !DIExpression()), !dbg !1605
+  call void @llvm.dbg.declare(metadata i32* %vx.addr, metadata !1606, metadata !DIExpression()), !dbg !1607
   store i32 %vy, i32* %vy.addr, align 4
-  call void @llvm.dbg.declare(metadata i32* %vy.addr, metadata !1606, metadata !DIExpression()), !dbg !1607
+  call void @llvm.dbg.declare(metadata i32* %vy.addr, metadata !1608, metadata !DIExpression()), !dbg !1609
   store i32 %vz, i32* %vz.addr, align 4
-  call void @llvm.dbg.declare(metadata i32* %vz.addr, metadata !1608, metadata !DIExpression()), !dbg !1609
+  call void @llvm.dbg.declare(metadata i32* %vz.addr, metadata !1610, metadata !DIExpression()), !dbg !1611
   %this1 = load %struct.dim3*, %struct.dim3** %this.addr, align 8
-  %x = getelementptr inbounds %struct.dim3, %struct.dim3* %this1, i32 0, i32 0, !dbg !1610
-  %0 = load i32, i32* %vx.addr, align 4, !dbg !1611
-  store i32 %0, i32* %x, align 4, !dbg !1610
-  %y = getelementptr inbounds %struct.dim3, %struct.dim3* %this1, i32 0, i32 1, !dbg !1612
-  %1 = load i32, i32* %vy.addr, align 4, !dbg !1613
-  store i32 %1, i32* %y, align 4, !dbg !1612
-  %z = getelementptr inbounds %struct.dim3, %struct.dim3* %this1, i32 0, i32 2, !dbg !1614
-  %2 = load i32, i32* %vz.addr, align 4, !dbg !1615
-  store i32 %2, i32* %z, align 4, !dbg !1614
-  ret void, !dbg !1616
+  %x = getelementptr inbounds %struct.dim3, %struct.dim3* %this1, i32 0, i32 0, !dbg !1612
+  %0 = load i32, i32* %vx.addr, align 4, !dbg !1613
+  store i32 %0, i32* %x, align 4, !dbg !1612
+  %y = getelementptr inbounds %struct.dim3, %struct.dim3* %this1, i32 0, i32 1, !dbg !1614
+  %1 = load i32, i32* %vy.addr, align 4, !dbg !1615
+  store i32 %1, i32* %y, align 4, !dbg !1614
+  %z = getelementptr inbounds %struct.dim3, %struct.dim3* %this1, i32 0, i32 2, !dbg !1616
+  %2 = load i32, i32* %vz.addr, align 4, !dbg !1617
+  store i32 %2, i32* %z, align 4, !dbg !1616
+  ret void, !dbg !1618
 }
 
 ; Function Attrs: argmemonly nounwind
 declare void @llvm.memcpy.p0i8.p0i8.i64(i8* nocapture writeonly, i8* nocapture readonly, i64, i1 immarg) #6
 
 ; Function Attrs: noinline uwtable
-define dso_local void @_Z10gpu_kernelPdS_S_d(double* %q_global, double* %sx_global, double* %sy_global, double %an) #2 !dbg !1617 {
+define dso_local void @_Z10gpu_kernelPdS_S_d(double* %q_global, double* %sx_global, double* %sy_global, double %an) #2 !dbg !1619 {
 entry:
   %q_global.addr = alloca double*, align 8
   %sx_global.addr = alloca double*, align 8
   %sy_global.addr = alloca double*, align 8
   %an.addr = alloca double, align 8
   store double* %q_global, double** %q_global.addr, align 8
-  call void @llvm.dbg.declare(metadata double** %q_global.addr, metadata !1620, metadata !DIExpression()), !dbg !1621
+  call void @llvm.dbg.declare(metadata double** %q_global.addr, metadata !1622, metadata !DIExpression()), !dbg !1623
   store double* %sx_global, double** %sx_global.addr, align 8
-  call void @llvm.dbg.declare(metadata double** %sx_global.addr, metadata !1622, metadata !DIExpression()), !dbg !1623
+  call void @llvm.dbg.declare(metadata double** %sx_global.addr, metadata !1624, metadata !DIExpression()), !dbg !1625
   store double* %sy_global, double** %sy_global.addr, align 8
-  call void @llvm.dbg.declare(metadata double** %sy_global.addr, metadata !1624, metadata !DIExpression()), !dbg !1625
+  call void @llvm.dbg.declare(metadata double** %sy_global.addr, metadata !1626, metadata !DIExpression()), !dbg !1627
   store double %an, double* %an.addr, align 8
-  call void @llvm.dbg.declare(metadata double* %an.addr, metadata !1626, metadata !DIExpression()), !dbg !1627
-  %0 = bitcast double** %q_global.addr to i8*, !dbg !1628
-  %1 = call i32 @cudaSetupArgument(i8* %0, i64 8, i64 0), !dbg !1628
-  %2 = icmp eq i32 %1, 0, !dbg !1628
-  br i1 %2, label %setup.next, label %setup.end, !dbg !1628
+  call void @llvm.dbg.declare(metadata double* %an.addr, metadata !1628, metadata !DIExpression()), !dbg !1629
+  %0 = bitcast double** %q_global.addr to i8*, !dbg !1630
+  %1 = call i32 @cudaSetupArgument(i8* %0, i64 8, i64 0), !dbg !1630
+  %2 = icmp eq i32 %1, 0, !dbg !1630
+  br i1 %2, label %setup.next, label %setup.end, !dbg !1630
 
 setup.next:                                       ; preds = %entry
-  %3 = bitcast double** %sx_global.addr to i8*, !dbg !1628
-  %4 = call i32 @cudaSetupArgument(i8* %3, i64 8, i64 8), !dbg !1628
-  %5 = icmp eq i32 %4, 0, !dbg !1628
-  br i1 %5, label %setup.next1, label %setup.end, !dbg !1628
+  %3 = bitcast double** %sx_global.addr to i8*, !dbg !1630
+  %4 = call i32 @cudaSetupArgument(i8* %3, i64 8, i64 8), !dbg !1630
+  %5 = icmp eq i32 %4, 0, !dbg !1630
+  br i1 %5, label %setup.next1, label %setup.end, !dbg !1630
 
 setup.next1:                                      ; preds = %setup.next
-  %6 = bitcast double** %sy_global.addr to i8*, !dbg !1628
-  %7 = call i32 @cudaSetupArgument(i8* %6, i64 8, i64 16), !dbg !1628
-  %8 = icmp eq i32 %7, 0, !dbg !1628
-  br i1 %8, label %setup.next2, label %setup.end, !dbg !1628
+  %6 = bitcast double** %sy_global.addr to i8*, !dbg !1630
+  %7 = call i32 @cudaSetupArgument(i8* %6, i64 8, i64 16), !dbg !1630
+  %8 = icmp eq i32 %7, 0, !dbg !1630
+  br i1 %8, label %setup.next2, label %setup.end, !dbg !1630
 
 setup.next2:                                      ; preds = %setup.next1
-  %9 = bitcast double* %an.addr to i8*, !dbg !1628
-  %10 = call i32 @cudaSetupArgument(i8* %9, i64 8, i64 24), !dbg !1628
-  %11 = icmp eq i32 %10, 0, !dbg !1628
-  br i1 %11, label %setup.next3, label %setup.end, !dbg !1628
+  %9 = bitcast double* %an.addr to i8*, !dbg !1630
+  %10 = call i32 @cudaSetupArgument(i8* %9, i64 8, i64 24), !dbg !1630
+  %11 = icmp eq i32 %10, 0, !dbg !1630
+  br i1 %11, label %setup.next3, label %setup.end, !dbg !1630
 
 setup.next3:                                      ; preds = %setup.next2
-  %12 = call i32 @cudaLaunch(i8* bitcast (void (double*, double*, double*, double)* @_Z10gpu_kernelPdS_S_d to i8*)), !dbg !1628
-  br label %setup.end, !dbg !1628
+  %12 = call i32 @cudaLaunch(i8* bitcast (void (double*, double*, double*, double)* @_Z10gpu_kernelPdS_S_d to i8*)), !dbg !1630
+  br label %setup.end, !dbg !1630
 
 setup.end:                                        ; preds = %setup.next3, %setup.next2, %setup.next1, %setup.next, %entry
-  ret void, !dbg !1629
+  ret void, !dbg !1631
 }
 
 declare dso_local i32 @cudaMemcpy(i8*, i8*, i64, i32) #3
@@ -1013,18 +1015,18 @@ declare dso_local i8* @strcpy(i8*, i8*) #4
 declare dso_local i8* @strcat(i8*, i8*) #4
 
 ; Function Attrs: noinline uwtable
-define internal void @_ZL11release_gpuv() #2 !dbg !1630 {
+define internal void @_ZL11release_gpuv() #2 !dbg !1632 {
 entry:
-  %0 = load double*, double** @q_device, align 8, !dbg !1631
-  %1 = bitcast double* %0 to i8*, !dbg !1631
-  %call = call i32 @cudaFree(i8* %1), !dbg !1632
-  %2 = load double*, double** @sx_device, align 8, !dbg !1633
-  %3 = bitcast double* %2 to i8*, !dbg !1633
-  %call1 = call i32 @cudaFree(i8* %3), !dbg !1634
-  %4 = load double*, double** @sy_device, align 8, !dbg !1635
-  %5 = bitcast double* %4 to i8*, !dbg !1635
-  %call2 = call i32 @cudaFree(i8* %5), !dbg !1636
-  ret void, !dbg !1637
+  %0 = load double*, double** @q_device, align 8, !dbg !1633
+  %1 = bitcast double* %0 to i8*, !dbg !1633
+  %call = call i32 @cudaFree(i8* %1), !dbg !1634
+  %2 = load double*, double** @sx_device, align 8, !dbg !1635
+  %3 = bitcast double* %2 to i8*, !dbg !1635
+  %call1 = call i32 @cudaFree(i8* %3), !dbg !1636
+  %4 = load double*, double** @sy_device, align 8, !dbg !1637
+  %5 = bitcast double* %4 to i8*, !dbg !1637
+  %call2 = call i32 @cudaFree(i8* %5), !dbg !1638
+  ret void, !dbg !1639
 }
 
 declare dso_local i32 @cudaSetupArgument(i8*, i64, i64)
@@ -1037,20 +1039,20 @@ declare dso_local i32 @cudaFree(i8*) #3
 declare double @llvm.ceil.f64(double) #1
 
 ; Function Attrs: noinline uwtable
-define internal i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** %devPtr, i64 %size) #2 !dbg !1638 {
+define internal i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** %devPtr, i64 %size) #2 !dbg !1640 {
 entry:
   %devPtr.addr = alloca double**, align 8
   %size.addr = alloca i64, align 8
   store double** %devPtr, double*** %devPtr.addr, align 8
-  call void @llvm.dbg.declare(metadata double*** %devPtr.addr, metadata !1646, metadata !DIExpression()), !dbg !1647
+  call void @llvm.dbg.declare(metadata double*** %devPtr.addr, metadata !1648, metadata !DIExpression()), !dbg !1649
   store i64 %size, i64* %size.addr, align 8
-  call void @llvm.dbg.declare(metadata i64* %size.addr, metadata !1648, metadata !DIExpression()), !dbg !1649
-  %0 = load double**, double*** %devPtr.addr, align 8, !dbg !1650
-  %1 = bitcast double** %0 to i8*, !dbg !1650
-  %2 = bitcast i8* %1 to i8**, !dbg !1651
-  %3 = load i64, i64* %size.addr, align 8, !dbg !1652
-  %call = call i32 @cudaMalloc(i8** %2, i64 %3), !dbg !1653
-  ret i32 %call, !dbg !1654
+  call void @llvm.dbg.declare(metadata i64* %size.addr, metadata !1650, metadata !DIExpression()), !dbg !1651
+  %0 = load double**, double*** %devPtr.addr, align 8, !dbg !1652
+  %1 = bitcast double** %0 to i8*, !dbg !1652
+  %2 = bitcast i8* %1 to i8**, !dbg !1653
+  %3 = load i64, i64* %size.addr, align 8, !dbg !1654
+  %call = call i32 @cudaMalloc(i8** %2, i64 %3), !dbg !1655
+  ret i32 %call, !dbg !1656
 }
 
 declare dso_local i32 @cudaMalloc(i8**, i64) #3
@@ -2602,124 +2604,126 @@ attributes #7 = { nounwind }
 !1531 = !DILocation(line: 459, column: 2, scope: !1265)
 !1532 = !DILocation(line: 461, column: 2, scope: !1265)
 !1533 = distinct !DISubprogram(name: "setup_gpu", linkageName: "_ZL9setup_gpuv", scope: !3, file: !3, line: 577, type: !472, scopeLine: 577, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !2, retainedNodes: !969)
-!1534 = !DILocation(line: 626, column: 49, scope: !1535)
-!1535 = distinct !DILexicalBlock(scope: !1533, file: !3, line: 625, column: 5)
-!1536 = !DILocation(line: 626, column: 25, scope: !1535)
-!1537 = !DILocation(line: 625, column: 5, scope: !1533)
-!1538 = !DILocation(line: 627, column: 21, scope: !1539)
-!1539 = distinct !DILexicalBlock(scope: !1535, file: !3, line: 626, column: 69)
-!1540 = !DILocation(line: 628, column: 2, scope: !1539)
-!1541 = !DILocation(line: 629, column: 45, scope: !1542)
-!1542 = distinct !DILexicalBlock(scope: !1535, file: !3, line: 628, column: 7)
-!1543 = !DILocation(line: 629, column: 21, scope: !1542)
-!1544 = !DILocation(line: 632, column: 45, scope: !1533)
-!1545 = !DILocation(line: 632, column: 36, scope: !1533)
-!1546 = !DILocation(line: 632, column: 21, scope: !1533)
-!1547 = !DILocation(line: 632, column: 20, scope: !1533)
-!1548 = !DILocation(line: 632, column: 18, scope: !1533)
-!1549 = !DILocation(line: 634, column: 11, scope: !1533)
-!1550 = !DILocation(line: 634, column: 27, scope: !1533)
-!1551 = !DILocation(line: 634, column: 32, scope: !1533)
-!1552 = !DILocation(line: 634, column: 9, scope: !1533)
-!1553 = !DILocation(line: 635, column: 12, scope: !1533)
-!1554 = !DILocation(line: 635, column: 28, scope: !1533)
-!1555 = !DILocation(line: 635, column: 10, scope: !1533)
-!1556 = !DILocation(line: 636, column: 12, scope: !1533)
-!1557 = !DILocation(line: 636, column: 28, scope: !1533)
-!1558 = !DILocation(line: 636, column: 10, scope: !1533)
-!1559 = !DILocation(line: 638, column: 25, scope: !1533)
-!1560 = !DILocation(line: 638, column: 18, scope: !1533)
-!1561 = !DILocation(line: 638, column: 9, scope: !1533)
-!1562 = !DILocation(line: 638, column: 8, scope: !1533)
-!1563 = !DILocation(line: 639, column: 26, scope: !1533)
-!1564 = !DILocation(line: 639, column: 19, scope: !1533)
-!1565 = !DILocation(line: 639, column: 10, scope: !1533)
-!1566 = !DILocation(line: 639, column: 9, scope: !1533)
-!1567 = !DILocation(line: 640, column: 26, scope: !1533)
-!1568 = !DILocation(line: 640, column: 19, scope: !1533)
-!1569 = !DILocation(line: 640, column: 10, scope: !1533)
-!1570 = !DILocation(line: 640, column: 9, scope: !1533)
-!1571 = !DILocation(line: 642, column: 24, scope: !1533)
-!1572 = !DILocation(line: 642, column: 2, scope: !1533)
-!1573 = !DILocation(line: 643, column: 25, scope: !1533)
-!1574 = !DILocation(line: 643, column: 2, scope: !1533)
-!1575 = !DILocation(line: 644, column: 25, scope: !1533)
-!1576 = !DILocation(line: 644, column: 2, scope: !1533)
-!1577 = !DILocation(line: 645, column: 1, scope: !1533)
-!1578 = distinct !DISubprogram(name: "dim3", linkageName: "_ZN4dim3C2Ejjj", scope: !1580, file: !1579, line: 421, type: !1586, scopeLine: 421, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, declaration: !1585, retainedNodes: !969)
-!1579 = !DIFile(filename: "/usr/local/cuda/include/vector_types.h", directory: "")
-!1580 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "dim3", file: !1579, line: 417, size: 96, flags: DIFlagTypePassByValue | DIFlagNonTrivial, elements: !1581, identifier: "_ZTS4dim3")
-!1581 = !{!1582, !1583, !1584, !1585, !1589, !1598}
-!1582 = !DIDerivedType(tag: DW_TAG_member, name: "x", scope: !1580, file: !1579, line: 419, baseType: !7, size: 32)
-!1583 = !DIDerivedType(tag: DW_TAG_member, name: "y", scope: !1580, file: !1579, line: 419, baseType: !7, size: 32, offset: 32)
-!1584 = !DIDerivedType(tag: DW_TAG_member, name: "z", scope: !1580, file: !1579, line: 419, baseType: !7, size: 32, offset: 64)
-!1585 = !DISubprogram(name: "dim3", scope: !1580, file: !1579, line: 421, type: !1586, scopeLine: 421, flags: DIFlagPrototyped, spFlags: 0)
-!1586 = !DISubroutineType(types: !1587)
-!1587 = !{null, !1588, !7, !7, !7}
-!1588 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !1580, size: 64, flags: DIFlagArtificial | DIFlagObjectPointer)
-!1589 = !DISubprogram(name: "dim3", scope: !1580, file: !1579, line: 422, type: !1590, scopeLine: 422, flags: DIFlagPrototyped, spFlags: 0)
-!1590 = !DISubroutineType(types: !1591)
-!1591 = !{null, !1588, !1592}
-!1592 = !DIDerivedType(tag: DW_TAG_typedef, name: "uint3", file: !1579, line: 383, baseType: !1593)
-!1593 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "uint3", file: !1579, line: 190, size: 96, flags: DIFlagTypePassByValue, elements: !1594, identifier: "_ZTS5uint3")
-!1594 = !{!1595, !1596, !1597}
-!1595 = !DIDerivedType(tag: DW_TAG_member, name: "x", scope: !1593, file: !1579, line: 192, baseType: !7, size: 32)
-!1596 = !DIDerivedType(tag: DW_TAG_member, name: "y", scope: !1593, file: !1579, line: 192, baseType: !7, size: 32, offset: 32)
-!1597 = !DIDerivedType(tag: DW_TAG_member, name: "z", scope: !1593, file: !1579, line: 192, baseType: !7, size: 32, offset: 64)
-!1598 = !DISubprogram(name: "operator uint3", linkageName: "_ZN4dim3cv5uint3Ev", scope: !1580, file: !1579, line: 423, type: !1599, scopeLine: 423, flags: DIFlagPrototyped, spFlags: 0)
-!1599 = !DISubroutineType(types: !1600)
-!1600 = !{!1592, !1588}
-!1601 = !DILocalVariable(name: "this", arg: 1, scope: !1578, type: !1602, flags: DIFlagArtificial | DIFlagObjectPointer)
-!1602 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !1580, size: 64)
-!1603 = !DILocation(line: 0, scope: !1578)
-!1604 = !DILocalVariable(name: "vx", arg: 2, scope: !1578, file: !1579, line: 421, type: !7)
-!1605 = !DILocation(line: 421, column: 43, scope: !1578)
-!1606 = !DILocalVariable(name: "vy", arg: 3, scope: !1578, file: !1579, line: 421, type: !7)
-!1607 = !DILocation(line: 421, column: 64, scope: !1578)
-!1608 = !DILocalVariable(name: "vz", arg: 4, scope: !1578, file: !1579, line: 421, type: !7)
-!1609 = !DILocation(line: 421, column: 85, scope: !1578)
-!1610 = !DILocation(line: 421, column: 95, scope: !1578)
-!1611 = !DILocation(line: 421, column: 97, scope: !1578)
-!1612 = !DILocation(line: 421, column: 102, scope: !1578)
-!1613 = !DILocation(line: 421, column: 104, scope: !1578)
-!1614 = !DILocation(line: 421, column: 109, scope: !1578)
-!1615 = !DILocation(line: 421, column: 111, scope: !1578)
-!1616 = !DILocation(line: 421, column: 116, scope: !1578)
-!1617 = distinct !DISubprogram(name: "gpu_kernel", linkageName: "_Z10gpu_kernelPdS_S_d", scope: !3, file: !3, line: 464, type: !1618, scopeLine: 467, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !969)
-!1618 = !DISubroutineType(types: !1619)
-!1619 = !{null, !98, !98, !98, !99}
-!1620 = !DILocalVariable(name: "q_global", arg: 1, scope: !1617, file: !3, line: 464, type: !98)
-!1621 = !DILocation(line: 464, column: 36, scope: !1617)
-!1622 = !DILocalVariable(name: "sx_global", arg: 2, scope: !1617, file: !3, line: 465, type: !98)
-!1623 = !DILocation(line: 465, column: 11, scope: !1617)
-!1624 = !DILocalVariable(name: "sy_global", arg: 3, scope: !1617, file: !3, line: 466, type: !98)
-!1625 = !DILocation(line: 466, column: 11, scope: !1617)
-!1626 = !DILocalVariable(name: "an", arg: 4, scope: !1617, file: !3, line: 467, type: !99)
-!1627 = !DILocation(line: 467, column: 10, scope: !1617)
-!1628 = !DILocation(line: 467, column: 13, scope: !1617)
-!1629 = !DILocation(line: 551, column: 1, scope: !1617)
-!1630 = distinct !DISubprogram(name: "release_gpu", linkageName: "_ZL11release_gpuv", scope: !3, file: !3, line: 571, type: !472, scopeLine: 571, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !2, retainedNodes: !969)
-!1631 = !DILocation(line: 572, column: 11, scope: !1630)
-!1632 = !DILocation(line: 572, column: 2, scope: !1630)
-!1633 = !DILocation(line: 573, column: 11, scope: !1630)
-!1634 = !DILocation(line: 573, column: 2, scope: !1630)
-!1635 = !DILocation(line: 574, column: 11, scope: !1630)
-!1636 = !DILocation(line: 574, column: 2, scope: !1630)
-!1637 = !DILocation(line: 575, column: 1, scope: !1630)
-!1638 = distinct !DISubprogram(name: "cudaMalloc<double>", linkageName: "_ZL10cudaMallocIdE9cudaErrorPPT_m", scope: !1639, file: !1639, line: 490, type: !1640, scopeLine: 494, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !2, templateParams: !1644, retainedNodes: !969)
-!1639 = !DIFile(filename: "/usr/local/cuda/include/cuda_runtime.h", directory: "")
-!1640 = !DISubroutineType(types: !1641)
-!1641 = !{!1642, !1643, !121}
-!1642 = !DIDerivedType(tag: DW_TAG_typedef, name: "cudaError_t", file: !6, line: 1419, baseType: !14)
-!1643 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !98, size: 64)
-!1644 = !{!1645}
-!1645 = !DITemplateTypeParameter(name: "T", type: !99)
-!1646 = !DILocalVariable(name: "devPtr", arg: 1, scope: !1638, file: !1639, line: 491, type: !1643)
-!1647 = !DILocation(line: 491, column: 12, scope: !1638)
-!1648 = !DILocalVariable(name: "size", arg: 2, scope: !1638, file: !1639, line: 492, type: !121)
-!1649 = !DILocation(line: 492, column: 12, scope: !1638)
-!1650 = !DILocation(line: 495, column: 38, scope: !1638)
-!1651 = !DILocation(line: 495, column: 23, scope: !1638)
-!1652 = !DILocation(line: 495, column: 46, scope: !1638)
-!1653 = !DILocation(line: 495, column: 10, scope: !1638)
-!1654 = !DILocation(line: 495, column: 3, scope: !1638)
+!1534 = !DILocation(line: 624, column: 33, scope: !1533)
+!1535 = !DILocation(line: 625, column: 43, scope: !1533)
+!1536 = !DILocation(line: 628, column: 49, scope: !1537)
+!1537 = distinct !DILexicalBlock(scope: !1533, file: !3, line: 627, column: 5)
+!1538 = !DILocation(line: 628, column: 25, scope: !1537)
+!1539 = !DILocation(line: 627, column: 5, scope: !1533)
+!1540 = !DILocation(line: 629, column: 21, scope: !1541)
+!1541 = distinct !DILexicalBlock(scope: !1537, file: !3, line: 628, column: 69)
+!1542 = !DILocation(line: 630, column: 2, scope: !1541)
+!1543 = !DILocation(line: 631, column: 45, scope: !1544)
+!1544 = distinct !DILexicalBlock(scope: !1537, file: !3, line: 630, column: 7)
+!1545 = !DILocation(line: 631, column: 21, scope: !1544)
+!1546 = !DILocation(line: 634, column: 45, scope: !1533)
+!1547 = !DILocation(line: 634, column: 36, scope: !1533)
+!1548 = !DILocation(line: 634, column: 21, scope: !1533)
+!1549 = !DILocation(line: 634, column: 20, scope: !1533)
+!1550 = !DILocation(line: 634, column: 18, scope: !1533)
+!1551 = !DILocation(line: 636, column: 11, scope: !1533)
+!1552 = !DILocation(line: 636, column: 27, scope: !1533)
+!1553 = !DILocation(line: 636, column: 32, scope: !1533)
+!1554 = !DILocation(line: 636, column: 9, scope: !1533)
+!1555 = !DILocation(line: 637, column: 12, scope: !1533)
+!1556 = !DILocation(line: 637, column: 28, scope: !1533)
+!1557 = !DILocation(line: 637, column: 10, scope: !1533)
+!1558 = !DILocation(line: 638, column: 12, scope: !1533)
+!1559 = !DILocation(line: 638, column: 28, scope: !1533)
+!1560 = !DILocation(line: 638, column: 10, scope: !1533)
+!1561 = !DILocation(line: 640, column: 25, scope: !1533)
+!1562 = !DILocation(line: 640, column: 18, scope: !1533)
+!1563 = !DILocation(line: 640, column: 9, scope: !1533)
+!1564 = !DILocation(line: 640, column: 8, scope: !1533)
+!1565 = !DILocation(line: 641, column: 26, scope: !1533)
+!1566 = !DILocation(line: 641, column: 19, scope: !1533)
+!1567 = !DILocation(line: 641, column: 10, scope: !1533)
+!1568 = !DILocation(line: 641, column: 9, scope: !1533)
+!1569 = !DILocation(line: 642, column: 26, scope: !1533)
+!1570 = !DILocation(line: 642, column: 19, scope: !1533)
+!1571 = !DILocation(line: 642, column: 10, scope: !1533)
+!1572 = !DILocation(line: 642, column: 9, scope: !1533)
+!1573 = !DILocation(line: 644, column: 24, scope: !1533)
+!1574 = !DILocation(line: 644, column: 2, scope: !1533)
+!1575 = !DILocation(line: 645, column: 25, scope: !1533)
+!1576 = !DILocation(line: 645, column: 2, scope: !1533)
+!1577 = !DILocation(line: 646, column: 25, scope: !1533)
+!1578 = !DILocation(line: 646, column: 2, scope: !1533)
+!1579 = !DILocation(line: 647, column: 1, scope: !1533)
+!1580 = distinct !DISubprogram(name: "dim3", linkageName: "_ZN4dim3C2Ejjj", scope: !1582, file: !1581, line: 421, type: !1588, scopeLine: 421, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, declaration: !1587, retainedNodes: !969)
+!1581 = !DIFile(filename: "/usr/local/cuda/include/vector_types.h", directory: "")
+!1582 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "dim3", file: !1581, line: 417, size: 96, flags: DIFlagTypePassByValue | DIFlagNonTrivial, elements: !1583, identifier: "_ZTS4dim3")
+!1583 = !{!1584, !1585, !1586, !1587, !1591, !1600}
+!1584 = !DIDerivedType(tag: DW_TAG_member, name: "x", scope: !1582, file: !1581, line: 419, baseType: !7, size: 32)
+!1585 = !DIDerivedType(tag: DW_TAG_member, name: "y", scope: !1582, file: !1581, line: 419, baseType: !7, size: 32, offset: 32)
+!1586 = !DIDerivedType(tag: DW_TAG_member, name: "z", scope: !1582, file: !1581, line: 419, baseType: !7, size: 32, offset: 64)
+!1587 = !DISubprogram(name: "dim3", scope: !1582, file: !1581, line: 421, type: !1588, scopeLine: 421, flags: DIFlagPrototyped, spFlags: 0)
+!1588 = !DISubroutineType(types: !1589)
+!1589 = !{null, !1590, !7, !7, !7}
+!1590 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !1582, size: 64, flags: DIFlagArtificial | DIFlagObjectPointer)
+!1591 = !DISubprogram(name: "dim3", scope: !1582, file: !1581, line: 422, type: !1592, scopeLine: 422, flags: DIFlagPrototyped, spFlags: 0)
+!1592 = !DISubroutineType(types: !1593)
+!1593 = !{null, !1590, !1594}
+!1594 = !DIDerivedType(tag: DW_TAG_typedef, name: "uint3", file: !1581, line: 383, baseType: !1595)
+!1595 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "uint3", file: !1581, line: 190, size: 96, flags: DIFlagTypePassByValue, elements: !1596, identifier: "_ZTS5uint3")
+!1596 = !{!1597, !1598, !1599}
+!1597 = !DIDerivedType(tag: DW_TAG_member, name: "x", scope: !1595, file: !1581, line: 192, baseType: !7, size: 32)
+!1598 = !DIDerivedType(tag: DW_TAG_member, name: "y", scope: !1595, file: !1581, line: 192, baseType: !7, size: 32, offset: 32)
+!1599 = !DIDerivedType(tag: DW_TAG_member, name: "z", scope: !1595, file: !1581, line: 192, baseType: !7, size: 32, offset: 64)
+!1600 = !DISubprogram(name: "operator uint3", linkageName: "_ZN4dim3cv5uint3Ev", scope: !1582, file: !1581, line: 423, type: !1601, scopeLine: 423, flags: DIFlagPrototyped, spFlags: 0)
+!1601 = !DISubroutineType(types: !1602)
+!1602 = !{!1594, !1590}
+!1603 = !DILocalVariable(name: "this", arg: 1, scope: !1580, type: !1604, flags: DIFlagArtificial | DIFlagObjectPointer)
+!1604 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !1582, size: 64)
+!1605 = !DILocation(line: 0, scope: !1580)
+!1606 = !DILocalVariable(name: "vx", arg: 2, scope: !1580, file: !1581, line: 421, type: !7)
+!1607 = !DILocation(line: 421, column: 43, scope: !1580)
+!1608 = !DILocalVariable(name: "vy", arg: 3, scope: !1580, file: !1581, line: 421, type: !7)
+!1609 = !DILocation(line: 421, column: 64, scope: !1580)
+!1610 = !DILocalVariable(name: "vz", arg: 4, scope: !1580, file: !1581, line: 421, type: !7)
+!1611 = !DILocation(line: 421, column: 85, scope: !1580)
+!1612 = !DILocation(line: 421, column: 95, scope: !1580)
+!1613 = !DILocation(line: 421, column: 97, scope: !1580)
+!1614 = !DILocation(line: 421, column: 102, scope: !1580)
+!1615 = !DILocation(line: 421, column: 104, scope: !1580)
+!1616 = !DILocation(line: 421, column: 109, scope: !1580)
+!1617 = !DILocation(line: 421, column: 111, scope: !1580)
+!1618 = !DILocation(line: 421, column: 116, scope: !1580)
+!1619 = distinct !DISubprogram(name: "gpu_kernel", linkageName: "_Z10gpu_kernelPdS_S_d", scope: !3, file: !3, line: 464, type: !1620, scopeLine: 467, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !969)
+!1620 = !DISubroutineType(types: !1621)
+!1621 = !{null, !98, !98, !98, !99}
+!1622 = !DILocalVariable(name: "q_global", arg: 1, scope: !1619, file: !3, line: 464, type: !98)
+!1623 = !DILocation(line: 464, column: 36, scope: !1619)
+!1624 = !DILocalVariable(name: "sx_global", arg: 2, scope: !1619, file: !3, line: 465, type: !98)
+!1625 = !DILocation(line: 465, column: 11, scope: !1619)
+!1626 = !DILocalVariable(name: "sy_global", arg: 3, scope: !1619, file: !3, line: 466, type: !98)
+!1627 = !DILocation(line: 466, column: 11, scope: !1619)
+!1628 = !DILocalVariable(name: "an", arg: 4, scope: !1619, file: !3, line: 467, type: !99)
+!1629 = !DILocation(line: 467, column: 10, scope: !1619)
+!1630 = !DILocation(line: 467, column: 13, scope: !1619)
+!1631 = !DILocation(line: 551, column: 1, scope: !1619)
+!1632 = distinct !DISubprogram(name: "release_gpu", linkageName: "_ZL11release_gpuv", scope: !3, file: !3, line: 571, type: !472, scopeLine: 571, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !2, retainedNodes: !969)
+!1633 = !DILocation(line: 572, column: 11, scope: !1632)
+!1634 = !DILocation(line: 572, column: 2, scope: !1632)
+!1635 = !DILocation(line: 573, column: 11, scope: !1632)
+!1636 = !DILocation(line: 573, column: 2, scope: !1632)
+!1637 = !DILocation(line: 574, column: 11, scope: !1632)
+!1638 = !DILocation(line: 574, column: 2, scope: !1632)
+!1639 = !DILocation(line: 575, column: 1, scope: !1632)
+!1640 = distinct !DISubprogram(name: "cudaMalloc<double>", linkageName: "_ZL10cudaMallocIdE9cudaErrorPPT_m", scope: !1641, file: !1641, line: 490, type: !1642, scopeLine: 494, flags: DIFlagPrototyped, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !2, templateParams: !1646, retainedNodes: !969)
+!1641 = !DIFile(filename: "/usr/local/cuda/include/cuda_runtime.h", directory: "")
+!1642 = !DISubroutineType(types: !1643)
+!1643 = !{!1644, !1645, !121}
+!1644 = !DIDerivedType(tag: DW_TAG_typedef, name: "cudaError_t", file: !6, line: 1419, baseType: !14)
+!1645 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !98, size: 64)
+!1646 = !{!1647}
+!1647 = !DITemplateTypeParameter(name: "T", type: !99)
+!1648 = !DILocalVariable(name: "devPtr", arg: 1, scope: !1640, file: !1641, line: 491, type: !1645)
+!1649 = !DILocation(line: 491, column: 12, scope: !1640)
+!1650 = !DILocalVariable(name: "size", arg: 2, scope: !1640, file: !1641, line: 492, type: !121)
+!1651 = !DILocation(line: 492, column: 12, scope: !1640)
+!1652 = !DILocation(line: 495, column: 38, scope: !1640)
+!1653 = !DILocation(line: 495, column: 23, scope: !1640)
+!1654 = !DILocation(line: 495, column: 46, scope: !1640)
+!1655 = !DILocation(line: 495, column: 10, scope: !1640)
+!1656 = !DILocation(line: 495, column: 3, scope: !1640)
