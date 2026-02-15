@@ -27,6 +27,13 @@ static __forceinline int llvm_fcmp_une(double X, double Y) { return X != Y; }
 
 
 /* Global Declarations */
+/* Helper union for bitcasts */
+typedef union {
+  uint32_t Int32;
+  uint64_t Int64;
+  float Float;
+  double Double;
+} llvmBitCastUnion;
 
 /* Types Declarations */
 struct __FIXME__l_struct_struct_OC_cudaDeviceProp;
@@ -364,7 +371,7 @@ uint8_t _OC_str_OC_79[4] = { "-O3" };
 uint8_t _OC_str_OC_80[7] = { "randdp" };
 uint8_t _OC_str_OC_81[46] = { "Space for matrix elements exceeded in sparse\n" };
 uint8_t _OC_str_OC_82[21] = { "nza, nzmax = %d, %d\n" };
-double extern_share_data_shared[1024];
+__thread double extern_share_data_shared[1024];
 
 
 /* LLVM Intrinsic Builtin Function Bodies */
@@ -466,41 +473,11 @@ void c_print_results(uint8_t* name, int8_t class_npb, uint32_t n1, uint32_t n2, 
   } else { // IFELSE MARKER: land.lhs.true23 ELSE
   printf((_OC_str_OC_6), n1);
   }
-  } else { // IFELSE MARKER: if.then19 ELSE
-  printf((_OC_str_OC_6), n1);
   }
   } else { // IFELSE MARKER: land.lhs.true17 ELSE
   printf((_OC_str_OC_7), n1, n2, n3);
   }
-  } else { // IFELSE MARKER: if.else15 ELSE
-  printf((_OC_str_OC_7), n1, n2, n3);
   }
-  }
-  } else { // IFELSE MARKER: entry ELSE
-  if (n2 == 0) { // IFELSE MARKER: if.else15 IF
-  if (n3 == 0) { // IFELSE MARKER: land.lhs.true17 IF
-  if (name[0] == 69) { // IFELSE MARKER: if.then19 IF
-  if (name[1] == 80) { // IFELSE MARKER: land.lhs.true23 IF
-  __FIXME__call29 = pow(2, (double)(n1));
-  sprintf(size, (_OC_str_OC_4), __FIXME__call29);
-  j = 14;
-  if (size[14] == 46) { // IFELSE MARKER: if.then27 IF
-  size[14] = 32;
-  j = 13;
-  }
-  size[(j + 1)] = 0;
-  printf((_OC_str_OC_5), size);
-  } else { // IFELSE MARKER: land.lhs.true23 ELSE
-  printf((_OC_str_OC_6), n1);
-  }
-  } else { // IFELSE MARKER: if.then19 ELSE
-  printf((_OC_str_OC_6), n1);
-  }
-  } else { // IFELSE MARKER: land.lhs.true17 ELSE
-  printf((_OC_str_OC_7), n1, n2, n3);
-  }
-  } else { // IFELSE MARKER: if.else15 ELSE
-  printf((_OC_str_OC_7), n1, n2, n3);
   }
   }
   printf((_OC_str_OC_8), niter);
@@ -1038,7 +1015,7 @@ void gpu_kernel_ten_host(double* norm_temp1, double* norm_temp2) {
   memcpy(((uint8_t*)(&__FIXME__agg_2e_tmp_2e_coerce)), ((uint8_t*)(&__FIXME__agg_2e_tmp)), 12);
   memcpy(((uint8_t*)(&__FIXME__agg_2e_tmp1_2e_coerce)), ((uint8_t*)(&__FIXME__agg_2e_tmp1)), 12);
 // INSERT COMMENT LOOP: gpu_kernel_ten_host::header.0
-#pragma omp parallel for collapse(2)
+#pragma omp parallel for
 for(int32_t i = 0; i < blocks_per_grid_on_kernel_ten;   i = i + 1) {
 for(int32_t j = 0; j < threads_per_block_on_kernel_ten;   j = j + 1) {
 gpu_kernel_ten_10(global_data, _ZL1x, _ZL1z, blocks_per_grid_on_kernel_ten, 1, 1, threads_per_block_on_kernel_ten, 1, 1, i, 0, 0, j, 0, 0);
@@ -1056,7 +1033,7 @@ gpu_kernel_ten_11(global_data, _ZL1x, _ZL1z, blocks_per_grid_on_kernel_ten, 1, 1
   memcpy(((uint8_t*)(&__FIXME__agg_2e_tmp2_2e_coerce)), ((uint8_t*)(&__FIXME__agg_2e_tmp2)), 12);
   memcpy(((uint8_t*)(&__FIXME__agg_2e_tmp3_2e_coerce)), ((uint8_t*)(&__FIXME__agg_2e_tmp3)), 12);
 // INSERT COMMENT LOOP: gpu_kernel_ten_host::header.010
-#pragma omp parallel for collapse(2)
+#pragma omp parallel for
 for(int32_t i = 0; i < blocks_per_grid_on_kernel_ten;   i = i + 1) {
 for(int32_t j = 0; j < threads_per_block_on_kernel_ten;   j = j + 1) {
 gpu_kernel_ten_20(global_data_two, _ZL1x, _ZL1z, blocks_per_grid_on_kernel_ten, 1, 1, threads_per_block_on_kernel_ten, 1, 1, i, 0, 0, j, 0, 0);
@@ -1165,7 +1142,7 @@ void gpu_kernel_two_host(double* rho_host) {
   memcpy(((uint8_t*)(&__FIXME__agg_2e_tmp_2e_coerce)), ((uint8_t*)(&__FIXME__agg_2e_tmp)), 12);
   memcpy(((uint8_t*)(&__FIXME__agg_2e_tmp1_2e_coerce)), ((uint8_t*)(&__FIXME__agg_2e_tmp1)), 12);
 // INSERT COMMENT LOOP: gpu_kernel_two_host::header.0
-#pragma omp parallel for collapse(2)
+#pragma omp parallel for
 for(int32_t i = 0; i < blocks_per_grid_on_kernel_two;   i = i + 1) {
 for(int32_t j = 0; j < threads_per_block_on_kernel_two;   j = j + 1) {
 gpu_kernel_two_device0(_ZL1r, rho_device, global_data, blocks_per_grid_on_kernel_two, 1, 1, threads_per_block_on_kernel_two, 1, 1, i, 0, 0, j, 0, 0);
@@ -1203,7 +1180,7 @@ void gpu_kernel_three_host(void) {
   memcpy(((uint8_t*)(&__FIXME__agg_2e_tmp_2e_coerce)), ((uint8_t*)(&__FIXME__agg_2e_tmp)), 12);
   memcpy(((uint8_t*)(&__FIXME__agg_2e_tmp1_2e_coerce)), ((uint8_t*)(&__FIXME__agg_2e_tmp1)), 12);
 // INSERT COMMENT LOOP: gpu_kernel_three_host::header.0
-#pragma omp parallel for collapse(2)
+#pragma omp parallel for
 for(int32_t i = 0; i < blocks_per_grid_on_kernel_three;   i = i + 1) {
 for(int32_t j = 0; j < threads_per_block_on_kernel_three;   j = j + 1) {
 gpu_kernel_three_device0(_ZL6colidx, _ZL6rowstr, _ZL1a, _ZL1p, _ZL1q, blocks_per_grid_on_kernel_three, 1, 1, threads_per_block_on_kernel_three, 1, 1, i, 0, 0, j, 0, 0);
@@ -1236,7 +1213,7 @@ void gpu_kernel_four_host(double* d_host) {
   memcpy(((uint8_t*)(&__FIXME__agg_2e_tmp_2e_coerce)), ((uint8_t*)(&__FIXME__agg_2e_tmp)), 12);
   memcpy(((uint8_t*)(&__FIXME__agg_2e_tmp1_2e_coerce)), ((uint8_t*)(&__FIXME__agg_2e_tmp1)), 12);
 // INSERT COMMENT LOOP: gpu_kernel_four_host::header.0
-#pragma omp parallel for collapse(2)
+#pragma omp parallel for
 for(int32_t i = 0; i < blocks_per_grid_on_kernel_four;   i = i + 1) {
 for(int32_t j = 0; j < threads_per_block_on_kernel_four;   j = j + 1) {
 gpu_kernel_four_device0(d_device, _ZL1p, _ZL1q, global_data, blocks_per_grid_on_kernel_four, 1, 1, threads_per_block_on_kernel_four, 1, 1, i, 0, 0, j, 0, 0);
@@ -1323,7 +1300,7 @@ void gpu_kernel_six_host(double* rho_host) {
   memcpy(((uint8_t*)(&__FIXME__agg_2e_tmp_2e_coerce)), ((uint8_t*)(&__FIXME__agg_2e_tmp)), 12);
   memcpy(((uint8_t*)(&__FIXME__agg_2e_tmp1_2e_coerce)), ((uint8_t*)(&__FIXME__agg_2e_tmp1)), 12);
 // INSERT COMMENT LOOP: gpu_kernel_six_host::header.0
-#pragma omp parallel for collapse(2)
+#pragma omp parallel for
 for(int32_t i = 0; i < blocks_per_grid_on_kernel_six;   i = i + 1) {
 for(int32_t j = 0; j < threads_per_block_on_kernel_six;   j = j + 1) {
 gpu_kernel_six_device0(_ZL1r, global_data, blocks_per_grid_on_kernel_six, 1, 1, threads_per_block_on_kernel_six, 1, 1, i, 0, 0, j, 0, 0);
@@ -1391,7 +1368,7 @@ void gpu_kernel_eight_host(void) {
   memcpy(((uint8_t*)(&__FIXME__agg_2e_tmp_2e_coerce)), ((uint8_t*)(&__FIXME__agg_2e_tmp)), 12);
   memcpy(((uint8_t*)(&__FIXME__agg_2e_tmp1_2e_coerce)), ((uint8_t*)(&__FIXME__agg_2e_tmp1)), 12);
 // INSERT COMMENT LOOP: gpu_kernel_eight_host::header.0
-#pragma omp parallel for collapse(2)
+#pragma omp parallel for
 for(int32_t i = 0; i < blocks_per_grid_on_kernel_eight;   i = i + 1) {
 for(int32_t j = 0; j < threads_per_block_on_kernel_eight;   j = j + 1) {
 gpu_kernel_eight_device0(_ZL6colidx, _ZL6rowstr, _ZL1a, _ZL1r, _ZL1z, blocks_per_grid_on_kernel_eight, 1, 1, threads_per_block_on_kernel_eight, 1, 1, i, 0, 0, j, 0, 0);
@@ -1424,7 +1401,7 @@ void gpu_kernel_nine_host(double* sum_host) {
   memcpy(((uint8_t*)(&__FIXME__agg_2e_tmp_2e_coerce)), ((uint8_t*)(&__FIXME__agg_2e_tmp)), 12);
   memcpy(((uint8_t*)(&__FIXME__agg_2e_tmp1_2e_coerce)), ((uint8_t*)(&__FIXME__agg_2e_tmp1)), 12);
 // INSERT COMMENT LOOP: gpu_kernel_nine_host::header.0
-#pragma omp parallel for collapse(2)
+#pragma omp parallel for
 for(int32_t i = 0; i < blocks_per_grid_on_kernel_nine;   i = i + 1) {
 for(int32_t j = 0; j < threads_per_block_on_kernel_nine;   j = j + 1) {
 gpu_kernel_nine_device0(_ZL1r, _ZL1x, sum_device, global_data, blocks_per_grid_on_kernel_nine, 1, 1, threads_per_block_on_kernel_nine, 1, 1, i, 0, 0, j, 0, 0);

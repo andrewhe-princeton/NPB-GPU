@@ -1062,7 +1062,7 @@ __global__ void gpu_kernel_one_device(double p[],
 	p[thread_id] = x_value;
 }
 
-static void gpu_kernel_two_host(double* rho_host){  
+static void gpu_kernel_two_host(double* rho_host){ 
 #if defined(PROFILING)
 	// timer_start(PROFILING_KERNEL_TWO);
 #endif

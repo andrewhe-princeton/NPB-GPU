@@ -617,7 +617,8 @@ mergeKernel: found originalAlloc cast:  %46 = bitcast i8* %call69 to double*, !d
 mergeKernel: found originalAlloc ci:  %call69 = call noalias i8* @malloc(i64 %45) #13, !dbg !1447
 mergeKernel: found originalAlloc user  %52 = load double*, double** @global_data_two, align 8, !dbg !1300
 mergeKernel: found originalAlloc user  %41 = load double*, double** @global_data_two, align 8, !dbg !1283
-mergeKernel: create metadata  br i1 %exitCheck.1, label %kcall.configok, label %latch.0, !tulip.doall.loop.block !1265
+ANDREW: skip block doall metadata for fission-prone kernel to avoid invalid collapse
+mergeKernel: create metadata  br i1 %exitCheck.1, label %kcall.configok, label %latch.0
 mergeKernel: create metadata  br i1 %exitCheck.0, label %header.1, label %kcall.end, !tulip.doall.loop.grid !1265
   call void @cg.ll_CudaFE__Z16gpu_kernel_ten_1PdS_S_(double* %15, double* %16, double* %17), !dbg !1264
 SUSAN: original arg   %15 = load double*, double** @global_data, align 8, !dbg !1266
@@ -669,7 +670,8 @@ i32   %indvar.1 = phi i32 [ 0, %header.0 ], [ %indvar.next.1, %latch.1 ]
 i32 i32 0
 i32 i32 0
 Finished making call for gpu_kernel_ten_1
-mergeKernel: create metadata  br i1 %exitCheck.115, label %kcall.configok6, label %latch.013, !tulip.doall.loop.block !1265
+ANDREW: skip block doall metadata for fission-prone kernel to avoid invalid collapse
+mergeKernel: create metadata  br i1 %exitCheck.115, label %kcall.configok6, label %latch.013
 mergeKernel: create metadata  br i1 %exitCheck.018, label %header.111, label %kcall.end7, !tulip.doall.loop.grid !1265
   call void @cg.ll_CudaFE__Z16gpu_kernel_ten_2PdS_S_(double* %33, double* %34, double* %35), !dbg !1273
 SUSAN: original arg   %33 = load double*, double** @global_data_two, align 8, !dbg !1274
@@ -1408,7 +1410,8 @@ mergeKernel: found originalAlloc user  %26 = load double*, double** @global_data
 mergeKernel: found originalAlloc user  %19 = load double*, double** @global_data, align 8, !dbg !1268
 mergeKernel: found originalAlloc user  %48 = load double*, double** @global_data, align 8, !dbg !1293
 mergeKernel: found originalAlloc user  %36 = load double*, double** @global_data, align 8, !dbg !1277
-mergeKernel: create metadata  br i1 %exitCheck.1, label %kcall.configok, label %latch.0, !tulip.doall.loop.block !1263
+ANDREW: skip block doall metadata for fission-prone kernel to avoid invalid collapse
+mergeKernel: create metadata  br i1 %exitCheck.1, label %kcall.configok, label %latch.0
 mergeKernel: create metadata  br i1 %exitCheck.0, label %header.1, label %kcall.end, !tulip.doall.loop.grid !1263
   call void @cg.ll_CudaFE__Z21gpu_kernel_two_devicePdS_S_(double* %15, double* %16, double* %17), !dbg !1262
 SUSAN: original arg   %15 = load double*, double** @_ZL1r, align 8, !dbg !1264
@@ -1812,7 +1815,8 @@ mergeKernel: what do I belong to?
 mergeKernel: what do I belong to?
 	for.incmergeKernel: cudaCall2remove:   %25 = call i32 @llvm.nvvm.read.ptx.sreg.ntid.x() #13, !dbg !1329, !range !1382
 mergeKernel: what do I belong to?
-	for.cond22mergeKernel: create metadata  br i1 %exitCheck.1, label %kcall.configok, label %latch.0, !tulip.doall.loop.block !1259
+	for.cond22ANDREW: skip block doall metadata for fission-prone kernel to avoid invalid collapse
+mergeKernel: create metadata  br i1 %exitCheck.1, label %kcall.configok, label %latch.0
 mergeKernel: create metadata  br i1 %exitCheck.0, label %header.1, label %kcall.end, !tulip.doall.loop.grid !1259
   call void @cg.ll_CudaFE__Z23gpu_kernel_three_devicePiS_PdS0_S0_(i32* %15, i32* %16, double* %17, double* %18, double* %19), !dbg !1258
 SUSAN: original arg   %15 = load i32*, i32** @_ZL6colidx, align 8, !dbg !1260
@@ -2168,7 +2172,8 @@ mergeKernel: found originalAlloc user  store double* %44, double** @global_data,
 mergeKernel: found originalAlloc store:  store double* %44, double** @global_data, align 8, !dbg !1445
 mergeKernel: found originalAlloc cast:  %44 = bitcast i8* %call to double*, !dbg !1444
 mergeKernel: found originalAlloc ci:  %call = call noalias i8* @malloc(i64 %43) #13, !dbg !1442, !tulip.target.mapdata.from !1443
-mergeKernel: create metadata  br i1 %exitCheck.1, label %kcall.configok, label %latch.0, !tulip.doall.loop.block !1263
+ANDREW: skip block doall metadata for fission-prone kernel to avoid invalid collapse
+mergeKernel: create metadata  br i1 %exitCheck.1, label %kcall.configok, label %latch.0
 mergeKernel: create metadata  br i1 %exitCheck.0, label %header.1, label %kcall.end, !tulip.doall.loop.grid !1263
   call void @cg.ll_CudaFE__Z22gpu_kernel_four_devicePdS_S_S_(double* %15, double* %16, double* %17, double* %18), !dbg !1262
 SUSAN: original arg   %15 = load double*, double** @d_device, align 8, !dbg !1264
@@ -2855,7 +2860,8 @@ mergeKernel: found originalAlloc user  store double* %44, double** @global_data,
 mergeKernel: found originalAlloc store:  store double* %44, double** @global_data, align 8, !dbg !1445
 mergeKernel: found originalAlloc cast:  %44 = bitcast i8* %call to double*, !dbg !1444
 mergeKernel: found originalAlloc ci:  %call = call noalias i8* @malloc(i64 %43) #13, !dbg !1442, !tulip.target.mapdata.from !1443
-mergeKernel: create metadata  br i1 %exitCheck.1, label %kcall.configok, label %latch.0, !tulip.doall.loop.block !1263
+ANDREW: skip block doall metadata for fission-prone kernel to avoid invalid collapse
+mergeKernel: create metadata  br i1 %exitCheck.1, label %kcall.configok, label %latch.0
 mergeKernel: create metadata  br i1 %exitCheck.0, label %header.1, label %kcall.end, !tulip.doall.loop.grid !1263
   call void @cg.ll_CudaFE__Z21gpu_kernel_six_devicePdS_(double* %15, double* %16), !dbg !1262
 SUSAN: original arg   %15 = load double*, double** @_ZL1r, align 8, !dbg !1264
@@ -3444,7 +3450,8 @@ mergeKernel: what do I belong to?
 mergeKernel: what do I belong to?
 	for.incmergeKernel: cudaCall2remove:   %25 = call i32 @llvm.nvvm.read.ptx.sreg.ntid.x() #13, !dbg !1329, !range !1382
 mergeKernel: what do I belong to?
-	for.cond22mergeKernel: create metadata  br i1 %exitCheck.1, label %kcall.configok, label %latch.0, !tulip.doall.loop.block !1259
+	for.cond22ANDREW: skip block doall metadata for fission-prone kernel to avoid invalid collapse
+mergeKernel: create metadata  br i1 %exitCheck.1, label %kcall.configok, label %latch.0
 mergeKernel: create metadata  br i1 %exitCheck.0, label %header.1, label %kcall.end, !tulip.doall.loop.grid !1259
   call void @cg.ll_CudaFE__Z23gpu_kernel_eight_devicePiS_PdS0_S0_(i32* %15, i32* %16, double* %17, double* %18, double* %19), !dbg !1258
 SUSAN: original arg   %15 = load i32*, i32** @_ZL6colidx, align 8, !dbg !1260
@@ -3820,7 +3827,8 @@ mergeKernel: found originalAlloc user  store double* %44, double** @global_data,
 mergeKernel: found originalAlloc store:  store double* %44, double** @global_data, align 8, !dbg !1445
 mergeKernel: found originalAlloc cast:  %44 = bitcast i8* %call to double*, !dbg !1444
 mergeKernel: found originalAlloc ci:  %call = call noalias i8* @malloc(i64 %43) #13, !dbg !1442, !tulip.target.mapdata.from !1443
-mergeKernel: create metadata  br i1 %exitCheck.1, label %kcall.configok, label %latch.0, !tulip.doall.loop.block !1263
+ANDREW: skip block doall metadata for fission-prone kernel to avoid invalid collapse
+mergeKernel: create metadata  br i1 %exitCheck.1, label %kcall.configok, label %latch.0
 mergeKernel: create metadata  br i1 %exitCheck.0, label %header.1, label %kcall.end, !tulip.doall.loop.grid !1263
   call void @cg.ll_CudaFE__Z22gpu_kernel_nine_devicePdS_S_S_(double* %15, double* %16, double* %17, double* %18), !dbg !1262
 SUSAN: original arg   %15 = load double*, double** @_ZL1r, align 8, !dbg !1264
@@ -3877,17 +3885,27 @@ i32 i32 0
 Finished making call for gpu_kernel_nine_device
 mergeKernel: Replacing zero-length array with [1024 x double]
 mergeKernel: Created new global extern_share_data_shared for shared memory extern_share_data
+ANDREW: shared-lowering created TLS global extern_share_data_shared (old=extern_share_data, addrspace3->0)
 mergeKernel: Found addrspacecast: [0 x double]* addrspacecast ([0 x double] addrspace(3)* @extern_share_data to [0 x double]*)
 mergeKernel: Found GEPOperator: double* getelementptr inbounds ([0 x double], [0 x double]* addrspacecast ([0 x double] addrspace(3)* @extern_share_data to [0 x double]*), i64 0, i64 0)
 mergeKernel: Replaced GEPOperator use in   store double* %sharedMem.gep, double** %share_data, align 8, !dbg !1265
+ANDREW: shared-lowering rewired GEP user to extern_share_data_shared
 mergeKernel: Replaced GEPOperator use in   store double* %sharedMem.gep, double** %share_data, align 8, !dbg !1267
+ANDREW: shared-lowering rewired GEP user to extern_share_data_shared
 mergeKernel: Replaced GEPOperator use in   store double* %sharedMem.gep, double** %share_data, align 8, !dbg !1261
+ANDREW: shared-lowering rewired GEP user to extern_share_data_shared
 mergeKernel: Replaced GEPOperator use in   store double* %sharedMem.gep, double** %share_data, align 8, !dbg !1265
+ANDREW: shared-lowering rewired GEP user to extern_share_data_shared
 mergeKernel: Replaced GEPOperator use in   store double* %sharedMem.gep, double** %share_data, align 8, !dbg !1267
+ANDREW: shared-lowering rewired GEP user to extern_share_data_shared
 mergeKernel: Replaced GEPOperator use in   store double* %sharedMem.gep, double** %share_data, align 8, !dbg !1263
+ANDREW: shared-lowering rewired GEP user to extern_share_data_shared
 mergeKernel: Replaced GEPOperator use in   store double* %sharedMem.gep, double** %share_data, align 8, !dbg !1263
+ANDREW: shared-lowering rewired GEP user to extern_share_data_shared
 mergeKernel: Replaced GEPOperator use in   store double* %sharedMem.gep, double** %share_data, align 8, !dbg !1263
+ANDREW: shared-lowering rewired GEP user to extern_share_data_shared
 mergeKernel: WARNING: Old shared memory global extern_share_data still has uses
+ANDREW: shared-lowering old global still live extern_share_data, remaining uses=1
 header.111.preheader
 CLONING 0
 IDX: 0
