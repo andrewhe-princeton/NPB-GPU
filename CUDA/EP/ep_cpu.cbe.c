@@ -27,6 +27,13 @@ static __forceinline int llvm_fcmp_ogt(double X, double Y) { return X >  Y; }
 
 
 /* Global Declarations */
+/* Helper union for bitcasts */
+typedef union {
+  uint32_t Int32;
+  uint64_t Int64;
+  float Float;
+  double Double;
+} llvmBitCastUnion;
 
 /* Types Declarations */
 struct __FIXME__l_struct_struct_OC_cudaDeviceProp;
@@ -243,6 +250,32 @@ static __forceinline uint32_t llvm_sdiv_u32(int32_t a, int32_t b) {
   uint32_t r = a / b;
   return r;
 }
+static __forceinline uint32_t llvm_OC_nvvm_OC_d2i_OC_hi(double a) {
+  uint32_t r;
+  llvmBitCastUnion bc;
+  bc.Double = a;
+  r = (uint32_t)(bc.Int64 >> 32);
+  return r;
+}
+static __forceinline uint32_t llvm_OC_nvvm_OC_d2i_OC_lo(double a) {
+  uint32_t r;
+  llvmBitCastUnion bc;
+  bc.Double = a;
+  r = (uint32_t)(bc.Int64 & UINT64_C(0xFFFFFFFF));
+  return r;
+}
+static __forceinline double llvm_OC_nvvm_OC_lohi_OC_i2d(uint32_t a, uint32_t b) {
+  double r;
+  llvmBitCastUnion bc;
+  bc.Int64 = ((uint64_t)(uint32_t)b << 32) | (uint64_t)(uint32_t)a;
+  r = bc.Double;
+  return r;
+}
+static __forceinline double llvm_OC_nvvm_OC_fma_OC_rn_OC_d(double a, double b, double c) {
+  double r;
+  r = fma(a, b, c);
+  return r;
+}
 static __forceinline double llvm_OC_fabs_OC_f64(double a) {
   double r;
   r = fabs(a);
@@ -353,41 +386,11 @@ void c_print_results(uint8_t* name, int8_t class_npb, uint32_t n1, uint32_t n2, 
   } else { // IFELSE MARKER: land.lhs.true23 ELSE
   printf((_OC_str_OC_6), n1);
   }
-  } else { // IFELSE MARKER: if.then19 ELSE
-  printf((_OC_str_OC_6), n1);
   }
   } else { // IFELSE MARKER: land.lhs.true17 ELSE
   printf((_OC_str_OC_7), n1, n2, n3);
   }
-  } else { // IFELSE MARKER: if.else15 ELSE
-  printf((_OC_str_OC_7), n1, n2, n3);
   }
-  }
-  } else { // IFELSE MARKER: entry ELSE
-  if (n2 == 0) { // IFELSE MARKER: if.else15 IF
-  if (n3 == 0) { // IFELSE MARKER: land.lhs.true17 IF
-  if (name[0] == 69) { // IFELSE MARKER: if.then19 IF
-  if (name[1] == 80) { // IFELSE MARKER: land.lhs.true23 IF
-  __FIXME__call29 = pow(2, (double)(n1));
-  sprintf(size, (_OC_str_OC_4), __FIXME__call29);
-  j = 14;
-  if (size[14] == 46) { // IFELSE MARKER: if.then27 IF
-  size[14] = 32;
-  j = 13;
-  }
-  size[(j + 1)] = 0;
-  printf((_OC_str_OC_5), size);
-  } else { // IFELSE MARKER: land.lhs.true23 ELSE
-  printf((_OC_str_OC_6), n1);
-  }
-  } else { // IFELSE MARKER: if.then19 ELSE
-  printf((_OC_str_OC_6), n1);
-  }
-  } else { // IFELSE MARKER: land.lhs.true17 ELSE
-  printf((_OC_str_OC_7), n1, n2, n3);
-  }
-  } else { // IFELSE MARKER: if.else15 ELSE
-  printf((_OC_str_OC_7), n1, n2, n3);
   }
   }
   printf((_OC_str_OC_8), niter);

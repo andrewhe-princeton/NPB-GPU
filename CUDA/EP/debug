@@ -7741,9 +7741,6 @@ No Else Region is false
 No Else Region is false
 No Else Region is false
 No Else Region is false
-No Else Region is false
-No Else Region is false
-No Else Region is false
 CBERegion_DEBUG: initial branch-only flags in _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::entry trueBrOnly=0 falseBrOnly=0 returnDominated=-1
 CBERegion_DEBUG: final branch-only flags in _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::entry trueBrOnly=0 falseBrOnly=0
 SUSAN: marking both branches
@@ -7755,9 +7752,6 @@ YEBIN: new region in ifelse _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S
 SUSAN: block is an if-else region! land.lhs.true
 ANDREW: entryBB name:land.lhs.true
 if.end48
-No Else Region is false
-No Else Region is false
-No Else Region is false
 No Else Region is false
 No Else Region is false
 No Else Region is false
@@ -7847,7 +7841,6 @@ No Else Region is false
 No Else Region is false
 No Else Region is false
 No Else Region is false
-No Else Region is false
 CBERegion_DEBUG: initial branch-only flags in _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.else15 trueBrOnly=0 falseBrOnly=0 returnDominated=-1
 CBERegion_DEBUG: final branch-only flags in _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.else15 trueBrOnly=0 falseBrOnly=0
 SUSAN: marking both branches
@@ -7952,16 +7945,7 @@ SUSAN: currbb 562: if.end48
 if.else42 to if.then19
 otherStart: land.lhs.true23
 0
-YEBIN: new region in ifelse _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.then19
-  br label %if.end44
-SUSAN: block is a linear region! if.else42
-CBERegion: including if.else42 in a linear region
-Now looking at if.end44
-CBERegion: including if.end44 in a linear region
-Now looking at if.end47
-CBERegion: including if.end47 in a linear region
-Now looking at if.end48
-SUSAN: currbb 562: if.end48
+ANDREW: CBERegion: entry block if.else42 is already in enclosing if-else region, stopping duplicate subregion.
 CBERegion: nextEntryBB 121: if.end48
 =================SUSAN: END OF marking region : if.then19==================
 SUSAN: currbb 562: if.end48
@@ -7982,14 +7966,7 @@ SUSAN: currbb 562: if.end48
 if.else45 to if.else15
 otherStart: land.lhs.true17
 0
-YEBIN: new region in ifelse _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.else15
-  br label %if.end47
-SUSAN: block is a linear region! if.else45
-CBERegion: including if.else45 in a linear region
-Now looking at if.end47
-CBERegion: including if.end47 in a linear region
-Now looking at if.end48
-SUSAN: currbb 562: if.end48
+ANDREW: CBERegion: entry block if.else45 is already in enclosing if-else region, stopping duplicate subregion.
 CBERegion: nextEntryBB 121: if.end48
 =================SUSAN: END OF marking region : if.else15==================
 SUSAN: currbb 562: if.end48
@@ -7999,164 +7976,7 @@ SUSAN: currbb 562: if.end48
 if.else15 to entry
 otherStart: land.lhs.true
 0
-YEBIN: new region in ifelse _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::entry
-  br i1 %cmp16, label %land.lhs.true17, label %if.else45, !dbg !1116
-SUSAN: block is an if-else region! if.else15
-ANDREW: entryBB name:if.else15
-if.end47
-No Else Region is false
-No Else Region is false
-No Else Region is false
-No Else Region is false
-No Else Region is false
-No Else Region is false
-No Else Region is false
-No Else Region is false
-CBERegion_DEBUG: initial branch-only flags in _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.else15 trueBrOnly=0 falseBrOnly=0 returnDominated=-1
-CBERegion_DEBUG: final branch-only flags in _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.else15 trueBrOnly=0 falseBrOnly=0
-SUSAN: marking both branches
-land.lhs.true17 to if.else15
-otherStart: if.else45
-0
-YEBIN: new region in ifelse _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.else15
-  br i1 %cmp18, label %if.then19, label %if.else45, !dbg !1118
-SUSAN: block is an if-else region! land.lhs.true17
-ANDREW: entryBB name:land.lhs.true17
-if.end47
-No Else Region is false
-No Else Region is false
-No Else Region is false
-No Else Region is false
-No Else Region is false
-No Else Region is false
-No Else Region is false
-CBERegion_DEBUG: initial branch-only flags in _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::land.lhs.true17 trueBrOnly=0 falseBrOnly=0 returnDominated=-1
-CBERegion_DEBUG: final branch-only flags in _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::land.lhs.true17 trueBrOnly=0 falseBrOnly=0
-SUSAN: marking both branches
-if.then19 to land.lhs.true17
-otherStart: if.else45
-0
-YEBIN: new region in ifelse _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::land.lhs.true17
-  br i1 %cmp22, label %land.lhs.true23, label %if.else42, !dbg !1123
-SUSAN: block is an if-else region! if.then19
-ANDREW: entryBB name:if.then19
-if.end44
-No Else Region is false
-No Else Region is false
-No Else Region is false
-No Else Region is false
-No Else Region is false
-CBERegion_DEBUG: initial branch-only flags in _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.then19 trueBrOnly=0 falseBrOnly=0 returnDominated=-1
-CBERegion_DEBUG: final branch-only flags in _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.then19 trueBrOnly=0 falseBrOnly=0
-SUSAN: marking both branches
-land.lhs.true23 to if.then19
-otherStart: if.else42
-0
-YEBIN: new region in ifelse _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.then19
-  br i1 %cmp26, label %if.then27, label %if.else42, !dbg !1126
-SUSAN: block is an if-else region! land.lhs.true23
-ANDREW: entryBB name:land.lhs.true23
-if.end44
-No Else Region is false
-No Else Region is false
-No Else Region is false
-No Else Region is false
-CBERegion_DEBUG: initial branch-only flags in _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::land.lhs.true23 trueBrOnly=0 falseBrOnly=0 returnDominated=-1
-CBERegion_DEBUG: final branch-only flags in _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::land.lhs.true23 trueBrOnly=0 falseBrOnly=0
-SUSAN: marking both branches
-if.then27 to land.lhs.true23
-otherStart: if.else42
-0
-YEBIN: new region in ifelse _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::land.lhs.true23
-  br i1 %cmp33, label %if.then34, label %if.end37, !dbg !1137
-SUSAN: block is an if-else region! if.then27
-ANDREW: entryBB name:if.then27
-if.end37
-No Else Region is false
-CBERegion_DEBUG: initial branch-only flags in _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.then27 trueBrOnly=1 falseBrOnly=0 returnDominated=-1
-CBERegion_DEBUG: final branch-only flags in _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.then27 trueBrOnly=1 falseBrOnly=0
-SUSAN: marking only true branch
-if.then34 to if.then27
-otherStart: if.end37
-0
-YEBIN: new region in ifelse _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.then27
-  br label %if.end37, !dbg !1142
-SUSAN: block is a linear region! if.then34
-CBERegion: including if.then34 in a linear region
-Now looking at if.end37
-SUSAN: currbb 562: if.end37
-=================SUSAN: END OF marking region : if.then27==================
-SUSAN: currbb 562: if.end37
-YEBIN: new region in ifelse _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::land.lhs.true23
-  br label %if.end44, !dbg !1149
-SUSAN: block is a linear region! if.end37
-CBERegion: including if.end37 in a linear region
-Now looking at if.end44
-CBERegion: including if.end44 in a linear region
-Now looking at if.end47
-CBERegion: including if.end47 in a linear region
-Now looking at if.end48
-SUSAN: currbb 562: if.end48
-if.else42 to land.lhs.true23
-otherStart: if.then27
-0
-YEBIN: new region in ifelse _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::land.lhs.true23
-  br label %if.end44
-SUSAN: block is a linear region! if.else42
-CBERegion: including if.else42 in a linear region
-Now looking at if.end44
-CBERegion: including if.end44 in a linear region
-Now looking at if.end47
-CBERegion: including if.end47 in a linear region
-Now looking at if.end48
-SUSAN: currbb 562: if.end48
-CBERegion: nextEntryBB 121: if.end48
-=================SUSAN: END OF marking region : land.lhs.true23==================
-SUSAN: currbb 562: if.end48
-if.else42 to if.then19
-otherStart: land.lhs.true23
-0
-YEBIN: new region in ifelse _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.then19
-  br label %if.end44
-SUSAN: block is a linear region! if.else42
-CBERegion: including if.else42 in a linear region
-Now looking at if.end44
-CBERegion: including if.end44 in a linear region
-Now looking at if.end47
-CBERegion: including if.end47 in a linear region
-Now looking at if.end48
-SUSAN: currbb 562: if.end48
-CBERegion: nextEntryBB 121: if.end48
-=================SUSAN: END OF marking region : if.then19==================
-SUSAN: currbb 562: if.end48
-if.else45 to land.lhs.true17
-otherStart: if.then19
-0
-YEBIN: new region in ifelse _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::land.lhs.true17
-  br label %if.end47
-SUSAN: block is a linear region! if.else45
-CBERegion: including if.else45 in a linear region
-Now looking at if.end47
-CBERegion: including if.end47 in a linear region
-Now looking at if.end48
-SUSAN: currbb 562: if.end48
-CBERegion: nextEntryBB 121: if.end48
-=================SUSAN: END OF marking region : land.lhs.true17==================
-SUSAN: currbb 562: if.end48
-if.else45 to if.else15
-otherStart: land.lhs.true17
-0
-YEBIN: new region in ifelse _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.else15
-  br label %if.end47
-SUSAN: block is a linear region! if.else45
-CBERegion: including if.else45 in a linear region
-Now looking at if.end47
-CBERegion: including if.end47 in a linear region
-Now looking at if.end48
-SUSAN: currbb 562: if.end48
-CBERegion: nextEntryBB 121: if.end48
-=================SUSAN: END OF marking region : if.else15==================
-SUSAN: currbb 562: if.end48
+ANDREW: CBERegion: entry block if.else15 is already in enclosing if-else region, stopping duplicate subregion.
 CBERegion: nextEntryBB 121: if.end48
 =================SUSAN: END OF marking region : entry==================
 SUSAN: nextRegionEntryBB if.end48
@@ -10740,10 +10560,6 @@ if.end47
 elseSubRegions end
 thenSubRegions end
 elseSubRegions : 
-Linear Region with entering block: if.else42
-if.else42
-if.end44
-if.end47
 elseSubRegions end
 thenSubRegions end
 elseSubRegions : 
@@ -10753,9 +10569,6 @@ if.end47
 elseSubRegions end
 thenSubRegions end
 elseSubRegions : 
-Linear Region with entering block: if.else45
-if.else45
-if.end47
 elseSubRegions end
 elseSubRegions end
 CBackend: writeOperand 3595: 
@@ -11254,10 +11067,6 @@ if.end47
 elseSubRegions end
 thenSubRegions end
 elseSubRegions : 
-Linear Region with entering block: if.else42
-if.else42
-if.end44
-if.end47
 elseSubRegions end
 thenSubRegions end
 elseSubRegions : 
@@ -11313,10 +11122,6 @@ if.end47
 elseSubRegions end
 thenSubRegions end
 elseSubRegions : 
-Linear Region with entering block: if.else42
-if.else42
-if.end44
-if.end47
 elseSubRegions end
 CBackend: writeOperand 3595:   %cmp18 = icmp eq i32 %n3, 0, !dbg !1117
 ANDREW: isExtraInductionVariable:   %cmp18 = icmp eq i32 %n3, 0, !dbg !1117
@@ -11924,1009 +11729,6 @@ printing unconditional branch   br label %if.end44
 SUSAN: printing bb:if.end44
 CBEBackend: printing bb 7082 if.end44
 printing unconditional branch   br label %if.end47, !dbg !1152
-SUSAN: printing bb:if.end47
-CBEBackend: printing bb 7082 if.end47
-printing unconditional branch   br label %if.end48
-elseSubRegions : 
-Linear Region with entering block: if.else42
-SUSAN: printing bb:if.else42
-CBEBackend: printing bb 7082 if.else42
-SUSAN: printing instruction   %call43 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([37 x i8], [37 x i8]* @.str.6, i64 0, i64 0), i32 %n1), !dbg !1150 at 6678
-CBackend: writeOperand 3595: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-ANDREW: isExtraInductionVariable: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i8* getelementptr inbounds ([37 x i8], [37 x i8]* @.str.6, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: i8* getelementptr inbounds ([37 x i8], [37 x i8]* @.str.6, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i8* getelementptr inbounds ([37 x i8], [37 x i8]* @.str.6, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: first index is struct or array type
-SUSAN: printing Ptr 9975 @.str.6 = private unnamed_addr constant [37 x i8] c" Size            =             %12d\0A\00", align 1
-ANDREW: isExtraInductionVariable: @.str.6 = private unnamed_addr constant [37 x i8] c" Size            =             %12d\0A\00", align 1
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: @.str.6 = private unnamed_addr constant [37 x i8] c" Size            =             %12d\0A\00", align 1
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: @.str.6 = private unnamed_addr constant [37 x i8] c" Size            =             %12d\0A\00", align 1
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i32 %n1
-ANDREW: isExtraInductionVariable: i32 %n1
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 %n1
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: i32 %n1
-inst from IRNaming: i32 %n1
-original name : n1
-returning name: n1
-CBackend: writeoperand here 3674? 
-printing unconditional branch   br label %if.end44
-SUSAN: printing bb:if.end44
-CBEBackend: printing bb 7082 if.end44
-printing unconditional branch   br label %if.end47, !dbg !1152
-SUSAN: printing bb:if.end47
-CBEBackend: printing bb 7082 if.end47
-printing unconditional branch   br label %if.end48
-elseSubRegions : 
-Linear Region with entering block: if.else45
-SUSAN: printing bb:if.else45
-CBEBackend: printing bb 7082 if.else45
-SUSAN: printing instruction   %call46 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([42 x i8], [42 x i8]* @.str.7, i64 0, i64 0), i32 %n1, i32 %n2, i32 %n3), !dbg !1153 at 6678
-CBackend: writeOperand 3595: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-ANDREW: isExtraInductionVariable: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i8* getelementptr inbounds ([42 x i8], [42 x i8]* @.str.7, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: i8* getelementptr inbounds ([42 x i8], [42 x i8]* @.str.7, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i8* getelementptr inbounds ([42 x i8], [42 x i8]* @.str.7, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: first index is struct or array type
-SUSAN: printing Ptr 9975 @.str.7 = private unnamed_addr constant [42 x i8] c" Size            =           %4dx%4dx%4d\0A\00", align 1
-ANDREW: isExtraInductionVariable: @.str.7 = private unnamed_addr constant [42 x i8] c" Size            =           %4dx%4dx%4d\0A\00", align 1
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: @.str.7 = private unnamed_addr constant [42 x i8] c" Size            =           %4dx%4dx%4d\0A\00", align 1
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: @.str.7 = private unnamed_addr constant [42 x i8] c" Size            =           %4dx%4dx%4d\0A\00", align 1
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i32 %n1
-ANDREW: isExtraInductionVariable: i32 %n1
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 %n1
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: i32 %n1
-inst from IRNaming: i32 %n1
-original name : n1
-returning name: n1
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i32 %n2
-ANDREW: isExtraInductionVariable: i32 %n2
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 %n2
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: i32 %n2
-inst from IRNaming: i32 %n2
-original name : n2
-returning name: n2
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i32 %n3
-ANDREW: isExtraInductionVariable: i32 %n3
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 %n3
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: i32 %n3
-inst from IRNaming: i32 %n3
-original name : n3
-returning name: n3
-CBackend: writeoperand here 3674? 
-printing unconditional branch   br label %if.end47
-SUSAN: printing bb:if.end47
-CBEBackend: printing bb 7082 if.end47
-printing unconditional branch   br label %if.end48
-elseSubRegions : 
-Linear Region with entering block: if.else45
-SUSAN: printing bb:if.else45
-CBEBackend: printing bb 7082 if.else45
-SUSAN: printing instruction   %call46 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([42 x i8], [42 x i8]* @.str.7, i64 0, i64 0), i32 %n1, i32 %n2, i32 %n3), !dbg !1153 at 6678
-CBackend: writeOperand 3595: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-ANDREW: isExtraInductionVariable: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i8* getelementptr inbounds ([42 x i8], [42 x i8]* @.str.7, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: i8* getelementptr inbounds ([42 x i8], [42 x i8]* @.str.7, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i8* getelementptr inbounds ([42 x i8], [42 x i8]* @.str.7, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: first index is struct or array type
-SUSAN: printing Ptr 9975 @.str.7 = private unnamed_addr constant [42 x i8] c" Size            =           %4dx%4dx%4d\0A\00", align 1
-ANDREW: isExtraInductionVariable: @.str.7 = private unnamed_addr constant [42 x i8] c" Size            =           %4dx%4dx%4d\0A\00", align 1
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: @.str.7 = private unnamed_addr constant [42 x i8] c" Size            =           %4dx%4dx%4d\0A\00", align 1
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: @.str.7 = private unnamed_addr constant [42 x i8] c" Size            =           %4dx%4dx%4d\0A\00", align 1
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i32 %n1
-ANDREW: isExtraInductionVariable: i32 %n1
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 %n1
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: i32 %n1
-inst from IRNaming: i32 %n1
-original name : n1
-returning name: n1
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i32 %n2
-ANDREW: isExtraInductionVariable: i32 %n2
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 %n2
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: i32 %n2
-inst from IRNaming: i32 %n2
-original name : n2
-returning name: n2
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i32 %n3
-ANDREW: isExtraInductionVariable: i32 %n3
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 %n3
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: i32 %n3
-inst from IRNaming: i32 %n3
-original name : n3
-returning name: n3
-CBackend: writeoperand here 3674? 
-printing unconditional branch   br label %if.end47
-SUSAN: printing bb:if.end47
-CBEBackend: printing bb 7082 if.end47
-printing unconditional branch   br label %if.end48
-elseSubRegions : 
-IfElse Region with entering block: _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.else15
-thenSubRegions : 
-IfElse Region with entering block: _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::land.lhs.true17
-thenSubRegions : 
-IfElse Region with entering block: _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.then19
-thenSubRegions : 
-IfElse Region with entering block: _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::land.lhs.true23
-thenSubRegions : 
-IfElse Region with entering block: _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.then27
-thenSubRegions : 
-Linear Region with entering block: if.then34
-if.then34
-thenSubRegions end
-elseSubRegions : 
-elseSubRegions end
-Linear Region with entering block: if.end37
-if.end37
-if.end44
-if.end47
-thenSubRegions end
-elseSubRegions : 
-Linear Region with entering block: if.else42
-if.else42
-if.end44
-if.end47
-elseSubRegions end
-thenSubRegions end
-elseSubRegions : 
-Linear Region with entering block: if.else42
-if.else42
-if.end44
-if.end47
-elseSubRegions end
-thenSubRegions end
-elseSubRegions : 
-Linear Region with entering block: if.else45
-if.else45
-if.end47
-elseSubRegions end
-CBackend: writeOperand 3595:   %cmp16 = icmp eq i32 %n2, 0, !dbg !1114
-ANDREW: isExtraInductionVariable:   %cmp16 = icmp eq i32 %n2, 0, !dbg !1114
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %cmp16 = icmp eq i32 %n2, 0, !dbg !1114
-ANDREW: isExtraInductionVariable: not a PHI
-CBackend: writeOperand 3595: i32 %n2
-ANDREW: isExtraInductionVariable: i32 %n2
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 %n2
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: i32 %n2
-inst from IRNaming: i32 %n2
-original name : n2
-returning name: n2
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i32 0
-ANDREW: isExtraInductionVariable: i32 0
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 0
-ANDREW: isExtraInductionVariable: not a PHI
-CBackend: writeoperand here 3674? 
-CBackend: writeoperand here 3674? 
-IfElse Region with entering block: _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::land.lhs.true17
-thenSubRegions : 
-IfElse Region with entering block: _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.then19
-thenSubRegions : 
-IfElse Region with entering block: _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::land.lhs.true23
-thenSubRegions : 
-IfElse Region with entering block: _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.then27
-thenSubRegions : 
-Linear Region with entering block: if.then34
-if.then34
-thenSubRegions end
-elseSubRegions : 
-elseSubRegions end
-Linear Region with entering block: if.end37
-if.end37
-if.end44
-if.end47
-thenSubRegions end
-elseSubRegions : 
-Linear Region with entering block: if.else42
-if.else42
-if.end44
-if.end47
-elseSubRegions end
-thenSubRegions end
-elseSubRegions : 
-Linear Region with entering block: if.else42
-if.else42
-if.end44
-if.end47
-elseSubRegions end
-CBackend: writeOperand 3595:   %cmp18 = icmp eq i32 %n3, 0, !dbg !1117
-ANDREW: isExtraInductionVariable:   %cmp18 = icmp eq i32 %n3, 0, !dbg !1117
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %cmp18 = icmp eq i32 %n3, 0, !dbg !1117
-ANDREW: isExtraInductionVariable: not a PHI
-CBackend: writeOperand 3595: i32 %n3
-ANDREW: isExtraInductionVariable: i32 %n3
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 %n3
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: i32 %n3
-inst from IRNaming: i32 %n3
-original name : n3
-returning name: n3
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i32 0
-ANDREW: isExtraInductionVariable: i32 0
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 0
-ANDREW: isExtraInductionVariable: not a PHI
-CBackend: writeoperand here 3674? 
-CBackend: writeoperand here 3674? 
-IfElse Region with entering block: _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.then19
-thenSubRegions : 
-IfElse Region with entering block: _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::land.lhs.true23
-thenSubRegions : 
-IfElse Region with entering block: _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.then27
-thenSubRegions : 
-Linear Region with entering block: if.then34
-if.then34
-thenSubRegions end
-elseSubRegions : 
-elseSubRegions end
-Linear Region with entering block: if.end37
-if.end37
-if.end44
-if.end47
-thenSubRegions end
-elseSubRegions : 
-Linear Region with entering block: if.else42
-if.else42
-if.end44
-if.end47
-elseSubRegions end
-Inlinable inst   %arrayidx20 = getelementptr inbounds i8, i8* %name, i64 0, !dbg !1119
-CBE_DEBUG: Checking Load:   %2 = load i8, i8* %arrayidx20, align 1, !dbg !1119
-CBE_DEBUG: Underlying Object: i8* %name
-CBE_DEBUG:   -> Safe Local, INLINING.
-Inlinable inst   %2 = load i8, i8* %arrayidx20, align 1, !dbg !1119
-Inlinable inst   %conv21 = sext i8 %2 to i32, !dbg !1119
-CBackend: writeOperand 3595:   %cmp22 = icmp eq i32 %conv21, 69, !dbg !1122
-ANDREW: isExtraInductionVariable:   %cmp22 = icmp eq i32 %conv21, 69, !dbg !1122
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %cmp22 = icmp eq i32 %conv21, 69, !dbg !1122
-ANDREW: isExtraInductionVariable: not a PHI
-CBackend: writeOperand 3595:   %conv21 = sext i8 %2 to i32, !dbg !1119
-ANDREW: isExtraInductionVariable:   %conv21 = sext i8 %2 to i32, !dbg !1119
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %conv21 = sext i8 %2 to i32, !dbg !1119
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: visiting cast:   %conv21 = sext i8 %2 to i32, !dbg !1119
-CBackend: writeOperand 3595:   %2 = load i8, i8* %arrayidx20, align 1, !dbg !1119
-ANDREW: isExtraInductionVariable:   %2 = load i8, i8* %arrayidx20, align 1, !dbg !1119
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %2 = load i8, i8* %arrayidx20, align 1, !dbg !1119
-ANDREW: isExtraInductionVariable: not a PHI
-CBE_DEBUG: Checking Load:   %2 = load i8, i8* %arrayidx20, align 1, !dbg !1119
-CBE_DEBUG: Underlying Object: i8* %name
-CBE_DEBUG:   -> Safe Local, INLINING.
-SUSAN: loadInst:   %2 = load i8, i8* %arrayidx20, align 1, !dbg !1119
-SUSAN: GEPINST:   %arrayidx20 = getelementptr inbounds i8, i8* %name, i64 0, !dbg !1119
-SUSAN: dereferenceTimes = 1
-ANDREW: isExtraInductionVariable:   %arrayidx20 = getelementptr inbounds i8, i8* %name, i64 0, !dbg !1119
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %arrayidx20 = getelementptr inbounds i8, i8* %name, i64 0, !dbg !1119
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: printing GEP:   %arrayidx20 = getelementptr inbounds i8, i8* %name, i64 0, !dbg !1119
-SUSAN: accessMemory true
-SUSAN: first index is integer/pointertype type
-SUSAN: writing ptr 10000:i8* %name
-SUSAN: writing ptr 9994: i8* %name
-ANDREW: isExtraInductionVariable: i8* %name
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i8* %name
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: i8* %name
-inst from IRNaming: i8* %name
-original name : name
-returning name: name
-CBackend: writeOperand 3595: i64 0
-ANDREW: isExtraInductionVariable: i64 0
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i64 0
-ANDREW: isExtraInductionVariable: not a PHI
-CBackend: writeoperand here 3674? 
-CBackend: writeoperand here 3674? 
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i32 69
-ANDREW: isExtraInductionVariable: i32 69
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 69
-ANDREW: isExtraInductionVariable: not a PHI
-CBackend: writeoperand here 3674? 
-CBackend: writeoperand here 3674? 
-IfElse Region with entering block: _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::land.lhs.true23
-thenSubRegions : 
-IfElse Region with entering block: _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.then27
-thenSubRegions : 
-Linear Region with entering block: if.then34
-if.then34
-thenSubRegions end
-elseSubRegions : 
-elseSubRegions end
-Linear Region with entering block: if.end37
-if.end37
-if.end44
-if.end47
-Inlinable inst   %arrayidx24 = getelementptr inbounds i8, i8* %name, i64 1, !dbg !1124
-CBE_DEBUG: Checking Load:   %3 = load i8, i8* %arrayidx24, align 1, !dbg !1124
-CBE_DEBUG: Underlying Object: i8* %name
-CBE_DEBUG:   -> Safe Local, INLINING.
-Inlinable inst   %3 = load i8, i8* %arrayidx24, align 1, !dbg !1124
-Inlinable inst   %conv25 = sext i8 %3 to i32, !dbg !1124
-CBackend: writeOperand 3595:   %cmp26 = icmp eq i32 %conv25, 80, !dbg !1125
-ANDREW: isExtraInductionVariable:   %cmp26 = icmp eq i32 %conv25, 80, !dbg !1125
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %cmp26 = icmp eq i32 %conv25, 80, !dbg !1125
-ANDREW: isExtraInductionVariable: not a PHI
-CBackend: writeOperand 3595:   %conv25 = sext i8 %3 to i32, !dbg !1124
-ANDREW: isExtraInductionVariable:   %conv25 = sext i8 %3 to i32, !dbg !1124
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %conv25 = sext i8 %3 to i32, !dbg !1124
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: visiting cast:   %conv25 = sext i8 %3 to i32, !dbg !1124
-CBackend: writeOperand 3595:   %3 = load i8, i8* %arrayidx24, align 1, !dbg !1124
-ANDREW: isExtraInductionVariable:   %3 = load i8, i8* %arrayidx24, align 1, !dbg !1124
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %3 = load i8, i8* %arrayidx24, align 1, !dbg !1124
-ANDREW: isExtraInductionVariable: not a PHI
-CBE_DEBUG: Checking Load:   %3 = load i8, i8* %arrayidx24, align 1, !dbg !1124
-CBE_DEBUG: Underlying Object: i8* %name
-CBE_DEBUG:   -> Safe Local, INLINING.
-SUSAN: loadInst:   %3 = load i8, i8* %arrayidx24, align 1, !dbg !1124
-SUSAN: GEPINST:   %arrayidx24 = getelementptr inbounds i8, i8* %name, i64 1, !dbg !1124
-SUSAN: dereferenceTimes = 1
-ANDREW: isExtraInductionVariable:   %arrayidx24 = getelementptr inbounds i8, i8* %name, i64 1, !dbg !1124
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %arrayidx24 = getelementptr inbounds i8, i8* %name, i64 1, !dbg !1124
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: printing GEP:   %arrayidx24 = getelementptr inbounds i8, i8* %name, i64 1, !dbg !1124
-SUSAN: accessMemory true
-SUSAN: first index is integer/pointertype type
-SUSAN: writing ptr 10000:i8* %name
-SUSAN: writing ptr 9994: i8* %name
-ANDREW: isExtraInductionVariable: i8* %name
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i8* %name
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: i8* %name
-inst from IRNaming: i8* %name
-original name : name
-returning name: name
-CBackend: writeOperand 3595: i64 1
-ANDREW: isExtraInductionVariable: i64 1
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i64 1
-ANDREW: isExtraInductionVariable: not a PHI
-CBackend: writeoperand here 3674? 
-CBackend: writeoperand here 3674? 
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i32 80
-ANDREW: isExtraInductionVariable: i32 80
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 80
-ANDREW: isExtraInductionVariable: not a PHI
-CBackend: writeoperand here 3674? 
-CBackend: writeoperand here 3674? 
-IfElse Region with entering block: _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.then27
-thenSubRegions : 
-Linear Region with entering block: if.then34
-if.then34
-Inlinable inst   %arraydecay = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 0, !dbg !1127
-Inlinable inst   %conv28 = sitofp i32 %n1 to double, !dbg !1129
-SUSAN: declaring 3252:   %call29 = call double @pow(double 2.000000e+00, double %conv28) #10, !dbg !1130
-SUSAN: getting value name for:   %call29 = call double @pow(double 2.000000e+00, double %conv28) #10, !dbg !1130
-SUSAN: getting value name for:   %call29 = call double @pow(double 2.000000e+00, double %conv28) #10, !dbg !1130
-CBackend: writeOperand 3595: 
-; Function Attrs: nounwind
-declare dso_local double @pow(double, double) #7
-
-ANDREW: isExtraInductionVariable: 
-; Function Attrs: nounwind
-declare dso_local double @pow(double, double) #7
-
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: 
-; Function Attrs: nounwind
-declare dso_local double @pow(double, double) #7
-
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: 
-; Function Attrs: nounwind
-declare dso_local double @pow(double, double) #7
-
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: double 2.000000e+00
-ANDREW: isExtraInductionVariable: double 2.000000e+00
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: double 2.000000e+00
-ANDREW: isExtraInductionVariable: not a PHI
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595:   %conv28 = sitofp i32 %n1 to double, !dbg !1129
-ANDREW: isExtraInductionVariable:   %conv28 = sitofp i32 %n1 to double, !dbg !1129
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %conv28 = sitofp i32 %n1 to double, !dbg !1129
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: visiting cast:   %conv28 = sitofp i32 %n1 to double, !dbg !1129
-CBackend: writeOperand 3595: i32 %n1
-ANDREW: isExtraInductionVariable: i32 %n1
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 %n1
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: i32 %n1
-inst from IRNaming: i32 %n1
-original name : n1
-returning name: n1
-CBackend: writeoperand here 3674? 
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: 
-; Function Attrs: nounwind
-declare dso_local i32 @sprintf(i8*, i8*, ...) #7
-
-ANDREW: isExtraInductionVariable: 
-; Function Attrs: nounwind
-declare dso_local i32 @sprintf(i8*, i8*, ...) #7
-
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: 
-; Function Attrs: nounwind
-declare dso_local i32 @sprintf(i8*, i8*, ...) #7
-
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: 
-; Function Attrs: nounwind
-declare dso_local i32 @sprintf(i8*, i8*, ...) #7
-
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595:   %arraydecay = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 0, !dbg !1127
-ANDREW: isExtraInductionVariable:   %arraydecay = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 0, !dbg !1127
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %arraydecay = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 0, !dbg !1127
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: printing GEP:   %arraydecay = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 0, !dbg !1127
-SUSAN: first index is struct or array type
-SUSAN: printing Ptr 9975   %size = alloca [16 x i8], align 16
-ANDREW: isExtraInductionVariable:   %size = alloca [16 x i8], align 16
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %size = alloca [16 x i8], align 16
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for:   %size = alloca [16 x i8], align 16
-inst from IRNaming:   %size = alloca [16 x i8], align 16
-original name : size
-returning name: size
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str.4, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str.4, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str.4, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: first index is struct or array type
-SUSAN: printing Ptr 9975 @.str.4 = private unnamed_addr constant [8 x i8] c"%15.0lf\00", align 1
-ANDREW: isExtraInductionVariable: @.str.4 = private unnamed_addr constant [8 x i8] c"%15.0lf\00", align 1
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: @.str.4 = private unnamed_addr constant [8 x i8] c"%15.0lf\00", align 1
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: @.str.4 = private unnamed_addr constant [8 x i8] c"%15.0lf\00", align 1
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595:   %call29 = call double @pow(double 2.000000e+00, double %conv28) #10, !dbg !1130
-ANDREW: isExtraInductionVariable:   %call29 = call double @pow(double 2.000000e+00, double %conv28) #10, !dbg !1130
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %call29 = call double @pow(double 2.000000e+00, double %conv28) #10, !dbg !1130
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for:   %call29 = call double @pow(double 2.000000e+00, double %conv28) #10, !dbg !1130
-CBackend: writeoperand here 3674? 
-Inlinable inst   %idxprom = sext i32 14 to i64, !dbg !1134
-Inlinable inst   %arrayidx31 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 %idxprom, !dbg !1134
-CBE_DEBUG: Checking Load:   %4 = load i8, i8* %arrayidx31, align 1, !dbg !1134
-CBE_DEBUG: Underlying Object:   %size = alloca [16 x i8], align 16
-CBE_DEBUG:   -> Safe Local, INLINING.
-Inlinable inst   %4 = load i8, i8* %arrayidx31, align 1, !dbg !1134
-Inlinable inst   %conv32 = sext i8 %4 to i32, !dbg !1134
-CBE_DEBUG: emitting PHI copy from pred _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.then27 to phi   %j.0 = phi i32 [ %dec, %if.then34 ], [ 14, %if.then27 ], !dbg !1143
-SUSAN: getting value name for:   %j.0 = phi i32 [ %dec, %if.then34 ], [ 14, %if.then27 ], !dbg !1143
-inst from IRNaming:   %j.0 = phi i32 [ %dec, %if.then34 ], [ 14, %if.then27 ], !dbg !1143
-original name : j
-returning name: j
-SUSAN: getting value name for:   %j.0 = phi i32 [ %dec, %if.then34 ], [ 14, %if.then27 ], !dbg !1143
-inst from IRNaming:   %j.0 = phi i32 [ %dec, %if.then34 ], [ 14, %if.then27 ], !dbg !1143
-original name : j
-returning name: j
-CBE_DEBUG: PHI incoming value: i32 14
-ANDREW: isExtraInductionVariable: i32 14
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 14
-ANDREW: isExtraInductionVariable: not a PHI
-CBackend: writeOperand 3595:   %cmp33 = icmp eq i32 %conv32, 46, !dbg !1136
-ANDREW: isExtraInductionVariable:   %cmp33 = icmp eq i32 %conv32, 46, !dbg !1136
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %cmp33 = icmp eq i32 %conv32, 46, !dbg !1136
-ANDREW: isExtraInductionVariable: not a PHI
-CBackend: writeOperand 3595:   %conv32 = sext i8 %4 to i32, !dbg !1134
-ANDREW: isExtraInductionVariable:   %conv32 = sext i8 %4 to i32, !dbg !1134
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %conv32 = sext i8 %4 to i32, !dbg !1134
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: visiting cast:   %conv32 = sext i8 %4 to i32, !dbg !1134
-CBackend: writeOperand 3595:   %4 = load i8, i8* %arrayidx31, align 1, !dbg !1134
-ANDREW: isExtraInductionVariable:   %4 = load i8, i8* %arrayidx31, align 1, !dbg !1134
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %4 = load i8, i8* %arrayidx31, align 1, !dbg !1134
-ANDREW: isExtraInductionVariable: not a PHI
-CBE_DEBUG: Checking Load:   %4 = load i8, i8* %arrayidx31, align 1, !dbg !1134
-CBE_DEBUG: Underlying Object:   %size = alloca [16 x i8], align 16
-CBE_DEBUG:   -> Safe Local, INLINING.
-SUSAN: loadInst:   %4 = load i8, i8* %arrayidx31, align 1, !dbg !1134
-SUSAN: GEPINST:   %arrayidx31 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 %idxprom, !dbg !1134
-SUSAN: dereferenceTimes = 2
-ANDREW: isExtraInductionVariable:   %arrayidx31 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 %idxprom, !dbg !1134
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %arrayidx31 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 %idxprom, !dbg !1134
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: printing GEP:   %arrayidx31 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 %idxprom, !dbg !1134
-SUSAN: accessMemory true
-SUSAN: first index is struct or array type
-SUSAN: printing Ptr 9975   %size = alloca [16 x i8], align 16
-ANDREW: isExtraInductionVariable:   %size = alloca [16 x i8], align 16
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %size = alloca [16 x i8], align 16
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for:   %size = alloca [16 x i8], align 16
-inst from IRNaming:   %size = alloca [16 x i8], align 16
-original name : size
-returning name: size
-CBackend: writeOperand 3595:   %idxprom = sext i32 14 to i64, !dbg !1134
-ANDREW: isExtraInductionVariable:   %idxprom = sext i32 14 to i64, !dbg !1134
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %idxprom = sext i32 14 to i64, !dbg !1134
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: visiting cast:   %idxprom = sext i32 14 to i64, !dbg !1134
-CBackend: writeOperand 3595: i32 14
-ANDREW: isExtraInductionVariable: i32 14
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 14
-ANDREW: isExtraInductionVariable: not a PHI
-CBackend: writeoperand here 3674? 
-CBackend: writeoperand here 3674? 
-CBackend: writeoperand here 3674? 
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i32 46
-ANDREW: isExtraInductionVariable: i32 46
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 46
-ANDREW: isExtraInductionVariable: not a PHI
-CBackend: writeoperand here 3674? 
-CBackend: writeoperand here 3674? 
-Linear Region with entering block: if.then34
-SUSAN: printing bb:if.then34
-CBEBackend: printing bb 7082 if.then34
-Inlinable inst   %idxprom35 = sext i32 14 to i64, !dbg !1138
-Skipping inst   %idxprom35 = sext i32 14 to i64, !dbg !1138
-Inlinable inst   %arrayidx36 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 %idxprom35, !dbg !1138
-Skipping inst   %arrayidx36 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 %idxprom35, !dbg !1138
-SUSAN: printing instruction   store i8 32, i8* %arrayidx36, align 1, !dbg !1140 at 6678
-CBEBackend: printing store Inst:   store i8 32, i8* %arrayidx36, align 1, !dbg !1140
-CBackend: here? 10442
-SUSAN: GEPINST:   %arrayidx36 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 %idxprom35, !dbg !1138
-SUSAN: dereferenceTimes = 2
-ANDREW: isExtraInductionVariable:   %arrayidx36 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 %idxprom35, !dbg !1138
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %arrayidx36 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 %idxprom35, !dbg !1138
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: printing GEP:   %arrayidx36 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 %idxprom35, !dbg !1138
-SUSAN: accessMemory true
-SUSAN: first index is struct or array type
-SUSAN: printing Ptr 9975   %size = alloca [16 x i8], align 16
-ANDREW: isExtraInductionVariable:   %size = alloca [16 x i8], align 16
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %size = alloca [16 x i8], align 16
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for:   %size = alloca [16 x i8], align 16
-inst from IRNaming:   %size = alloca [16 x i8], align 16
-original name : size
-returning name: size
-CBackend: writeOperand 3595:   %idxprom35 = sext i32 14 to i64, !dbg !1138
-ANDREW: isExtraInductionVariable:   %idxprom35 = sext i32 14 to i64, !dbg !1138
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %idxprom35 = sext i32 14 to i64, !dbg !1138
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: visiting cast:   %idxprom35 = sext i32 14 to i64, !dbg !1138
-CBackend: writeOperand 3595: i32 14
-ANDREW: isExtraInductionVariable: i32 14
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 14
-ANDREW: isExtraInductionVariable: not a PHI
-CBackend: writeoperand here 3674? 
-CBackend: writeoperand here 3674? 
-CBackend: here? 10445
-CBackend: writeOperand 3595: i8 32
-ANDREW: isExtraInductionVariable: i8 32
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i8 32
-ANDREW: isExtraInductionVariable: not a PHI
-CBackend: writeoperand here 3674? 
-CBackend: here? 10462
-SUSAN: printing instruction   %dec = add nsw i32 14, -1, !dbg !1141 at 6678
-SUSAN: getting value name for:   %dec = add nsw i32 14, -1, !dbg !1141
-inst from IRNaming:   %dec = add nsw i32 14, -1, !dbg !1141
-original name : j
-returning name: j
-Skipping inst   call void @llvm.dbg.value(metadata i32 %dec, metadata !1287, metadata !DIExpression()), !dbg !1288
-CBE_DEBUG: emitting PHI copy from pred _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.then34 to phi   %j.0 = phi i32 [ %dec, %if.then34 ], [ 14, %if.then27 ], !dbg !1143
-SUSAN: getting value name for:   %j.0 = phi i32 [ %dec, %if.then34 ], [ 14, %if.then27 ], !dbg !1143
-inst from IRNaming:   %j.0 = phi i32 [ %dec, %if.then34 ], [ 14, %if.then27 ], !dbg !1143
-original name : j
-returning name: j
-SUSAN: getting value name for:   %dec = add nsw i32 14, -1, !dbg !1141
-inst from IRNaming:   %dec = add nsw i32 14, -1, !dbg !1141
-original name : j
-returning name: j
-CBE_DEBUG: skipping no-op PHI copy for _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_::if.then34 var=j
-printing unconditional branch   br label %if.end37, !dbg !1142
-Linear Region with entering block: if.end37
-SUSAN: printing bb:if.end37
-CBEBackend: printing bb 7082 if.end37
-Skipping inst   %j.0 = phi i32 [ %dec, %if.then34 ], [ 14, %if.then27 ], !dbg !1143
-Skipping inst   call void @llvm.dbg.value(metadata i32 %j.0, metadata !1287, metadata !DIExpression()), !dbg !1288
-Inlinable inst   %add = add nsw i32 %j.0, 1, !dbg !1144
-Skipping inst   %add = add nsw i32 %j.0, 1, !dbg !1144
-Inlinable inst   %idxprom38 = sext i32 %add to i64, !dbg !1145
-Skipping inst   %idxprom38 = sext i32 %add to i64, !dbg !1145
-Inlinable inst   %arrayidx39 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 %idxprom38, !dbg !1145
-Skipping inst   %arrayidx39 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 %idxprom38, !dbg !1145
-SUSAN: printing instruction   store i8 0, i8* %arrayidx39, align 1, !dbg !1146 at 6678
-CBEBackend: printing store Inst:   store i8 0, i8* %arrayidx39, align 1, !dbg !1146
-CBackend: here? 10442
-SUSAN: GEPINST:   %arrayidx39 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 %idxprom38, !dbg !1145
-SUSAN: dereferenceTimes = 2
-ANDREW: isExtraInductionVariable:   %arrayidx39 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 %idxprom38, !dbg !1145
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %arrayidx39 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 %idxprom38, !dbg !1145
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: printing GEP:   %arrayidx39 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 %idxprom38, !dbg !1145
-SUSAN: accessMemory true
-SUSAN: first index is struct or array type
-SUSAN: printing Ptr 9975   %size = alloca [16 x i8], align 16
-ANDREW: isExtraInductionVariable:   %size = alloca [16 x i8], align 16
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %size = alloca [16 x i8], align 16
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for:   %size = alloca [16 x i8], align 16
-inst from IRNaming:   %size = alloca [16 x i8], align 16
-original name : size
-returning name: size
-CBackend: writeOperand 3595:   %idxprom38 = sext i32 %add to i64, !dbg !1145
-ANDREW: isExtraInductionVariable:   %idxprom38 = sext i32 %add to i64, !dbg !1145
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %idxprom38 = sext i32 %add to i64, !dbg !1145
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: visiting cast:   %idxprom38 = sext i32 %add to i64, !dbg !1145
-CBackend: writeOperand 3595:   %add = add nsw i32 %j.0, 1, !dbg !1144
-ANDREW: isExtraInductionVariable:   %add = add nsw i32 %j.0, 1, !dbg !1144
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %add = add nsw i32 %j.0, 1, !dbg !1144
-ANDREW: isExtraInductionVariable: not a PHI
-CBackend: writeOperand 3595:   %j.0 = phi i32 [ %dec, %if.then34 ], [ 14, %if.then27 ], !dbg !1143
-ANDREW: isExtraInductionVariable:   %j.0 = phi i32 [ %dec, %if.then34 ], [ 14, %if.then27 ], !dbg !1143
-ANDREW: isExtraInductionVariable: Loop is null
-ANDREW: isExtraInductionVariable:   %j.0 = phi i32 [ %dec, %if.then34 ], [ 14, %if.then27 ], !dbg !1143
-ANDREW: isExtraInductionVariable: Loop is null
-ANDREW: isExtraInductionVariable:   %j.0 = phi i32 [ %dec, %if.then34 ], [ 14, %if.then27 ], !dbg !1143
-ANDREW: isExtraInductionVariable: Loop is null
-ANDREW: isExtraInductionVariable:   %j.0 = phi i32 [ %dec, %if.then34 ], [ 14, %if.then27 ], !dbg !1143
-ANDREW: isExtraInductionVariable: Loop is null
-SUSAN: getting value name for:   %j.0 = phi i32 [ %dec, %if.then34 ], [ 14, %if.then27 ], !dbg !1143
-inst from IRNaming:   %j.0 = phi i32 [ %dec, %if.then34 ], [ 14, %if.then27 ], !dbg !1143
-original name : j
-returning name: j
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i32 1
-ANDREW: isExtraInductionVariable: i32 1
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 1
-ANDREW: isExtraInductionVariable: not a PHI
-CBackend: writeoperand here 3674? 
-CBackend: writeoperand here 3674? 
-CBackend: writeoperand here 3674? 
-CBackend: here? 10445
-CBackend: writeOperand 3595: i8 0
-ANDREW: isExtraInductionVariable: i8 0
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i8 0
-ANDREW: isExtraInductionVariable: not a PHI
-CBackend: writeoperand here 3674? 
-CBackend: here? 10462
-Inlinable inst   %arraydecay40 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 0, !dbg !1147
-Skipping inst   %arraydecay40 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 0, !dbg !1147
-SUSAN: printing instruction   %call41 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([34 x i8], [34 x i8]* @.str.5, i64 0, i64 0), i8* %arraydecay40), !dbg !1148 at 6678
-CBackend: writeOperand 3595: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-ANDREW: isExtraInductionVariable: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i8* getelementptr inbounds ([34 x i8], [34 x i8]* @.str.5, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: i8* getelementptr inbounds ([34 x i8], [34 x i8]* @.str.5, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i8* getelementptr inbounds ([34 x i8], [34 x i8]* @.str.5, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: first index is struct or array type
-SUSAN: printing Ptr 9975 @.str.5 = private unnamed_addr constant [34 x i8] c" Size            =          %15s\0A\00", align 1
-ANDREW: isExtraInductionVariable: @.str.5 = private unnamed_addr constant [34 x i8] c" Size            =          %15s\0A\00", align 1
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: @.str.5 = private unnamed_addr constant [34 x i8] c" Size            =          %15s\0A\00", align 1
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: @.str.5 = private unnamed_addr constant [34 x i8] c" Size            =          %15s\0A\00", align 1
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595:   %arraydecay40 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 0, !dbg !1147
-ANDREW: isExtraInductionVariable:   %arraydecay40 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 0, !dbg !1147
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %arraydecay40 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 0, !dbg !1147
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: printing GEP:   %arraydecay40 = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 0, !dbg !1147
-SUSAN: first index is struct or array type
-SUSAN: printing Ptr 9975   %size = alloca [16 x i8], align 16
-ANDREW: isExtraInductionVariable:   %size = alloca [16 x i8], align 16
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable:   %size = alloca [16 x i8], align 16
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for:   %size = alloca [16 x i8], align 16
-inst from IRNaming:   %size = alloca [16 x i8], align 16
-original name : size
-returning name: size
-CBackend: writeoperand here 3674? 
-printing unconditional branch   br label %if.end44, !dbg !1149
-SUSAN: printing bb:if.end44
-CBEBackend: printing bb 7082 if.end44
-printing unconditional branch   br label %if.end47, !dbg !1152
-SUSAN: printing bb:if.end47
-CBEBackend: printing bb 7082 if.end47
-printing unconditional branch   br label %if.end48
-elseSubRegions : 
-Linear Region with entering block: if.else42
-SUSAN: printing bb:if.else42
-CBEBackend: printing bb 7082 if.else42
-SUSAN: printing instruction   %call43 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([37 x i8], [37 x i8]* @.str.6, i64 0, i64 0), i32 %n1), !dbg !1150 at 6678
-CBackend: writeOperand 3595: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-ANDREW: isExtraInductionVariable: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i8* getelementptr inbounds ([37 x i8], [37 x i8]* @.str.6, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: i8* getelementptr inbounds ([37 x i8], [37 x i8]* @.str.6, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i8* getelementptr inbounds ([37 x i8], [37 x i8]* @.str.6, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: first index is struct or array type
-SUSAN: printing Ptr 9975 @.str.6 = private unnamed_addr constant [37 x i8] c" Size            =             %12d\0A\00", align 1
-ANDREW: isExtraInductionVariable: @.str.6 = private unnamed_addr constant [37 x i8] c" Size            =             %12d\0A\00", align 1
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: @.str.6 = private unnamed_addr constant [37 x i8] c" Size            =             %12d\0A\00", align 1
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: @.str.6 = private unnamed_addr constant [37 x i8] c" Size            =             %12d\0A\00", align 1
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i32 %n1
-ANDREW: isExtraInductionVariable: i32 %n1
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 %n1
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: i32 %n1
-inst from IRNaming: i32 %n1
-original name : n1
-returning name: n1
-CBackend: writeoperand here 3674? 
-printing unconditional branch   br label %if.end44
-SUSAN: printing bb:if.end44
-CBEBackend: printing bb 7082 if.end44
-printing unconditional branch   br label %if.end47, !dbg !1152
-SUSAN: printing bb:if.end47
-CBEBackend: printing bb 7082 if.end47
-printing unconditional branch   br label %if.end48
-elseSubRegions : 
-Linear Region with entering block: if.else42
-SUSAN: printing bb:if.else42
-CBEBackend: printing bb 7082 if.else42
-SUSAN: printing instruction   %call43 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([37 x i8], [37 x i8]* @.str.6, i64 0, i64 0), i32 %n1), !dbg !1150 at 6678
-CBackend: writeOperand 3595: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-ANDREW: isExtraInductionVariable: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i8* getelementptr inbounds ([37 x i8], [37 x i8]* @.str.6, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: i8* getelementptr inbounds ([37 x i8], [37 x i8]* @.str.6, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i8* getelementptr inbounds ([37 x i8], [37 x i8]* @.str.6, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: first index is struct or array type
-SUSAN: printing Ptr 9975 @.str.6 = private unnamed_addr constant [37 x i8] c" Size            =             %12d\0A\00", align 1
-ANDREW: isExtraInductionVariable: @.str.6 = private unnamed_addr constant [37 x i8] c" Size            =             %12d\0A\00", align 1
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: @.str.6 = private unnamed_addr constant [37 x i8] c" Size            =             %12d\0A\00", align 1
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: @.str.6 = private unnamed_addr constant [37 x i8] c" Size            =             %12d\0A\00", align 1
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i32 %n1
-ANDREW: isExtraInductionVariable: i32 %n1
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 %n1
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: i32 %n1
-inst from IRNaming: i32 %n1
-original name : n1
-returning name: n1
-CBackend: writeoperand here 3674? 
-printing unconditional branch   br label %if.end44
-SUSAN: printing bb:if.end44
-CBEBackend: printing bb 7082 if.end44
-printing unconditional branch   br label %if.end47, !dbg !1152
-SUSAN: printing bb:if.end47
-CBEBackend: printing bb 7082 if.end47
-printing unconditional branch   br label %if.end48
-elseSubRegions : 
-Linear Region with entering block: if.else45
-SUSAN: printing bb:if.else45
-CBEBackend: printing bb 7082 if.else45
-SUSAN: printing instruction   %call46 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([42 x i8], [42 x i8]* @.str.7, i64 0, i64 0), i32 %n1, i32 %n2, i32 %n3), !dbg !1153 at 6678
-CBackend: writeOperand 3595: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-ANDREW: isExtraInductionVariable: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: 
-declare dso_local i32 @printf(i8*, ...) #6
-
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i8* getelementptr inbounds ([42 x i8], [42 x i8]* @.str.7, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: i8* getelementptr inbounds ([42 x i8], [42 x i8]* @.str.7, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i8* getelementptr inbounds ([42 x i8], [42 x i8]* @.str.7, i64 0, i64 0)
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: first index is struct or array type
-SUSAN: printing Ptr 9975 @.str.7 = private unnamed_addr constant [42 x i8] c" Size            =           %4dx%4dx%4d\0A\00", align 1
-ANDREW: isExtraInductionVariable: @.str.7 = private unnamed_addr constant [42 x i8] c" Size            =           %4dx%4dx%4d\0A\00", align 1
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: @.str.7 = private unnamed_addr constant [42 x i8] c" Size            =           %4dx%4dx%4d\0A\00", align 1
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: @.str.7 = private unnamed_addr constant [42 x i8] c" Size            =           %4dx%4dx%4d\0A\00", align 1
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i32 %n1
-ANDREW: isExtraInductionVariable: i32 %n1
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 %n1
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: i32 %n1
-inst from IRNaming: i32 %n1
-original name : n1
-returning name: n1
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i32 %n2
-ANDREW: isExtraInductionVariable: i32 %n2
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 %n2
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: i32 %n2
-inst from IRNaming: i32 %n2
-original name : n2
-returning name: n2
-CBackend: writeoperand here 3674? 
-CBackend: writeOperand 3595: i32 %n3
-ANDREW: isExtraInductionVariable: i32 %n3
-ANDREW: isExtraInductionVariable: not a PHI
-ANDREW: isExtraInductionVariable: i32 %n3
-ANDREW: isExtraInductionVariable: not a PHI
-SUSAN: getting value name for: i32 %n3
-inst from IRNaming: i32 %n3
-original name : n3
-returning name: n3
-CBackend: writeoperand here 3674? 
-printing unconditional branch   br label %if.end47
 SUSAN: printing bb:if.end47
 CBEBackend: printing bb 7082 if.end47
 printing unconditional branch   br label %if.end48
@@ -14385,23 +13187,20 @@ Operands:   %indvar.1 = phi i32 [ %indvar.next.1, %latch.1 ], [ 0, %header.1.pre
 YEBIN: We are here
 none omp loop ub:   %6 = load i32, i32* @threads_per_block, align 4, !dbg !1123
 =========LOOP PROFILES=========
-Loop: Loop at depth 1 containing: %for.cond<header><exiting>,%for.body,%for.inc<latch>
-
-isomp: 0
-Loop: Loop at depth 1 containing: %for.cond23<header><exiting>,%for.body25,%for.cond26,%for.end37,%for.inc44<latch>,%for.body28,%for.inc35
-    Loop at depth 2 containing: %for.cond26<header><exiting>,%for.body28,%for.inc35<latch>
+Loop: Loop at depth 2 containing: %for.cond26<header><exiting>,%for.body28,%for.inc35<latch>
 
 isomp: 0
 Loop: Loop at depth 2 containing: %header.1<header><exiting>,%kcall.configok,%latch.1<latch>
 
 isomp: 0
+Loop: Loop at depth 1 containing: %for.cond<header><exiting>,%for.body,%for.inc<latch>
+
+isomp: 0
 Loop: Loop at depth 1 containing: %for.cond72<header><exiting>,%for.body74,%for.inc78<latch>
 
 isomp: 0
-Loop: Loop at depth 2 containing: %for.cond26<header><exiting>,%for.body28,%for.inc35<latch>
-
-isomp: 0
-Loop: Loop at depth 1 containing: %for.cond47<header><exiting>,%for.body49,%for.inc53<latch>
+Loop: Loop at depth 1 containing: %for.cond23<header><exiting>,%for.body25,%for.cond26,%for.end37,%for.inc44<latch>,%for.body28,%for.inc35
+    Loop at depth 2 containing: %for.cond26<header><exiting>,%for.body28,%for.inc35<latch>
 
 isomp: 0
 Loop: Loop at depth 1 containing: %header.0<header><exiting>,%header.1.preheader,%header.1,%latch.0<latch>,%kcall.configok,%latch.1
@@ -14411,6 +13210,9 @@ isomp: 0
 Loop: Loop at depth 1 containing: %for.cond10<header><exiting>,%for.body12,%for.inc15<latch>
 
 isomp: 0
+Loop: Loop at depth 1 containing: %for.cond47<header><exiting>,%for.body49,%for.inc53<latch>
+
+isomp: 0
 Preprocessing branch 
 	  br i1 %cmp, label %if.then, label %if.end, !dbg !1073
 with comparitor
@@ -14418,35 +13220,35 @@ with comparitor
 in main
 SUSAN: opnd0  %conv = sext i8 %1 to i32, !dbg !1070
 SUSAN: opnd1i32 46
-Checking LP for.cond
-It's a for loop!
-SUSAN: LP->ub: i32 17
-SUSAN: upperbound: i32 17
-Checking LP for.cond23
-It's a for loop!
-SUSAN: LP->ub:   %22 = sext i32 %21 to i64, !dbg !1138
-SUSAN: upperbound:   %22 = sext i32 %21 to i64, !dbg !1138
-Checking LP header.1
-It's a for loop!
-SUSAN: LP->ub:   %6 = load i32, i32* @threads_per_block, align 4, !dbg !1123
-SUSAN: upperbound:   %6 = load i32, i32* @threads_per_block, align 4, !dbg !1123
-Checking LP for.cond72
-It's a for loop!
-SUSAN: LP->ub: i64 10
-SUSAN: upperbound: i64 10
 Checking LP for.cond26
 It's a for loop!
 SUSAN: LP->ub: i64 10
 SUSAN: upperbound: i64 10
-Checking LP for.cond47
+Checking LP header.1
+It's a for loop!
+SUSAN: LP->ub:   %6 = load i32, i32* @threads_per_block, align 4, !dbg !1123
+SUSAN: upperbound:   %6 = load i32, i32* @threads_per_block, align 4, !dbg !1123
+Checking LP for.cond
+It's a for loop!
+SUSAN: LP->ub: i32 17
+SUSAN: upperbound: i32 17
+Checking LP for.cond72
 It's a for loop!
 SUSAN: LP->ub: i64 10
 SUSAN: upperbound: i64 10
+Checking LP for.cond23
+It's a for loop!
+SUSAN: LP->ub:   %22 = sext i32 %21 to i64, !dbg !1138
+SUSAN: upperbound:   %22 = sext i32 %21 to i64, !dbg !1138
 Checking LP header.0
 It's a for loop!
 SUSAN: LP->ub:   %5 = load i32, i32* @blocks_per_grid, align 4, !dbg !1122
 SUSAN: upperbound:   %5 = load i32, i32* @blocks_per_grid, align 4, !dbg !1122
 Checking LP for.cond10
+It's a for loop!
+SUSAN: LP->ub: i64 10
+SUSAN: upperbound: i64 10
+Checking LP for.cond47
 It's a for loop!
 SUSAN: LP->ub: i64 10
 SUSAN: upperbound: i64 10
@@ -14527,35 +13329,35 @@ with comparitor
 in main
 SUSAN: opnd0i32 1
 SUSAN: opnd1i32 0
-Checking LP for.cond
-It's a for loop!
-SUSAN: LP->ub: i32 17
-SUSAN: upperbound: i32 17
-Checking LP for.cond23
-It's a for loop!
-SUSAN: LP->ub:   %22 = sext i32 %21 to i64, !dbg !1138
-SUSAN: upperbound:   %22 = sext i32 %21 to i64, !dbg !1138
-Checking LP header.1
-It's a for loop!
-SUSAN: LP->ub:   %6 = load i32, i32* @threads_per_block, align 4, !dbg !1123
-SUSAN: upperbound:   %6 = load i32, i32* @threads_per_block, align 4, !dbg !1123
-Checking LP for.cond72
-It's a for loop!
-SUSAN: LP->ub: i64 10
-SUSAN: upperbound: i64 10
 Checking LP for.cond26
 It's a for loop!
 SUSAN: LP->ub: i64 10
 SUSAN: upperbound: i64 10
-Checking LP for.cond47
+Checking LP header.1
+It's a for loop!
+SUSAN: LP->ub:   %6 = load i32, i32* @threads_per_block, align 4, !dbg !1123
+SUSAN: upperbound:   %6 = load i32, i32* @threads_per_block, align 4, !dbg !1123
+Checking LP for.cond
+It's a for loop!
+SUSAN: LP->ub: i32 17
+SUSAN: upperbound: i32 17
+Checking LP for.cond72
 It's a for loop!
 SUSAN: LP->ub: i64 10
 SUSAN: upperbound: i64 10
+Checking LP for.cond23
+It's a for loop!
+SUSAN: LP->ub:   %22 = sext i32 %21 to i64, !dbg !1138
+SUSAN: upperbound:   %22 = sext i32 %21 to i64, !dbg !1138
 Checking LP header.0
 It's a for loop!
 SUSAN: LP->ub:   %5 = load i32, i32* @blocks_per_grid, align 4, !dbg !1122
 SUSAN: upperbound:   %5 = load i32, i32* @blocks_per_grid, align 4, !dbg !1122
 Checking LP for.cond10
+It's a for loop!
+SUSAN: LP->ub: i64 10
+SUSAN: upperbound: i64 10
+Checking LP for.cond47
 It's a for loop!
 SUSAN: LP->ub: i64 10
 SUSAN: upperbound: i64 10
@@ -15405,7 +14207,6 @@ ANDREW: entryBB name:for.end55
 if.end63
 No Else Region is false
 No Else Region is false
-No Else Region is false
 CBERegion_DEBUG: initial branch-only flags in main::for.end55 trueBrOnly=1 falseBrOnly=0 returnDominated=-1
 CBERegion_DEBUG: final branch-only flags in main::for.end55 trueBrOnly=1 falseBrOnly=0
 SUSAN: marking only true branch
@@ -15417,9 +14218,8 @@ YEBIN: new region in ifelse main::for.end55
 SUSAN: block is an if-else region! if.then57
 ANDREW: entryBB name:if.then57
 land.end
-No Else Region is false
-CBERegion_DEBUG: initial branch-only flags in main::if.then57 trueBrOnly=1 falseBrOnly=0 returnDominated=-1
-CBERegion_DEBUG: final branch-only flags in main::if.then57 trueBrOnly=1 falseBrOnly=0
+CBERegion_DEBUG: initial branch-only flags in main::if.then57 trueBrOnly=1 falseBrOnly=1 returnDominated=-1
+CBERegion_DEBUG: final branch-only flags in main::if.then57 trueBrOnly=1 falseBrOnly=1
 SUSAN: marking only true branch
 land.rhs to if.then57
 otherStart: land.end
@@ -15508,29 +14308,29 @@ YEBIN: new topmost region
   ret i32 0, !dbg !1245
 SUSAN: block is a linear region! for.end80
 ANDREW: getInductionVariable
-trying to get IV for Loop:for.cond
-SUSAN: found IV 784  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
-ANDREW: getInductionVariable
-trying to get IV for Loop:for.cond23
-SUSAN: found IV 784  %indvars.iv11 = phi i64 [ %indvars.iv.next12, %for.inc44 ], [ 0, %kcall.end ], !dbg !1054
+trying to get IV for Loop:for.cond26
+SUSAN: found IV 784  %indvars.iv7 = phi i64 [ %indvars.iv.next8, %for.inc35 ], [ 0, %for.body25 ], !dbg !1143
 ANDREW: getInductionVariable
 trying to get IV for Loop:header.1
 SUSAN: found IV 784  %indvar.1 = phi i32 [ %indvar.next.1, %latch.1 ], [ 0, %header.1.preheader ]
 ANDREW: getInductionVariable
+trying to get IV for Loop:for.cond
+SUSAN: found IV 784  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
+ANDREW: getInductionVariable
 trying to get IV for Loop:for.cond72
 SUSAN: found IV 784  %indvars.iv = phi i64 [ %indvars.iv.next, %for.inc78 ], [ 0, %if.end63 ], !dbg !1211
 ANDREW: getInductionVariable
-trying to get IV for Loop:for.cond26
-SUSAN: found IV 784  %indvars.iv7 = phi i64 [ %indvars.iv.next8, %for.inc35 ], [ 0, %for.body25 ], !dbg !1143
-ANDREW: getInductionVariable
-trying to get IV for Loop:for.cond47
-SUSAN: found IV 784  %indvars.iv4 = phi i64 [ %indvars.iv.next5, %for.inc53 ], [ 0, %for.end46 ], !dbg !1054
+trying to get IV for Loop:for.cond23
+SUSAN: found IV 784  %indvars.iv11 = phi i64 [ %indvars.iv.next12, %for.inc44 ], [ 0, %kcall.end ], !dbg !1054
 ANDREW: getInductionVariable
 trying to get IV for Loop:header.0
 SUSAN: found IV 784  %indvar.0 = phi i32 [ 0, %for.end17 ], [ %indvar.next.0, %latch.0 ]
 ANDREW: getInductionVariable
 trying to get IV for Loop:for.cond10
 SUSAN: found IV 784  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
+ANDREW: getInductionVariable
+trying to get IV for Loop:for.cond47
+SUSAN: found IV 784  %indvars.iv4 = phi i64 [ %indvars.iv.next5, %for.inc53 ], [ 0, %for.end46 ], !dbg !1054
 ANDREW: isExtraInductionVariable:   %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
 ANDREW: isExtraInductionVariable: Loop is null
 YEBIN: PHI to print:   %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
@@ -16772,29 +15572,25 @@ currInst :  %arraydecay89 = getelementptr inbounds [256 x i8], [256 x i8]* %gpu_
 currInst :  %call90 = call i8* @strcat(i8* %arraydecay88, i8* %arraydecay89) #10, !dbg !1241
 currInst :  %arraydecay91 = getelementptr inbounds [2048 x i8], [2048 x i8]* %gpu_config_string, i64 0, i64 0, !dbg !1242
 currInst :  call void @_Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str.54, i64 0, i64 0), i8 signext 65, i32 29, i32 0, i32 0, i32 0, double 0.000000e+00, double %div65, i8* getelementptr inbounds ([25 x i8], [25 x i8]* @.str.55, i64 0, i64 0), i32 %verified.0, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str.56, i64 0, i64 0), i8* getelementptr inbounds ([12 x i8], [12 x i8]* @.str.57, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @.str.58, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @.str.58, i64 0, i64 0), i8* getelementptr inbounds ([42 x i8], [42 x i8]* @.str.59, i64 0, i64 0), i8* getelementptr inbounds (%struct.cudaDeviceProp, %struct.cudaDeviceProp* @gpu_device_properties, i32 0, i32 0, i64 0), i8* %arraydecay91, i8* getelementptr inbounds ([23 x i8], [23 x i8]* @.str.60, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @.str.61, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str.62, i64 0, i64 0), i8* getelementptr inbounds ([13 x i8], [13 x i8]* @.str.63, i64 0, i64 0), i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str.64, i64 0, i64 0), i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str.64, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @.str.65, i64 0, i64 0)), !dbg !1243
+LP->LV 1694:   %indvars.iv7 = phi i64 [ %indvars.iv.next8, %for.inc35 ], [ 0, %for.body25 ], !dbg !1143
+LP->L 1694: Loop at depth 2 containing: %for.cond26<header><exiting>,%for.body28,%for.inc35<latch>
+
+nestlevel: j
+LP->LV 1694:   %indvar.1 = phi i32 [ %indvar.next.1, %latch.1 ], [ 0, %header.1.preheader ]
+LP->L 1694: Loop at depth 2 containing: %header.1<header><exiting>,%kcall.configok,%latch.1<latch>
+
+nestlevel: j
 LP->LV 1694:   %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
 LP->L 1694: Loop at depth 1 containing: %for.cond<header><exiting>,%for.body,%for.inc<latch>
+
+nestlevel: i
+LP->LV 1694:   %indvars.iv = phi i64 [ %indvars.iv.next, %for.inc78 ], [ 0, %if.end63 ], !dbg !1211
+LP->L 1694: Loop at depth 1 containing: %for.cond72<header><exiting>,%for.body74,%for.inc78<latch>
 
 nestlevel: i
 LP->LV 1694:   %indvars.iv11 = phi i64 [ %indvars.iv.next12, %for.inc44 ], [ 0, %kcall.end ], !dbg !1054
 LP->L 1694: Loop at depth 1 containing: %for.cond23<header><exiting>,%for.body25,%for.cond26,%for.end37,%for.inc44<latch>,%for.body28,%for.inc35
     Loop at depth 2 containing: %for.cond26<header><exiting>,%for.body28,%for.inc35<latch>
-
-nestlevel: i
-LP->LV 1694:   %indvar.1 = phi i32 [ %indvar.next.1, %latch.1 ], [ 0, %header.1.preheader ]
-LP->L 1694: Loop at depth 2 containing: %header.1<header><exiting>,%kcall.configok,%latch.1<latch>
-
-nestlevel: j
-LP->LV 1694:   %indvars.iv = phi i64 [ %indvars.iv.next, %for.inc78 ], [ 0, %if.end63 ], !dbg !1211
-LP->L 1694: Loop at depth 1 containing: %for.cond72<header><exiting>,%for.body74,%for.inc78<latch>
-
-nestlevel: i
-LP->LV 1694:   %indvars.iv7 = phi i64 [ %indvars.iv.next8, %for.inc35 ], [ 0, %for.body25 ], !dbg !1143
-LP->L 1694: Loop at depth 2 containing: %for.cond26<header><exiting>,%for.body28,%for.inc35<latch>
-
-nestlevel: j
-LP->LV 1694:   %indvars.iv4 = phi i64 [ %indvars.iv.next5, %for.inc53 ], [ 0, %for.end46 ], !dbg !1054
-LP->L 1694: Loop at depth 1 containing: %for.cond47<header><exiting>,%for.body49,%for.inc53<latch>
 
 nestlevel: i
 LP->LV 1694:   %indvar.0 = phi i32 [ 0, %for.end17 ], [ %indvar.next.0, %latch.0 ]
@@ -16804,6 +15600,10 @@ LP->L 1694: Loop at depth 1 containing: %header.0<header><exiting>,%header.1.pre
 nestlevel: i
 LP->LV 1694:   %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
 LP->L 1694: Loop at depth 1 containing: %for.cond10<header><exiting>,%for.body12,%for.inc15<latch>
+
+nestlevel: i
+LP->LV 1694:   %indvars.iv4 = phi i64 [ %indvars.iv.next5, %for.inc53 ], [ 0, %for.end46 ], !dbg !1054
+LP->L 1694: Loop at depth 1 containing: %for.cond47<header><exiting>,%for.body49,%for.inc53<latch>
 
 nestlevel: i
 SUSAN: found double mallocs! 
@@ -17891,22 +16691,22 @@ original name : i
 returning name: i
 SUSAN: phi related name: i
 =========================main: IR NAMING BEFORE=====================
-  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090 -> i
-  %inc = add nuw nsw i32 %i.0, 1, !dbg !1098 -> i
-  %3 = load double, double* %t1, align 8, !dbg !1102 -> an
-  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109 -> i
-  %indvars.iv.next17 = add nuw nsw i64 %indvars.iv16, 1, !dbg !1117 -> i
-i32 %argc -> argc
-i8** %argv -> argv
-  %indvars.iv = phi i64 [ %indvars.iv.next, %for.inc78 ], [ 0, %if.end63 ], !dbg !1211 -> i
-  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1, !dbg !1219 -> i
-  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054 -> j
   %t1 = alloca double, align 8 -> t1
   %size = alloca [16 x i8], align 16 -> size
   %gpu_config = alloca [256 x i8], align 16 -> gpu_config
   %gpu_config_string = alloca [2048 x i8], align 16 -> gpu_config_string
   %dec = add nsw i32 14, -1, !dbg !1074 -> j
+i32 %argc -> argc
+i8** %argv -> argv
+  %indvars.iv = phi i64 [ %indvars.iv.next, %for.inc78 ], [ 0, %if.end63 ], !dbg !1211 -> i
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1, !dbg !1219 -> i
+  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054 -> j
   %div65 = fdiv double %call64, 1.000000e+06, !dbg !1223 -> Mops
+  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090 -> i
+  %inc = add nuw nsw i32 %i.0, 1, !dbg !1098 -> i
+  %3 = load double, double* %t1, align 8, !dbg !1102 -> an
+  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109 -> i
+  %indvars.iv.next17 = add nuw nsw i64 %indvars.iv16, 1, !dbg !1117 -> i
   %indvar.next.1 = add i32 %indvar.1, 1 -> j
   %indvar.next.0 = add i32 %indvar.0, 1 -> i
   %indvars.iv11 = phi i64 [ %indvars.iv.next12, %for.inc44 ], [ 0, %kcall.end ], !dbg !1054 -> block
@@ -17929,6 +16729,123 @@ i8** %argv -> argv
   %cmp61 = fcmp ole double %36, 1.000000e-08, !dbg !1197 -> __FIXME__2
   %conv62 = zext i1 %37 to i32, !dbg !1199 -> verified
   %verified.0 = phi i32 [ %conv62, %land.end ], [ 1, %for.end55 ], !dbg !1054 -> verified
+SUSAN: inst:  %t1 = alloca double, align 8
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %size = alloca [16 x i8], align 16
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %agg.tmp = alloca %struct.dim3, align 4
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %agg.tmp18 = alloca %struct.dim3, align 4
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %agg.tmp.coerce = alloca { i64, i32 }, align 4
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %agg.tmp18.coerce = alloca { i64, i32 }, align 4
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %gpu_config = alloca [256 x i8], align 16
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %gpu_config_string = alloca [2048 x i8], align 16
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  call void @llvm.dbg.value(metadata i32 %argc, metadata !1359, metadata !DIExpression()), !dbg !1360
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  call void @llvm.dbg.value(metadata i8** %argv, metadata !1361, metadata !DIExpression()), !dbg !1360
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %call = call noalias i8* @malloc(i64 80) #10, !dbg !1056
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %0 = bitcast i8* %call to double*, !dbg !1057
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  store double* %0, double** @_ZL1q, align 8, !dbg !1058
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  call void @llvm.dbg.declare(metadata double* %t1, metadata !1365, metadata !DIExpression()), !dbg !1366
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  call void @llvm.dbg.declare(metadata [16 x i8]* %size, metadata !1367, metadata !DIExpression()), !dbg !1368
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %arraydecay = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 0, !dbg !1066
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %call1 = call double @pow(double 2.000000e+00, double 2.900000e+01) #10, !dbg !1067
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %call2 = call i32 (i8*, i8*, ...) @sprintf(i8* %arraydecay, i8* getelementptr inbounds ([7 x i8], [7 x i8]* @.str.39, i64 0, i64 0), double %call1) #10, !dbg !1068
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  call void @llvm.dbg.value(metadata i32 14, metadata !1372, metadata !DIExpression()), !dbg !1360
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %idxprom = sext i32 14 to i64, !dbg !1070
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %arrayidx = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 %idxprom, !dbg !1070
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %1 = load i8, i8* %arrayidx, align 1, !dbg !1070
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %conv = sext i8 %1 to i32, !dbg !1070
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %cmp = icmp eq i32 %conv, 46, !dbg !1072
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  br i1 %cmp, label %if.then, label %if.end, !dbg !1073
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %dec = add nsw i32 14, -1, !dbg !1074
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+j:  %dec = add nsw i32 14, -1, !dbg !1074
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
 SUSAN: inst:  call void @llvm.dbg.value(metadata i32 %dec, metadata !1372, metadata !DIExpression()), !dbg !1360
 gpu_config:  %gpu_config = alloca [256 x i8], align 16
 gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
@@ -17986,284 +16903,6 @@ t1:  %t1 = alloca double, align 8
 SUSAN: inst:  %call7 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([43 x i8], [43 x i8]* @.str.41, i64 0, i64 0), i8* %arraydecay6), !dbg !1082
 gpu_config:  %gpu_config = alloca [256 x i8], align 16
 gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  call void @llvm.dbg.value(metadata i32 0, metadata !1386, metadata !DIExpression()), !dbg !1360
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  store double 0x41D2309CE5400000, double* %t1, align 8, !dbg !1086
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  call void @llvm.dbg.value(metadata i32 0, metadata !1390, metadata !DIExpression()), !dbg !1360
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  br label %for.cond, !dbg !1088
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  call void @llvm.dbg.value(metadata i32 %i.0, metadata !1390, metadata !DIExpression()), !dbg !1360
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %exitcond19 = icmp ne i32 %i.0, 17, !dbg !1091
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  br i1 %exitcond19, label %for.body, label %for.end, !dbg !1093
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %2 = load double, double* %t1, align 8, !dbg !1094
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %call9 = call double @_Z6randlcPdd(double* %t1, double %2), !dbg !1096
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  br label %for.inc, !dbg !1097
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %inc = add nuw nsw i32 %i.0, 1, !dbg !1098
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %inc = add nuw nsw i32 %i.0, 1, !dbg !1098
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  call void @llvm.dbg.value(metadata i32 %inc, metadata !1390, metadata !DIExpression()), !dbg !1360
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %inc = add nuw nsw i32 %i.0, 1, !dbg !1098
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  br label %for.cond, !dbg !1099, !llvm.loop !1100
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %inc = add nuw nsw i32 %i.0, 1, !dbg !1098
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %3 = load double, double* %t1, align 8, !dbg !1102
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  call void @llvm.dbg.value(metadata double %3, metadata !1406, metadata !DIExpression()), !dbg !1360
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  call void @llvm.dbg.value(metadata double 0.000000e+00, metadata !1407, metadata !DIExpression()), !dbg !1360
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  call void @llvm.dbg.value(metadata double 0.000000e+00, metadata !1408, metadata !DIExpression()), !dbg !1360
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  call void @llvm.dbg.value(metadata double 0.000000e+00, metadata !1409, metadata !DIExpression()), !dbg !1360
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  call void @llvm.dbg.value(metadata i32 0, metadata !1390, metadata !DIExpression()), !dbg !1360
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  br label %for.cond10, !dbg !1107
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  call void @llvm.dbg.value(metadata i64 %indvars.iv16, metadata !1390, metadata !DIExpression()), !dbg !1360
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %exitcond18 = icmp ne i64 %indvars.iv16, 10, !dbg !1110
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  br i1 %exitcond18, label %for.body12, label %for.end17, !dbg !1112
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %4 = load double*, double** @_ZL1q, align 8, !dbg !1113
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %arrayidx14 = getelementptr inbounds double, double* %4, i64 %indvars.iv16, !dbg !1113
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  store double 0.000000e+00, double* %arrayidx14, align 8, !dbg !1115
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  br label %for.inc15, !dbg !1116
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %indvars.iv.next17 = add nuw nsw i64 %indvars.iv16, 1, !dbg !1117
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %indvars.iv.next17 = add nuw nsw i64 %indvars.iv16, 1, !dbg !1117
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  call void @llvm.dbg.value(metadata i32 undef, metadata !1390, metadata !DIExpression(DW_OP_plus_uconst, 1, DW_OP_stack_value)), !dbg !1360
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %indvars.iv.next17 = add nuw nsw i64 %indvars.iv16, 1, !dbg !1117
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  br label %for.cond10, !dbg !1118, !llvm.loop !1119
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %indvars.iv.next17 = add nuw nsw i64 %indvars.iv16, 1, !dbg !1117
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  call void @_ZL9setup_gpuv(), !dbg !1121
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %5 = load i32, i32* @blocks_per_grid, align 4, !dbg !1122
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %dim3gep.0 = getelementptr %struct.dim3, %struct.dim3* %agg.tmp, i32 0, i32 0
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  store i32 %5, i32* %dim3gep.0
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %dim3gep.1 = getelementptr %struct.dim3, %struct.dim3* %agg.tmp, i32 0, i32 1
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
 j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
 size:  %size = alloca [16 x i8], align 16
 t1:  %t1 = alloca double, align 8
@@ -18657,123 +17296,6 @@ gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
 j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
 size:  %size = alloca [16 x i8], align 16
 t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %t1 = alloca double, align 8
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %size = alloca [16 x i8], align 16
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %agg.tmp = alloca %struct.dim3, align 4
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %agg.tmp18 = alloca %struct.dim3, align 4
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %agg.tmp.coerce = alloca { i64, i32 }, align 4
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %agg.tmp18.coerce = alloca { i64, i32 }, align 4
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %gpu_config = alloca [256 x i8], align 16
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %gpu_config_string = alloca [2048 x i8], align 16
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  call void @llvm.dbg.value(metadata i32 %argc, metadata !1359, metadata !DIExpression()), !dbg !1360
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  call void @llvm.dbg.value(metadata i8** %argv, metadata !1361, metadata !DIExpression()), !dbg !1360
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %call = call noalias i8* @malloc(i64 80) #10, !dbg !1056
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %0 = bitcast i8* %call to double*, !dbg !1057
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  store double* %0, double** @_ZL1q, align 8, !dbg !1058
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  call void @llvm.dbg.declare(metadata double* %t1, metadata !1365, metadata !DIExpression()), !dbg !1366
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  call void @llvm.dbg.declare(metadata [16 x i8]* %size, metadata !1367, metadata !DIExpression()), !dbg !1368
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %arraydecay = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 0, !dbg !1066
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %call1 = call double @pow(double 2.000000e+00, double 2.900000e+01) #10, !dbg !1067
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %call2 = call i32 (i8*, i8*, ...) @sprintf(i8* %arraydecay, i8* getelementptr inbounds ([7 x i8], [7 x i8]* @.str.39, i64 0, i64 0), double %call1) #10, !dbg !1068
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  call void @llvm.dbg.value(metadata i32 14, metadata !1372, metadata !DIExpression()), !dbg !1360
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %idxprom = sext i32 14 to i64, !dbg !1070
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %arrayidx = getelementptr inbounds [16 x i8], [16 x i8]* %size, i64 0, i64 %idxprom, !dbg !1070
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %1 = load i8, i8* %arrayidx, align 1, !dbg !1070
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %conv = sext i8 %1 to i32, !dbg !1070
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %cmp = icmp eq i32 %conv, 46, !dbg !1072
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  br i1 %cmp, label %if.then, label %if.end, !dbg !1073
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
-SUSAN: inst:  %dec = add nsw i32 14, -1, !dbg !1074
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-j:  %dec = add nsw i32 14, -1, !dbg !1074
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
 SUSAN: inst:  %div65 = fdiv double %call64, 1.000000e+06, !dbg !1223
 Mops:  %div65 = fdiv double %call64, 1.000000e+06, !dbg !1223
 __FIXME__2:  %cmp61 = fcmp ole double %36, 1.000000e-08, !dbg !1197
@@ -19080,6 +17602,284 @@ sy:  %sy.0.lcssa = phi double [ %sy.0, %for.cond23 ], !dbg !1054
 sy_err:  %36 = call double @llvm.fabs.f64(double %div59), !dbg !1193
 t1:  %t1 = alloca double, align 8
 verified:  %verified.0 = phi i32 [ %conv62, %land.end ], [ 1, %for.end55 ], !dbg !1054
+SUSAN: inst:  call void @llvm.dbg.value(metadata i32 0, metadata !1386, metadata !DIExpression()), !dbg !1360
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  store double 0x41D2309CE5400000, double* %t1, align 8, !dbg !1086
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  call void @llvm.dbg.value(metadata i32 0, metadata !1390, metadata !DIExpression()), !dbg !1360
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  br label %for.cond, !dbg !1088
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  call void @llvm.dbg.value(metadata i32 %i.0, metadata !1390, metadata !DIExpression()), !dbg !1360
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %exitcond19 = icmp ne i32 %i.0, 17, !dbg !1091
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  br i1 %exitcond19, label %for.body, label %for.end, !dbg !1093
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %2 = load double, double* %t1, align 8, !dbg !1094
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %call9 = call double @_Z6randlcPdd(double* %t1, double %2), !dbg !1096
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  br label %for.inc, !dbg !1097
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %inc = add nuw nsw i32 %i.0, 1, !dbg !1098
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %inc = add nuw nsw i32 %i.0, 1, !dbg !1098
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  call void @llvm.dbg.value(metadata i32 %inc, metadata !1390, metadata !DIExpression()), !dbg !1360
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %inc = add nuw nsw i32 %i.0, 1, !dbg !1098
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  br label %for.cond, !dbg !1099, !llvm.loop !1100
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %inc = add nuw nsw i32 %i.0, 1, !dbg !1098
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %3 = load double, double* %t1, align 8, !dbg !1102
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  call void @llvm.dbg.value(metadata double %3, metadata !1406, metadata !DIExpression()), !dbg !1360
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  call void @llvm.dbg.value(metadata double 0.000000e+00, metadata !1407, metadata !DIExpression()), !dbg !1360
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  call void @llvm.dbg.value(metadata double 0.000000e+00, metadata !1408, metadata !DIExpression()), !dbg !1360
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  call void @llvm.dbg.value(metadata double 0.000000e+00, metadata !1409, metadata !DIExpression()), !dbg !1360
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  call void @llvm.dbg.value(metadata i32 0, metadata !1390, metadata !DIExpression()), !dbg !1360
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  br label %for.cond10, !dbg !1107
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  call void @llvm.dbg.value(metadata i64 %indvars.iv16, metadata !1390, metadata !DIExpression()), !dbg !1360
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %exitcond18 = icmp ne i64 %indvars.iv16, 10, !dbg !1110
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  br i1 %exitcond18, label %for.body12, label %for.end17, !dbg !1112
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %4 = load double*, double** @_ZL1q, align 8, !dbg !1113
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %arrayidx14 = getelementptr inbounds double, double* %4, i64 %indvars.iv16, !dbg !1113
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  store double 0.000000e+00, double* %arrayidx14, align 8, !dbg !1115
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  br label %for.inc15, !dbg !1116
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %indvars.iv.next17 = add nuw nsw i64 %indvars.iv16, 1, !dbg !1117
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %indvars.iv.next17 = add nuw nsw i64 %indvars.iv16, 1, !dbg !1117
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  call void @llvm.dbg.value(metadata i32 undef, metadata !1390, metadata !DIExpression(DW_OP_plus_uconst, 1, DW_OP_stack_value)), !dbg !1360
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %indvars.iv.next17 = add nuw nsw i64 %indvars.iv16, 1, !dbg !1117
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  br label %for.cond10, !dbg !1118, !llvm.loop !1119
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %indvars.iv.next17 = add nuw nsw i64 %indvars.iv16, 1, !dbg !1117
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  call void @_ZL9setup_gpuv(), !dbg !1121
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %5 = load i32, i32* @blocks_per_grid, align 4, !dbg !1122
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %dim3gep.0 = getelementptr %struct.dim3, %struct.dim3* %agg.tmp, i32 0, i32 0
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  store i32 %5, i32* %dim3gep.0
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %dim3gep.1 = getelementptr %struct.dim3, %struct.dim3* %agg.tmp, i32 0, i32 1
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
 SUSAN: inst:  store i32 1, i32* %dim3gep.1
 an:  %3 = load double, double* %t1, align 8, !dbg !1102
 gpu_config:  %gpu_config = alloca [256 x i8], align 16
@@ -20443,14 +19243,6 @@ sy:  %sy.0.lcssa = phi double [ %sy.0, %for.cond23 ], !dbg !1054
 sy_err:  %36 = call double @llvm.fabs.f64(double %div59), !dbg !1193
 t1:  %t1 = alloca double, align 8
 verified:  %verified.0 = phi i32 [ %conv62, %land.end ], [ 1, %for.end55 ], !dbg !1054
-SUSAN: inst:  %9 = call i8* @memcpy(i8* %7, i8* %8, i64 12), !dbg !1124
-an:  %3 = load double, double* %t1, align 8, !dbg !1102
-gpu_config:  %gpu_config = alloca [256 x i8], align 16
-gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
-i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
-j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
-size:  %size = alloca [16 x i8], align 16
-t1:  %t1 = alloca double, align 8
 SUSAN: inst:  %12 = call i8* @memcpy(i8* %10, i8* %11, i64 12), !dbg !1124
 an:  %3 = load double, double* %t1, align 8, !dbg !1102
 gpu_config:  %gpu_config = alloca [256 x i8], align 16
@@ -20459,23 +19251,31 @@ i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ],
 j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
 size:  %size = alloca [16 x i8], align 16
 t1:  %t1 = alloca double, align 8
+SUSAN: inst:  %9 = call i8* @memcpy(i8* %7, i8* %8, i64 12), !dbg !1124
+an:  %3 = load double, double* %t1, align 8, !dbg !1102
+gpu_config:  %gpu_config = alloca [256 x i8], align 16
+gpu_config_string:  %gpu_config_string = alloca [2048 x i8], align 16
+i:  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109
+j:  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054
+size:  %size = alloca [16 x i8], align 16
+t1:  %t1 = alloca double, align 8
 =========================main: IR NAMING=====================
-  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090 -> i
-  %inc = add nuw nsw i32 %i.0, 1, !dbg !1098 -> i
-  %3 = load double, double* %t1, align 8, !dbg !1102 -> an
-  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109 -> i
-  %indvars.iv.next17 = add nuw nsw i64 %indvars.iv16, 1, !dbg !1117 -> i
-i32 %argc -> argc
-i8** %argv -> argv
-  %indvars.iv = phi i64 [ %indvars.iv.next, %for.inc78 ], [ 0, %if.end63 ], !dbg !1211 -> i
-  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1, !dbg !1219 -> i
-  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054 -> j
   %t1 = alloca double, align 8 -> t1
   %size = alloca [16 x i8], align 16 -> size
   %gpu_config = alloca [256 x i8], align 16 -> gpu_config
   %gpu_config_string = alloca [2048 x i8], align 16 -> gpu_config_string
   %dec = add nsw i32 14, -1, !dbg !1074 -> j
+i32 %argc -> argc
+i8** %argv -> argv
+  %indvars.iv = phi i64 [ %indvars.iv.next, %for.inc78 ], [ 0, %if.end63 ], !dbg !1211 -> i
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1, !dbg !1219 -> i
+  %j.0 = phi i32 [ %dec, %if.then ], [ 14, %entry ], !dbg !1054 -> j
   %div65 = fdiv double %call64, 1.000000e+06, !dbg !1223 -> Mops
+  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ], !dbg !1090 -> i
+  %inc = add nuw nsw i32 %i.0, 1, !dbg !1098 -> i
+  %3 = load double, double* %t1, align 8, !dbg !1102 -> an
+  %indvars.iv16 = phi i64 [ %indvars.iv.next17, %for.inc15 ], [ 0, %for.end ], !dbg !1109 -> i
+  %indvars.iv.next17 = add nuw nsw i64 %indvars.iv16, 1, !dbg !1117 -> i
   %indvar.next.1 = add i32 %indvar.1, 1 -> j
   %indvar.next.0 = add i32 %indvar.0, 1 -> i
   %indvars.iv11 = phi i64 [ %indvars.iv.next12, %for.inc44 ], [ 0, %kcall.end ], !dbg !1054 -> block
@@ -29818,10 +28618,10 @@ Loop: Loop at depth 1 containing: %for.cond22<header><exiting>,%for.body24,%for.
     Loop at depth 2 containing: %for.cond25<header><exiting>,%for.body27,%if.then41,%_ZL3logd.exit,%cond.false,%cond.true,%cond.end,%if.end58,%for.inc59<latch>
 
 isomp: 0
-Loop: Loop at depth 1 containing: %for.cond<header><exiting>,%for.body,%if.then15,%if.end17<exiting>,%if.end20,%for.inc<latch>
+Loop: Loop at depth 2 containing: %for.cond25<header><exiting>,%for.body27,%if.then41,%_ZL3logd.exit,%cond.false,%cond.true,%cond.end,%if.end58,%for.inc59<latch>
 
 isomp: 0
-Loop: Loop at depth 2 containing: %for.cond25<header><exiting>,%for.body27,%if.then41,%_ZL3logd.exit,%cond.false,%cond.true,%cond.end,%if.end58,%for.inc59<latch>
+Loop: Loop at depth 1 containing: %for.cond<header><exiting>,%for.body,%if.then15,%if.end17<exiting>,%if.end20,%for.inc<latch>
 
 isomp: 0
 Preprocessing branch 
@@ -29835,14 +28635,14 @@ Checking LP for.cond22
 It's a for loop!
 SUSAN: LP->ub: i32 65536
 SUSAN: upperbound: i32 65536
-Checking LP for.cond
-It's a for loop!
-SUSAN: LP->ub: i32 101
-SUSAN: upperbound: i32 101
 Checking LP for.cond25
 It's a for loop!
 SUSAN: LP->ub: i64 128
 SUSAN: upperbound: i64 128
+Checking LP for.cond
+It's a for loop!
+SUSAN: LP->ub: i32 101
+SUSAN: upperbound: i32 101
 Preprocessing branch 
 	  br i1 %exitcond4, label %for.body, label %for.end.loopexit, !dbg !1110
 with comparitor
@@ -29879,14 +28679,14 @@ Checking LP for.cond22
 It's a for loop!
 SUSAN: LP->ub: i32 65536
 SUSAN: upperbound: i32 65536
-Checking LP for.cond
-It's a for loop!
-SUSAN: LP->ub: i32 101
-SUSAN: upperbound: i32 101
 Checking LP for.cond25
 It's a for loop!
 SUSAN: LP->ub: i64 128
 SUSAN: upperbound: i64 128
+Checking LP for.cond
+It's a for loop!
+SUSAN: LP->ub: i32 101
+SUSAN: upperbound: i32 101
 Preprocessing branch 
 	  br i1 %cmp18, label %if.then19, label %if.end20, !dbg !1125
 with comparitor
@@ -29898,14 +28698,14 @@ Checking LP for.cond22
 It's a for loop!
 SUSAN: LP->ub: i32 65536
 SUSAN: upperbound: i32 65536
-Checking LP for.cond
-It's a for loop!
-SUSAN: LP->ub: i32 101
-SUSAN: upperbound: i32 101
 Checking LP for.cond25
 It's a for loop!
 SUSAN: LP->ub: i64 128
 SUSAN: upperbound: i64 128
+Checking LP for.cond
+It's a for loop!
+SUSAN: LP->ub: i32 101
+SUSAN: upperbound: i32 101
 Preprocessing branch 
 	  br i1 %cmp23, label %for.body24, label %for.end64, !dbg !1145
 with comparitor
@@ -30617,6 +29417,7 @@ cond.end
 No Else Region is false
 No Else Region is false
 CBERegion_DEBUG: initial branch-only flags in gpu_kernel::_ZL3logd.exit trueBrOnly=0 falseBrOnly=0 returnDominated=-1
+ANDREW: forcing both branches due to merge PHI dependencies in _ZL3logd.exit
 CBERegion_DEBUG: final branch-only flags in gpu_kernel::_ZL3logd.exit trueBrOnly=0 falseBrOnly=0
 SUSAN: marking both branches
 cond.true to _ZL3logd.exit
@@ -30700,12 +29501,12 @@ SUSAN: can't find addRec
 SUSAN: phi:   %ii.0 = phi i32 [ 0, %for.end ], [ %add63, %for.inc62 ], !dbg !1142
 SUSAN: find IV 809
 ANDREW: getInductionVariable
+trying to get IV for Loop:for.cond25
+SUSAN: found IV 784  %indvars.iv = phi i64 [ %indvars.iv.next, %for.inc59 ], [ 0, %for.body24 ], !dbg !1054
+ANDREW: getInductionVariable
 trying to get IV for Loop:for.cond
 SUSAN: phi:   %i.0 = phi i32 [ 1, %if.end ], [ %inc, %for.inc ], !dbg !1107
 SUSAN: find IV 809
-ANDREW: getInductionVariable
-trying to get IV for Loop:for.cond25
-SUSAN: found IV 784  %indvars.iv = phi i64 [ %indvars.iv.next, %for.inc59 ], [ 0, %for.body24 ], !dbg !1054
 ANDREW: getInductionVariable
 trying to get IV for Loop:for.cond
 SUSAN: phi:   %i.0 = phi i32 [ 1, %if.end ], [ %inc, %for.inc ], !dbg !1107
@@ -32588,14 +31389,14 @@ LP->L 1694: Loop at depth 1 containing: %for.cond22<header><exiting>,%for.body24
     Loop at depth 2 containing: %for.cond25<header><exiting>,%for.body27,%if.then41,%_ZL3logd.exit,%cond.false,%cond.true,%cond.end,%if.end58,%for.inc59<latch>
 
 nestlevel: i
-LP->LV 1694:   %i.0 = phi i32 [ 1, %if.end ], [ %inc, %for.inc ], !dbg !1107
-LP->L 1694: Loop at depth 1 containing: %for.cond<header><exiting>,%for.body,%if.then15,%if.end17<exiting>,%if.end20,%for.inc<latch>
-
-nestlevel: i
 LP->LV 1694:   %indvars.iv = phi i64 [ %indvars.iv.next, %for.inc59 ], [ 0, %for.body24 ], !dbg !1054
 LP->L 1694: Loop at depth 2 containing: %for.cond25<header><exiting>,%for.body27,%if.then41,%_ZL3logd.exit,%cond.false,%cond.true,%cond.end,%if.end58,%for.inc59<latch>
 
 nestlevel: j
+LP->LV 1694:   %i.0 = phi i32 [ 1, %if.end ], [ %inc, %for.inc ], !dbg !1107
+LP->L 1694: Loop at depth 1 containing: %for.cond<header><exiting>,%for.body,%if.then15,%if.end17<exiting>,%if.end20,%for.inc<latch>
+
+nestlevel: i
 SUSAN: getting value name for: 
 ; Function Attrs: convergent noinline nounwind
 define dso_local void @gpu_kernel(double* %q_global, double* %sx_global, double* %sy_global, double %an, i32 %gridDim.x, i32 %gridDim.y, i32 %gridDim.z, i32 %blockDim.x, i32 %blockDim.y, i32 %blockDim.z, i32 %blockIdx.x, i32 %blockIdx.y, i32 %blockIdx.z, i32 %threadIdx.x, i32 %threadIdx.y, i32 %threadIdx.z) #3 {
@@ -45479,7 +44280,7 @@ SUSAN: printing bb:return
 CBEBackend: printing bb 7082 return
 CBackend: iterating function 1759: llvm.dbg.value
 CBackend: iterating function 1759: memcpy
-TOTAL VARIABLES: 95
+TOTAL VARIABLES: 94
 RECONSTRUCTED VARIABLES: 71
 ANDREW: function name: llvm.dbg.declare
 ANDREW: function name: llvm.nvvm.read.ptx.sreg.ctaid.x
@@ -45617,9 +44418,13 @@ for.end:                                          ; preds = %for.cond
 }
 
 ANDREW: function name: llvm.nvvm.d2i.hi
+ANDREW: Intrinsic: ptx helper hit
 ANDREW: function name: llvm.nvvm.d2i.lo
+ANDREW: Intrinsic: ptx helper hit
 ANDREW: function name: llvm.nvvm.lohi.i2d
+ANDREW: Intrinsic: ptx helper hit
 ANDREW: function name: llvm.nvvm.fma.rn.d
+ANDREW: Intrinsic: ptx helper hit
 ANDREW: function name: llvm.nvvm.fabs.d
 ANDREW: function name: llvm.nvvm.sqrt.rn.d
 ANDREW: function name: _ZL9atomicAddPdd
@@ -47261,6 +46066,22 @@ ANDREW: isExtraInductionVariable: not a PHI
 ANDREW: isExtraInductionVariable: [7 x i8] c"randdp\00"
 ANDREW: isExtraInductionVariable: not a PHI
 CBackend: writeoperand here 3674? 
+SUSAN: getting value name for: 
+; Function Attrs: nounwind readnone
+declare i32 @llvm.nvvm.d2i.hi(double) #1
+
+SUSAN: getting value name for: 
+; Function Attrs: nounwind readnone
+declare i32 @llvm.nvvm.d2i.lo(double) #1
+
+SUSAN: getting value name for: 
+; Function Attrs: nounwind readnone
+declare double @llvm.nvvm.lohi.i2d(i32, i32) #1
+
+SUSAN: getting value name for: 
+; Function Attrs: nounwind readnone
+declare double @llvm.nvvm.fma.rn.d(double, double, double) #1
+
 SUSAN: getting value name for: 
 ; Function Attrs: nounwind readnone speculatable
 declare double @llvm.fabs.f64(double) #0
