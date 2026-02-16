@@ -15,6 +15,17 @@ ${PROGRAM}: config ${OBJS}
 ft.o:             ft.cu npbparams.hpp
 	${CCOMPILE} ft.cu
 
-clean:
+# Define these before including generic makefile
+BMARK=ft
+TEST_ARGS=1 10 10 10 10 # Placeholder
+PERF_ARGS=0 2048 2048 2048 2048 # Placeholder
+
+include ../Makefile.generic
+
+# Explicitly ensure .ll targets depend on npbparams.hpp if generic rules are used
+ft.ll: npbparams.hpp
+${BMARK}-cuda-nvptx64-nvidia-cuda-sm_20.ll: npbparams.hpp
+
+clean: clean_llm
 	- rm -f *.o *~ mputil*
 	- rm -f ft npbparams.hpp core
