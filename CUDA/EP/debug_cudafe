@@ -9,11 +9,20 @@ ANDREW: mergeKernel: deleted result phi node
 ANDREW: mergeKernel: redirected control flow from if.then41 to _ZL3logd.exit
 ANDREW: mergeKernel: found 17 unreachable blocks to delete
 ANDREW: mergeKernel: replaced 1 inlined log(s) with log() calls and cleaned up dead blocks
+ANDREW: mergeKernel: found exp entry for alloca a.addr.i in block if.then41
+ANDREW: mergeKernel: no exp patterns found in function _Z10gpu_kernelPdS_S_d
 mergeKernel: found nvvm sqrt declaration
 mergeKernel: found nvvm fabs.d declaration
 mergeKernel: found nvvm fabs.d declaration
 mergeKernel: found nvvm fabs.d declaration
 mergeKernel: found nvvm fabs.d declaration
+ANDREW: mergeKernel: no exp patterns found in function _Z13randlc_devicePdd
+ANDREW: mergeKernel: no exp patterns found in function _Z13vranlc_deviceiPddS_
+ANDREW: mergeKernel: no exp patterns found in function _ZL9atomicAddPdd
+ANDREW: mergeKernel: no exp patterns found in function _ZL9atomicCASPyyy
+ANDREW: mergeKernel: no exp patterns found in function _Z6randlcPdd
+ANDREW: mergeKernel: no exp patterns found in function _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_
+ANDREW: mergeKernel: no exp patterns found in function main
 CudaFE: found cudaConfigureCall
 mergeKernel: kernelBB: 
 kcall.configok:                                   ; preds = %for.end17
@@ -938,4 +947,15 @@ i32   %indvar.1 = phi i32 [ 0, %header.0 ], [ %indvar.next.1, %latch.1 ]
 i32 i32 0
 i32 i32 0
 Finished making call for gpu_kernel
+ANDREW: mergeKernel: no exp patterns found in function _ZL9setup_gpuv
+mergeKernel: replaced cudaMalloc call with host malloc:   %call10 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @q_device, i64 %13), !dbg !1097
+mergeKernel: replaced cudaMalloc call with host malloc:   %call11 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @sx_device, i64 %14), !dbg !1099
+mergeKernel: replaced cudaMalloc call with host malloc:   %call12 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @sy_device, i64 %15), !dbg !1101
+ANDREW: mergeKernel: no exp patterns found in function _ZN4dim3C2Ejjj
+ANDREW: mergeKernel: no exp patterns found in function ep.ll_CudaFE__Z10gpu_kernelPdS_S_d
+ANDREW: mergeKernel: no exp patterns found in function _ZL11release_gpuv
+ANDREW: mergeKernel: no exp patterns found in function _ZL10cudaMallocIdE9cudaErrorPPT_m
+mergeKernel: WARN: could not replace cudaMalloc safely, keeping call:   %call = call i32 @cudaMalloc(i8** %2, i64 %3), !dbg !1065
 ANDREW: mergeKernel: found exit block: _ZL3logd.exit
+ANDREW: mergeKernel: found exp entry for alloca a.addr.i in block if.then41
+ANDREW: mergeKernel: no exp patterns found in function gpu_kernel

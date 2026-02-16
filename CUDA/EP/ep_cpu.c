@@ -298,11 +298,11 @@ double randlc_device(double* x, double a) {
   double t1;
   double t3;
 
-  a2 = (a - (8388608 * (double)(((int32_t)(1.1920928955078125E-7 * a)))));
-  x2 = (*x - (8388608 * (double)(((int32_t)(1.1920928955078125E-7 * *x)))));
-  t1 = (((double)(((int32_t)(1.1920928955078125E-7 * a))) * x2) + (a2 * (double)(((int32_t)(1.1920928955078125E-7 * *x)))));
-  t3 = ((8388608 * (t1 - (8388608 * (double)(((int32_t)(1.1920928955078125E-7 * t1)))))) + (a2 * x2));
-  *x = (t3 - (70368744177664 * (double)(((int32_t)(1.4210854715202004E-14 * t3)))));
+  a2 = (a - ((8388608 * ((double)((int32_t)((int32_t)(1.1920928955078125E-7 * a)))))));
+  x2 = (*x - ((8388608 * ((double)((int32_t)((int32_t)(1.1920928955078125E-7 * *x)))))));
+  t1 = ((((double)((int32_t)((int32_t)(1.1920928955078125E-7 * a)))) * x2) + (a2 * ((double)((int32_t)((int32_t)(1.1920928955078125E-7 * *x))))));
+  t3 = ((8388608 * (t1 - ((8388608 * ((double)((int32_t)((int32_t)(1.1920928955078125E-7 * t1)))))))) + (a2 * x2));
+  *x = (t3 - ((70368744177664 * ((double)((int32_t)((int32_t)(1.4210854715202004E-14 * t3)))))));
   return (1.4210854715202004E-14 * *x);
 }
 // FUNCTION ORDER ID 0 END
@@ -315,14 +315,14 @@ void vranlc_device(uint32_t n, double* x_seed, double a, double* y) {
   double x;
   int64_t i;
 
-  a2 = (a - (8388608 * (double)(((int32_t)(1.1920928955078125E-7 * a)))));
+  a2 = (a - ((8388608 * ((double)((int32_t)((int32_t)(1.1920928955078125E-7 * a)))))));
   x = *x_seed;
 // INSERT COMMENT LOOP: vranlc_device::for.cond
 for(int64_t i = 0; i < n;   i = i + 1) {
-  double x2 = (x - (8388608 * (double)(((int32_t)(1.1920928955078125E-7 * x)))));
-  double t1 = (((double)(((int32_t)(1.1920928955078125E-7 * a))) * x2) + (a2 * (double)(((int32_t)(1.1920928955078125E-7 * x)))));
-  double t3 = ((8388608 * (t1 - (8388608 * (double)(((int32_t)(1.1920928955078125E-7 * t1)))))) + (a2 * x2));
-  x = (t3 - (70368744177664 * (double)(((int32_t)(1.4210854715202004E-14 * t3)))));
+  double x2 = (x - ((8388608 * ((double)((int32_t)((int32_t)(1.1920928955078125E-7 * x)))))));
+  double t1 = ((((double)((int32_t)((int32_t)(1.1920928955078125E-7 * a)))) * x2) + (a2 * ((double)((int32_t)((int32_t)(1.1920928955078125E-7 * x))))));
+  double t3 = ((8388608 * (t1 - ((8388608 * ((double)((int32_t)((int32_t)(1.1920928955078125E-7 * t1)))))))) + (a2 * x2));
+  x = (t3 - ((70368744177664 * ((double)((int32_t)((int32_t)(1.4210854715202004E-14 * t3)))))));
   y[i] = (1.4210854715202004E-14 * x);
 }
   *x_seed = x;
@@ -338,11 +338,11 @@ double randlc(double* x, double a) {
   double t1;
   double t3;
 
-  a2 = (a - (8388608 * (double)(((int32_t)(1.1920928955078125E-7 * a)))));
-  x2 = (*x - (8388608 * (double)(((int32_t)(1.1920928955078125E-7 * *x)))));
-  t1 = (((double)(((int32_t)(1.1920928955078125E-7 * a))) * x2) + (a2 * (double)(((int32_t)(1.1920928955078125E-7 * *x)))));
-  t3 = ((8388608 * (t1 - (8388608 * (double)(((int32_t)(1.1920928955078125E-7 * t1)))))) + (a2 * x2));
-  *x = (t3 - (70368744177664 * (double)(((int32_t)(1.4210854715202004E-14 * t3)))));
+  a2 = (a - ((8388608 * ((double)((int32_t)((int32_t)(1.1920928955078125E-7 * a)))))));
+  x2 = (*x - ((8388608 * ((double)((int32_t)((int32_t)(1.1920928955078125E-7 * *x)))))));
+  t1 = ((((double)((int32_t)((int32_t)(1.1920928955078125E-7 * a)))) * x2) + (a2 * ((double)((int32_t)((int32_t)(1.1920928955078125E-7 * *x))))));
+  t3 = ((8388608 * (t1 - ((8388608 * ((double)((int32_t)((int32_t)(1.1920928955078125E-7 * t1)))))))) + (a2 * x2));
+  *x = (t3 - ((70368744177664 * ((double)((int32_t)((int32_t)(1.4210854715202004E-14 * t3)))))));
   return (1.4210854715202004E-14 * *x);
 }
 // FUNCTION ORDER ID 2 END
@@ -369,12 +369,13 @@ void c_print_results(uint8_t* name, int8_t class_npb, uint32_t n1, uint32_t n2, 
   } else { // IFELSE MARKER: if.then ELSE
   printf((_OC_str_OC_3), n1, n2, n3);
   }
-  } else { // IFELSE MARKER: land.lhs.true ELSE
+  }
+  } else { // IFELSE MARKER: entry ELSE
   if (n2 == 0) { // IFELSE MARKER: if.else15 IF
   if (n3 == 0) { // IFELSE MARKER: land.lhs.true17 IF
   if (name[0] == 69) { // IFELSE MARKER: if.then19 IF
   if (name[1] == 80) { // IFELSE MARKER: land.lhs.true23 IF
-  __FIXME__call29 = pow(2, (double)(n1));
+  __FIXME__call29 = pow(2, ((double)((int32_t)n1)));
   sprintf(size, (_OC_str_OC_4), __FIXME__call29);
   j = 14;
   if (size[14] == 46) { // IFELSE MARKER: if.then27 IF
@@ -383,14 +384,13 @@ void c_print_results(uint8_t* name, int8_t class_npb, uint32_t n1, uint32_t n2, 
   }
   size[(j + 1)] = 0;
   printf((_OC_str_OC_5), size);
-  } else { // IFELSE MARKER: land.lhs.true23 ELSE
+  }
+  } else { // IFELSE MARKER: if.then19 ELSE
   printf((_OC_str_OC_6), n1);
   }
   }
-  } else { // IFELSE MARKER: land.lhs.true17 ELSE
+  } else { // IFELSE MARKER: if.else15 ELSE
   printf((_OC_str_OC_7), n1, n2, n3);
-  }
-  }
   }
   }
   printf((_OC_str_OC_8), niter);
@@ -500,6 +500,7 @@ for(int32_t j = 0; j < threads_per_block;   j = j + 1) {
 gpu_kernel(q_host, sx_host, sy_host, an, blocks_per_grid, 1, 1, threads_per_block, 1, 1, i, 0, 0, j, 0, 0);
 }
 }
+  ;
   sy = 0;
   sx = 0;
 // INSERT COMMENT LOOP: main::for.cond23
@@ -553,16 +554,19 @@ void setup_gpu(void) {
   uint8_t* __FIXME__call;
   uint8_t* __FIXME__call8;
   uint8_t* __FIXME__call9;
+  uint8_t* __FIXME__tulip_2e_host_2e_malloc;
+  uint8_t* __FIXME__tulip_2e_host_2e_malloc1;
+  uint8_t* __FIXME__tulip_2e_host_2e_malloc3;
 
 // INSERT COMMENT IFELSE: setup_gpu::entry
-  *(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4) = 32;
-  *(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6) = 32;
-  if (32 <= ((int32_t)*(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: entry IF
+  *((&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4)) = 32;
+  *((&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6)) = 32;
+  if (32 <= ((int32_t)(gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: entry IF
   threads_per_block = 32;
   } else { // IFELSE MARKER: entry ELSE
-  threads_per_block = *(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
+  threads_per_block = (gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
   }
-  __FIXME__6 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((4096 / (double)(threads_per_block)));
+  __FIXME__6 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((4096 / ((double)((int32_t)threads_per_block))));
   blocks_per_grid = ((int32_t)__FIXME__6);
   size_q = blocks_per_grid * 10 * 8;
   size_sx = blocks_per_grid * 8;
@@ -573,6 +577,12 @@ void setup_gpu(void) {
   sx_host = ((double*)__FIXME__call8);
   __FIXME__call9 = malloc(size_sy);
   sy_host = ((double*)__FIXME__call9);
+  __FIXME__tulip_2e_host_2e_malloc = malloc(size_q);
+  q_device = ((double*)__FIXME__tulip_2e_host_2e_malloc);
+  __FIXME__tulip_2e_host_2e_malloc1 = malloc(size_sx);
+  sx_device = ((double*)__FIXME__tulip_2e_host_2e_malloc1);
+  __FIXME__tulip_2e_host_2e_malloc3 = malloc(size_sy);
+  sy_device = ((double*)__FIXME__tulip_2e_host_2e_malloc3);
 }
 // FUNCTION ORDER ID 4 END
 
@@ -650,15 +660,12 @@ for(int64_t i = 0; i < 128;   i = i + 1) {
   double __FIXME__10 = fabs(__FIXME__mul47);
   if (llvm_fcmp_ogt(__FIXME__9, __FIXME__10)) { // IFELSE MARKER: _ZL3logd.exit IF
   __FIXME__cond = fabs(t3);
-  q_local[((int32_t)__FIXME__cond)] = (q_local[((int32_t)__FIXME__cond)] + 1);
-  sx_local = (sx_local + t3);
-  sy_local = (sy_local + __FIXME__mul47);
   } else { // IFELSE MARKER: _ZL3logd.exit ELSE
   __FIXME__cond = fabs(__FIXME__mul47);
+  }
   q_local[((int32_t)__FIXME__cond)] = (q_local[((int32_t)__FIXME__cond)] + 1);
   sx_local = (sx_local + t3);
   sy_local = (sy_local + __FIXME__mul47);
-  }
 }
 }
   #pragma omp atomic update

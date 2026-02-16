@@ -273,7 +273,10 @@
 	"__FIXME__6", 
 	"__FIXME__call", 
 	"__FIXME__call8", 
-	"__FIXME__call9"
+	"__FIXME__call9", 
+	"__FIXME__tulip_2e_host_2e_malloc", 
+	"__FIXME__tulip_2e_host_2e_malloc1", 
+	"__FIXME__tulip_2e_host_2e_malloc3"
 ], 
 "vranlc_device": [
 	"a", 
