@@ -1,3 +1,39 @@
+ANDREW: mergeKernel: no exp patterns found in function _Z21gpu_kernel_one_devicePdS_S_S_S_
+ANDREW: mergeKernel: no exp patterns found in function _Z21gpu_kernel_two_devicePdS_S_
+ANDREW: mergeKernel: no exp patterns found in function _Z23gpu_kernel_three_devicePiS_PdS0_S0_
+ANDREW: mergeKernel: no exp patterns found in function _Z22gpu_kernel_four_devicePdS_S_S_
+ANDREW: mergeKernel: no exp patterns found in function _Z17gpu_kernel_five_1dPdS_
+ANDREW: mergeKernel: no exp patterns found in function _Z17gpu_kernel_five_2dPdS_
+ANDREW: mergeKernel: no exp patterns found in function _Z21gpu_kernel_six_devicePdS_
+ANDREW: mergeKernel: no exp patterns found in function _Z23gpu_kernel_seven_devicedPdS_
+ANDREW: mergeKernel: no exp patterns found in function _Z23gpu_kernel_eight_devicePiS_PdS0_S0_
+ANDREW: mergeKernel: no exp patterns found in function _Z22gpu_kernel_nine_devicePdS_S_S_
+ANDREW: mergeKernel: no exp patterns found in function _Z16gpu_kernel_ten_1PdS_S_
+ANDREW: mergeKernel: no exp patterns found in function _Z16gpu_kernel_ten_2PdS_S_
+ANDREW: mergeKernel: no exp patterns found in function _Z24gpu_kernel_eleven_devicedPdS_
+ANDREW: mergeKernel: no exp patterns found in function _Z6randlcPdd
+ANDREW: mergeKernel: no exp patterns found in function _Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_S_S_S_S_
+ANDREW: mergeKernel: no exp patterns found in function main
+ANDREW: mergeKernel: no exp patterns found in function _ZL5makeaiiPdPiS0_iiiiS0_PA12_iPA12_dS0_
+ANDREW: mergeKernel: no exp patterns found in function _ZL9conj_gradPiS_PdS0_S0_S0_S0_S0_S0_
+ANDREW: mergeKernel: no exp patterns found in function _ZL9setup_gpuv
+mergeKernel: replaced cudaMalloc call with host malloc:   %call70 = call i32 @_ZL10cudaMallocIiE9cudaErrorPPT_m(i32** @colidx_device, i64 %47), !dbg !1449
+mergeKernel: replaced cudaMalloc call with host malloc:   %call71 = call i32 @_ZL10cudaMallocIiE9cudaErrorPPT_m(i32** @rowstr_device, i64 %48), !dbg !1451
+mergeKernel: replaced cudaMalloc call with host malloc:   %call72 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @a_device, i64 %49), !dbg !1453
+mergeKernel: replaced cudaMalloc call with host malloc:   %call73 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @p_device, i64 %50), !dbg !1455
+mergeKernel: replaced cudaMalloc call with host malloc:   %call74 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @q_device, i64 %51), !dbg !1457
+mergeKernel: replaced cudaMalloc call with host malloc:   %call75 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @r_device, i64 %52), !dbg !1459
+mergeKernel: replaced cudaMalloc call with host malloc:   %call76 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @x_device, i64 %53), !dbg !1461
+mergeKernel: replaced cudaMalloc call with host malloc:   %call77 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @z_device, i64 %54), !dbg !1463
+mergeKernel: replaced cudaMalloc call with host malloc:   %call78 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @rho_device, i64 %55), !dbg !1465
+mergeKernel: replaced cudaMalloc call with host malloc:   %call79 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @d_device, i64 %56), !dbg !1467
+mergeKernel: replaced cudaMalloc call with host malloc:   %call80 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @alpha_device, i64 %57), !dbg !1469
+mergeKernel: replaced cudaMalloc call with host malloc:   %call81 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @beta_device, i64 %58), !dbg !1471
+mergeKernel: replaced cudaMalloc call with host malloc:   %call82 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @sum_device, i64 %59), !dbg !1473
+mergeKernel: replaced cudaMalloc call with host malloc:   %call83 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @norm_temp1_device, i64 %60), !dbg !1475
+mergeKernel: replaced cudaMalloc call with host malloc:   %call84 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @norm_temp2_device, i64 %61), !dbg !1477
+mergeKernel: replaced cudaMalloc call with host malloc:   %call85 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @global_data_device, i64 %62), !dbg !1479
+mergeKernel: replaced cudaMalloc call with host malloc:   %call86 = call i32 @_ZL10cudaMallocIdE9cudaErrorPPT_m(double** @global_data_two_device, i64 %63), !dbg !1481
 ANDREW: mergeKernel: originalLd   %66 = load i32*, i32** @_ZL6colidx, align 8, !dbg !1483
 mergeKernel: found originalAlloc @_ZL6colidx = internal global i32* null, align 8, !dbg !364
 mergeKernel: found originalAlloc user  %66 = load i32*, i32** @_ZL6colidx, align 8, !dbg !1483
@@ -81,6 +117,8 @@ mergeKernel: found originalAlloc user  store double* %8, double** @_ZL1z, align 
 mergeKernel: found originalAlloc store:  store double* %8, double** @_ZL1z, align 8, !dbg !1290
 mergeKernel: found originalAlloc cast:  %8 = bitcast i8* %call8 to double*, !dbg !1289
 mergeKernel: found originalAlloc ci:  %call8 = call noalias i8* @malloc(i64 112016) #13, !dbg !1288
+ANDREW: mergeKernel: no exp patterns found in function _ZL13conj_grad_gpuPd
+ANDREW: mergeKernel: no exp patterns found in function _ZL19gpu_kernel_ten_hostPdS_
 CudaFE: found cudaConfigureCall
 mergeKernel: kernelBB: 
 kcall.configok:                                   ; preds = %entry
@@ -723,6 +761,7 @@ i32   %indvar.114 = phi i32 [ 0, %header.010 ], [ %indvar.next.116, %latch.112 ]
 i32 i32 0
 i32 i32 0
 Finished making call for gpu_kernel_ten_2
+ANDREW: mergeKernel: no exp patterns found in function _ZL22gpu_kernel_eleven_hostd
 CudaFE: found cudaConfigureCall
 mergeKernel: kernelBB: 
 kcall.configok:                                   ; preds = %entry
@@ -899,6 +938,12 @@ i32   %indvar.1 = phi i32 [ 0, %header.0 ], [ %indvar.next.1, %latch.1 ]
 i32 i32 0
 i32 i32 0
 Finished making call for gpu_kernel_eleven_device
+ANDREW: mergeKernel: no exp patterns found in function _ZL11release_gpuv
+ANDREW: mergeKernel: no exp patterns found in function _ZN4dim3C2Ejjj
+ANDREW: mergeKernel: no exp patterns found in function cg.ll_CudaFE__Z24gpu_kernel_eleven_devicedPdS_
+ANDREW: mergeKernel: no exp patterns found in function cg.ll_CudaFE__Z16gpu_kernel_ten_1PdS_S_
+ANDREW: mergeKernel: no exp patterns found in function cg.ll_CudaFE__Z16gpu_kernel_ten_2PdS_S_
+ANDREW: mergeKernel: no exp patterns found in function _ZL19gpu_kernel_one_hostv
 CudaFE: found cudaConfigureCall
 mergeKernel: kernelBB: 
 kcall.configok:                                   ; preds = %entry
@@ -1131,6 +1176,7 @@ i32   %indvar.1 = phi i32 [ 0, %header.0 ], [ %indvar.next.1, %latch.1 ]
 i32 i32 0
 i32 i32 0
 Finished making call for gpu_kernel_one_device
+ANDREW: mergeKernel: no exp patterns found in function _ZL19gpu_kernel_two_hostPd
 CudaFE: found cudaConfigureCall
 mergeKernel: kernelBB: 
 kcall.configok:                                   ; preds = %entry
@@ -1463,6 +1509,7 @@ i32   %indvar.1 = phi i32 [ 0, %header.0 ], [ %indvar.next.1, %latch.1 ]
 i32 i32 0
 i32 i32 0
 Finished making call for gpu_kernel_two_device
+ANDREW: mergeKernel: no exp patterns found in function _ZL21gpu_kernel_three_hostv
 CudaFE: found cudaConfigureCall
 mergeKernel: kernelBB: 
 kcall.configok:                                   ; preds = %entry
@@ -1874,6 +1921,7 @@ i32   %indvar.1 = phi i32 [ 0, %header.0 ], [ %indvar.next.1, %latch.1 ]
 i32 i32 0
 i32 i32 0
 Finished making call for gpu_kernel_three_device
+ANDREW: mergeKernel: no exp patterns found in function _ZL20gpu_kernel_four_hostPd
 CudaFE: found cudaConfigureCall
 mergeKernel: kernelBB: 
 kcall.configok:                                   ; preds = %entry
@@ -2228,6 +2276,7 @@ i32   %indvar.1 = phi i32 [ 0, %header.0 ], [ %indvar.next.1, %latch.1 ]
 i32 i32 0
 i32 i32 0
 Finished making call for gpu_kernel_four_device
+ANDREW: mergeKernel: no exp patterns found in function _ZL20gpu_kernel_five_hostd
 CudaFE: found cudaConfigureCall
 mergeKernel: kernelBB: 
 kcall.configok:                                   ; preds = %entry
@@ -2588,6 +2637,7 @@ i32   %indvar.114 = phi i32 [ 0, %header.010 ], [ %indvar.next.116, %latch.112 ]
 i32 i32 0
 i32 i32 0
 Finished making call for gpu_kernel_five_2
+ANDREW: mergeKernel: no exp patterns found in function _ZL19gpu_kernel_six_hostPd
 CudaFE: found cudaConfigureCall
 mergeKernel: kernelBB: 
 kcall.configok:                                   ; preds = %entry
@@ -2910,6 +2960,7 @@ i32   %indvar.1 = phi i32 [ 0, %header.0 ], [ %indvar.next.1, %latch.1 ]
 i32 i32 0
 i32 i32 0
 Finished making call for gpu_kernel_six_device
+ANDREW: mergeKernel: no exp patterns found in function _ZL21gpu_kernel_seven_hostd
 CudaFE: found cudaConfigureCall
 mergeKernel: kernelBB: 
 kcall.configok:                                   ; preds = %entry
@@ -3098,6 +3149,7 @@ i32   %indvar.1 = phi i32 [ 0, %header.0 ], [ %indvar.next.1, %latch.1 ]
 i32 i32 0
 i32 i32 0
 Finished making call for gpu_kernel_seven_device
+ANDREW: mergeKernel: no exp patterns found in function _ZL21gpu_kernel_eight_hostv
 CudaFE: found cudaConfigureCall
 mergeKernel: kernelBB: 
 kcall.configok:                                   ; preds = %entry
@@ -3509,6 +3561,7 @@ i32   %indvar.1 = phi i32 [ 0, %header.0 ], [ %indvar.next.1, %latch.1 ]
 i32 i32 0
 i32 i32 0
 Finished making call for gpu_kernel_eight_device
+ANDREW: mergeKernel: no exp patterns found in function _ZL20gpu_kernel_nine_hostPd
 CudaFE: found cudaConfigureCall
 mergeKernel: kernelBB: 
 kcall.configok:                                   ; preds = %entry
@@ -3883,6 +3936,37 @@ i32   %indvar.1 = phi i32 [ 0, %header.0 ], [ %indvar.next.1, %latch.1 ]
 i32 i32 0
 i32 i32 0
 Finished making call for gpu_kernel_nine_device
+ANDREW: mergeKernel: no exp patterns found in function cg.ll_CudaFE__Z22gpu_kernel_nine_devicePdS_S_S_
+ANDREW: mergeKernel: no exp patterns found in function cg.ll_CudaFE__Z23gpu_kernel_eight_devicePiS_PdS0_S0_
+ANDREW: mergeKernel: no exp patterns found in function cg.ll_CudaFE__Z23gpu_kernel_seven_devicedPdS_
+ANDREW: mergeKernel: no exp patterns found in function cg.ll_CudaFE__Z21gpu_kernel_six_devicePdS_
+ANDREW: mergeKernel: no exp patterns found in function cg.ll_CudaFE__Z17gpu_kernel_five_1dPdS_
+ANDREW: mergeKernel: no exp patterns found in function cg.ll_CudaFE__Z17gpu_kernel_five_2dPdS_
+ANDREW: mergeKernel: no exp patterns found in function cg.ll_CudaFE__Z22gpu_kernel_four_devicePdS_S_S_
+ANDREW: mergeKernel: no exp patterns found in function cg.ll_CudaFE__Z23gpu_kernel_three_devicePiS_PdS0_S0_
+ANDREW: mergeKernel: no exp patterns found in function cg.ll_CudaFE__Z21gpu_kernel_two_devicePdS_S_
+ANDREW: mergeKernel: no exp patterns found in function cg.ll_CudaFE__Z21gpu_kernel_one_devicePdS_S_S_S_
+ANDREW: mergeKernel: no exp patterns found in function _ZL10cudaMallocIiE9cudaErrorPPT_m
+mergeKernel: WARN: could not replace cudaMalloc safely, keeping call:   %call = call i32 @cudaMalloc(i8** %2, i64 %3), !dbg !1268
+ANDREW: mergeKernel: no exp patterns found in function _ZL10cudaMallocIdE9cudaErrorPPT_m
+mergeKernel: WARN: could not replace cudaMalloc safely, keeping call:   %call = call i32 @cudaMalloc(i8** %2, i64 %3), !dbg !1268
+ANDREW: mergeKernel: no exp patterns found in function _ZL6sprnvciiiPdPi
+ANDREW: mergeKernel: no exp patterns found in function _ZL6vecsetiPdPiS0_id
+ANDREW: mergeKernel: no exp patterns found in function _ZL6sparsePdPiS0_iiiS0_PA12_iPA12_diiS0_dd
+ANDREW: mergeKernel: no exp patterns found in function _ZL6icnvrtdi
+ANDREW: mergeKernel: no exp patterns found in function gpu_kernel_ten_1
+ANDREW: mergeKernel: no exp patterns found in function gpu_kernel_ten_2
+ANDREW: mergeKernel: no exp patterns found in function gpu_kernel_eleven_device
+ANDREW: mergeKernel: no exp patterns found in function gpu_kernel_one_device
+ANDREW: mergeKernel: no exp patterns found in function gpu_kernel_two_device
+ANDREW: mergeKernel: no exp patterns found in function gpu_kernel_three_device
+ANDREW: mergeKernel: no exp patterns found in function gpu_kernel_four_device
+ANDREW: mergeKernel: no exp patterns found in function gpu_kernel_five_1
+ANDREW: mergeKernel: no exp patterns found in function gpu_kernel_five_2
+ANDREW: mergeKernel: no exp patterns found in function gpu_kernel_six_device
+ANDREW: mergeKernel: no exp patterns found in function gpu_kernel_seven_device
+ANDREW: mergeKernel: no exp patterns found in function gpu_kernel_eight_device
+ANDREW: mergeKernel: no exp patterns found in function gpu_kernel_nine_device
 mergeKernel: Replacing zero-length array with [1024 x double]
 mergeKernel: Created new global extern_share_data_shared for shared memory extern_share_data
 ANDREW: shared-lowering created TLS global extern_share_data_shared (old=extern_share_data, addrspace3->0)
@@ -3904,8 +3988,10 @@ mergeKernel: Replaced GEPOperator use in   store double* %sharedMem.gep, double*
 ANDREW: shared-lowering rewired GEP user to extern_share_data_shared
 mergeKernel: Replaced GEPOperator use in   store double* %sharedMem.gep, double** %share_data, align 8, !dbg !1263
 ANDREW: shared-lowering rewired GEP user to extern_share_data_shared
+ANDREW: shared-lowering replacing addrspacecast constant globally: [0 x double]* addrspacecast ([0 x double] addrspace(3)* @extern_share_data to [0 x double]*) -> [0 x double]* bitcast ([1024 x double]* @extern_share_data_shared to [0 x double]*)
 mergeKernel: WARNING: Old shared memory global extern_share_data still has uses
 ANDREW: shared-lowering old global still live extern_share_data, remaining uses=1
+ANDREW: remaining old shared global constexpr use: [0 x double]* addrspacecast ([0 x double] addrspace(3)* @extern_share_data to [0 x double]*)
 header.111.preheader
 CLONING 0
 IDX: 0

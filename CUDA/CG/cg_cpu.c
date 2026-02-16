@@ -169,12 +169,12 @@ void gpu_kernel_seven_device(double, double*, double*, uint32_t, uint32_t, uint3
 void gpu_kernel_eight_device0(uint32_t*, uint32_t*, double*, double*, double*, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t) __ATTRIBUTELIST__((noinline, nothrow));
 void gpu_kernel_nine_device0(double*, double*, double*, double*, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t) __ATTRIBUTELIST__((noinline, nothrow));
 void gpu_kernel_ten_21(double*, double*, double*, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t) __ATTRIBUTELIST__((noinline, nothrow));
+void gpu_kernel_two_device1(double*, double*, double*, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t) __ATTRIBUTELIST__((noinline, nothrow));
 void gpu_kernel_ten_11(double*, double*, double*, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t) __ATTRIBUTELIST__((noinline, nothrow));
 void gpu_kernel_nine_device1(double*, double*, double*, double*, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t) __ATTRIBUTELIST__((noinline, nothrow));
 void gpu_kernel_three_device1(uint32_t*, uint32_t*, double*, double*, double*, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t) __ATTRIBUTELIST__((noinline, nothrow));
 void gpu_kernel_six_device1(double*, double*, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t) __ATTRIBUTELIST__((noinline, nothrow));
 void gpu_kernel_eight_device1(uint32_t*, uint32_t*, double*, double*, double*, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t) __ATTRIBUTELIST__((noinline, nothrow));
-void gpu_kernel_two_device1(double*, double*, double*, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t) __ATTRIBUTELIST__((noinline, nothrow));
 void gpu_kernel_four_device1(double*, double*, double*, double*, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t) __ATTRIBUTELIST__((noinline, nothrow));
 
 
@@ -425,11 +425,11 @@ double randlc(double* x, double a) {
   double t1;
   double t3;
 
-  a2 = (a - (8388608 * (double)(((int32_t)(1.1920928955078125E-7 * a)))));
-  x2 = (*x - (8388608 * (double)(((int32_t)(1.1920928955078125E-7 * *x)))));
-  t1 = (((double)(((int32_t)(1.1920928955078125E-7 * a))) * x2) + (a2 * (double)(((int32_t)(1.1920928955078125E-7 * *x)))));
-  t3 = ((8388608 * (t1 - (8388608 * (double)(((int32_t)(1.1920928955078125E-7 * t1)))))) + (a2 * x2));
-  *x = (t3 - (70368744177664 * (double)(((int32_t)(1.4210854715202004E-14 * t3)))));
+  a2 = (a - ((8388608 * ((double)((int32_t)((int32_t)(1.1920928955078125E-7 * a)))))));
+  x2 = (*x - ((8388608 * ((double)((int32_t)((int32_t)(1.1920928955078125E-7 * *x)))))));
+  t1 = ((((double)((int32_t)((int32_t)(1.1920928955078125E-7 * a)))) * x2) + (a2 * ((double)((int32_t)((int32_t)(1.1920928955078125E-7 * *x))))));
+  t3 = ((8388608 * (t1 - ((8388608 * ((double)((int32_t)((int32_t)(1.1920928955078125E-7 * t1)))))))) + (a2 * x2));
+  *x = (t3 - ((70368744177664 * ((double)((int32_t)((int32_t)(1.4210854715202004E-14 * t3)))))));
   return (1.4210854715202004E-14 * *x);
 }
 // FUNCTION ORDER ID 0 END
@@ -456,12 +456,13 @@ void c_print_results(uint8_t* name, int8_t class_npb, uint32_t n1, uint32_t n2, 
   } else { // IFELSE MARKER: if.then ELSE
   printf((_OC_str_OC_3), n1, n2, n3);
   }
-  } else { // IFELSE MARKER: land.lhs.true ELSE
+  }
+  } else { // IFELSE MARKER: entry ELSE
   if (n2 == 0) { // IFELSE MARKER: if.else15 IF
   if (n3 == 0) { // IFELSE MARKER: land.lhs.true17 IF
   if (name[0] == 69) { // IFELSE MARKER: if.then19 IF
   if (name[1] == 80) { // IFELSE MARKER: land.lhs.true23 IF
-  __FIXME__call29 = pow(2, (double)(n1));
+  __FIXME__call29 = pow(2, ((double)((int32_t)n1)));
   sprintf(size, (_OC_str_OC_4), __FIXME__call29);
   j = 14;
   if (size[14] == 46) { // IFELSE MARKER: if.then27 IF
@@ -470,14 +471,13 @@ void c_print_results(uint8_t* name, int8_t class_npb, uint32_t n1, uint32_t n2, 
   }
   size[(j + 1)] = 0;
   printf((_OC_str_OC_5), size);
-  } else { // IFELSE MARKER: land.lhs.true23 ELSE
+  }
+  } else { // IFELSE MARKER: if.then19 ELSE
   printf((_OC_str_OC_6), n1);
   }
   }
-  } else { // IFELSE MARKER: land.lhs.true17 ELSE
+  } else { // IFELSE MARKER: if.else15 ELSE
   printf((_OC_str_OC_7), n1, n2, n3);
-  }
-  }
   }
   }
   printf((_OC_str_OC_8), niter);
@@ -591,9 +591,9 @@ int main(int argc, char ** argv) {
   randlc((&_ZL4tran), _ZL5amult);
 makea(_ZL3naa, _ZL3nzz, _ZL1a, _ZL6colidx, _ZL6rowstr, _ZL8firstrow, _ZL7lastrow, _ZL8firstcol, _ZL7lastcol, _ZL4arow, ((uint32_t*)((uint8_t*)_ZL4acol)), ((double*)((uint8_t*)_ZL4aelt)), _ZL2iv);
 // INSERT COMMENT LOOP: main::for.cond
-for(int64_t j = 0; j < (_ZL7lastrow - _ZL8firstrow) + 1;   j = j + 1) {
+for(int64_t j = 0; j < (_ZL7lastrow - (_ZL8firstrow)) + 1;   j = j + 1) {
 for(k = _ZL6rowstr[j]; k < _ZL6rowstr[(j + 1)];   k = k + 1) {
-  _ZL6colidx[k] = (_ZL6colidx[k] - _ZL8firstcol);
+  _ZL6colidx[k] = (_ZL6colidx[k] - (_ZL8firstcol));
 }
 }
 // INSERT COMMENT LOOP: main::for.cond31
@@ -601,7 +601,7 @@ for(int64_t i = 0; i < 14001;   i = i + 1) {
   _ZL1x[i] = 1;
 }
 // INSERT COMMENT LOOP: main::for.cond39
-for(int64_t j = 0; j < (_ZL7lastcol - _ZL8firstcol) + 1;   j = j + 1) {
+for(int64_t j = 0; j < (_ZL7lastcol - (_ZL8firstcol)) + 1;   j = j + 1) {
   _ZL1q[j] = 0;
   _ZL1z[j] = 0;
   _ZL1r[j] = 0;
@@ -612,13 +612,13 @@ for(int32_t it = 1; it < 2;   it = it + 1) {
 conj_grad(_ZL6colidx, _ZL6rowstr, _ZL1x, _ZL1z, _ZL1a, _ZL1p, _ZL1q, _ZL1r, (&rnorm));
   norm_temp1 = 0;
   norm_temp2 = 0;
-for(int64_t j = 0; j < (_ZL7lastcol - _ZL8firstcol) + 1;   j = j + 1) {
+for(int64_t j = 0; j < (_ZL7lastcol - (_ZL8firstcol)) + 1;   j = j + 1) {
   norm_temp1 = (norm_temp1 + (_ZL1x[j] * _ZL1z[j]));
   norm_temp2 = (norm_temp2 + (_ZL1z[j] * _ZL1z[j]));
 }
   double __FIXME__call77 = sqrt(norm_temp2);
   norm_temp2 = (1 / __FIXME__call77);
-for(int64_t j = 0; j < (_ZL7lastcol - _ZL8firstcol) + 1;   j = j + 1) {
+for(int64_t j = 0; j < (_ZL7lastcol - (_ZL8firstcol)) + 1;   j = j + 1) {
   _ZL1x[j] = (norm_temp2 * _ZL1z[j]);
 }
 }
@@ -755,13 +755,13 @@ for(int64_t j = 0; j < _ZL3naa + 1;   j = j + 1) {
 }
   rho = 0;
 // INSERT COMMENT LOOP: conj_grad::for.cond11
-for(int64_t j = 0; j < (_ZL7lastcol - _ZL8firstcol) + 1;   j = j + 1) {
+for(int64_t j = 0; j < (_ZL7lastcol - (_ZL8firstcol)) + 1;   j = j + 1) {
   rho = (__FIXME__rho_2e_1 + (r[j] * r[j]));
 }
   __FIXME__rho_2e_1 = rho;
 // INSERT COMMENT LOOP: conj_grad::for.cond23
 for(int32_t cgit = 1; cgit < 26;   cgit = cgit + 1) {
-for(int64_t j = 0; j < (_ZL7lastrow - _ZL8firstrow) + 1;   j = j + 1) {
+for(int64_t j = 0; j < (_ZL7lastrow - (_ZL8firstrow)) + 1;   j = j + 1) {
   sum = 0;
 for(k = rowstr[j]; k < rowstr[(j + 1)];   k = k + 1) {
   sum = (sum + (a[k] * p[colidx[k]]));
@@ -769,27 +769,27 @@ for(k = rowstr[j]; k < rowstr[(j + 1)];   k = k + 1) {
   q[j] = sum;
 }
   d = 0;
-for(int64_t j = 0; j < (_ZL7lastcol - _ZL8firstcol) + 1;   j = j + 1) {
+for(int64_t j = 0; j < (_ZL7lastcol - (_ZL8firstcol)) + 1;   j = j + 1) {
   d = (d + (p[j] * q[j]));
 }
   double alpha = (__FIXME__rho_2e_1 / d);
-for(int64_t j = 0; j < (_ZL7lastcol - _ZL8firstcol) + 1;   j = j + 1) {
+for(int64_t j = 0; j < (_ZL7lastcol - (_ZL8firstcol)) + 1;   j = j + 1) {
   z[j] = (z[j] + (alpha * p[j]));
-  r[j] = (r[j] - (alpha * q[j]));
+  r[j] = (r[j] - ((alpha * q[j])));
 }
   rho0 = 0;
-for(int64_t j = 0; j < (_ZL7lastcol - _ZL8firstcol) + 1;   j = j + 1) {
+for(int64_t j = 0; j < (_ZL7lastcol - (_ZL8firstcol)) + 1;   j = j + 1) {
   rho = (__FIXME__rho_2e_2_2e_lcssa + (r[j] * r[j]));
   rho0 = rho;
 }
   double beta = (__FIXME__rho_2e_2_2e_lcssa / __FIXME__rho_2e_1);
-for(int64_t j = 0; j < (_ZL7lastcol - _ZL8firstcol) + 1;   j = j + 1) {
+for(int64_t j = 0; j < (_ZL7lastcol - (_ZL8firstcol)) + 1;   j = j + 1) {
   p[j] = (r[j] + (beta * p[j]));
 }
   __FIXME__rho_2e_1 = __FIXME__rho_2e_2_2e_lcssa;
 }
 // INSERT COMMENT LOOP: conj_grad::for.cond127
-for(int64_t j = 0; j < (_ZL7lastrow - _ZL8firstrow) + 1;   j = j + 1) {
+for(int64_t j = 0; j < (_ZL7lastrow - (_ZL8firstrow)) + 1;   j = j + 1) {
   d = 0;
 for(k = rowstr[j]; k < rowstr[(j + 1)];   k = k + 1) {
   d = (d + (a[k] * z[colidx[k]]));
@@ -798,8 +798,8 @@ for(k = rowstr[j]; k < rowstr[(j + 1)];   k = k + 1) {
 }
   sum = 0;
 // INSERT COMMENT LOOP: conj_grad::for.cond156
-for(int64_t j = 0; j < (_ZL7lastcol - _ZL8firstcol) + 1;   j = j + 1) {
-  d = (x[j] - r[j]);
+for(int64_t j = 0; j < (_ZL7lastcol - (_ZL8firstcol)) + 1;   j = j + 1) {
+  d = (x[j] - (r[j]));
   sum = (sum + (d * d));
 }
   __FIXME__call = sqrt(sum);
@@ -823,96 +823,113 @@ void setup_gpu(void) {
   double __FIXME__13;
   uint8_t* __FIXME__call;
   uint8_t* __FIXME__call69;
+  uint8_t* __FIXME__tulip_2e_host_2e_malloc;
+  uint8_t* __FIXME__tulip_2e_host_2e_malloc1;
+  uint8_t* __FIXME__tulip_2e_host_2e_malloc3;
+  uint8_t* __FIXME__tulip_2e_host_2e_malloc5;
+  uint8_t* __FIXME__tulip_2e_host_2e_malloc7;
+  uint8_t* __FIXME__tulip_2e_host_2e_malloc9;
+  uint8_t* __FIXME__tulip_2e_host_2e_malloc11;
+  uint8_t* __FIXME__tulip_2e_host_2e_malloc13;
+  uint8_t* __FIXME__tulip_2e_host_2e_malloc15;
+  uint8_t* __FIXME__tulip_2e_host_2e_malloc17;
+  uint8_t* __FIXME__tulip_2e_host_2e_malloc19;
+  uint8_t* __FIXME__tulip_2e_host_2e_malloc21;
+  uint8_t* __FIXME__tulip_2e_host_2e_malloc23;
+  uint8_t* __FIXME__tulip_2e_host_2e_malloc25;
+  uint8_t* __FIXME__tulip_2e_host_2e_malloc27;
+  uint8_t* __FIXME__tulip_2e_host_2e_malloc29;
+  uint8_t* __FIXME__tulip_2e_host_2e_malloc31;
 
 // INSERT COMMENT IFELSE: setup_gpu::entry
-  *(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4) = 32;
-  *(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6) = 1024;
-  if (1024 <= ((int32_t)*(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: entry IF
+  *((&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4)) = 32;
+  *((&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6)) = 1024;
+  if (1024 <= ((int32_t)(gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: entry IF
   threads_per_block_on_kernel_one = 1024;
   } else { // IFELSE MARKER: entry ELSE
-  threads_per_block_on_kernel_one = *(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
+  threads_per_block_on_kernel_one = (gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
   }
 // INSERT COMMENT IFELSE: setup_gpu::if.end
-  if (256 <= ((int32_t)*(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: if.end IF
+  if (256 <= ((int32_t)(gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: if.end IF
   threads_per_block_on_kernel_two = 256;
   } else { // IFELSE MARKER: if.end ELSE
-  threads_per_block_on_kernel_two = *(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
+  threads_per_block_on_kernel_two = (gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
   }
 // INSERT COMMENT IFELSE: setup_gpu::if.end4
-  if (64 <= ((int32_t)*(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: if.end4 IF
+  if (64 <= ((int32_t)(gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: if.end4 IF
   threads_per_block_on_kernel_three = 64;
   } else { // IFELSE MARKER: if.end4 ELSE
-  threads_per_block_on_kernel_three = *(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
+  threads_per_block_on_kernel_three = (gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
   }
 // INSERT COMMENT IFELSE: setup_gpu::if.end8
-  if (256 <= ((int32_t)*(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: if.end8 IF
+  if (256 <= ((int32_t)(gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: if.end8 IF
   threads_per_block_on_kernel_four = 256;
   } else { // IFELSE MARKER: if.end8 ELSE
-  threads_per_block_on_kernel_four = *(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
+  threads_per_block_on_kernel_four = (gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
   }
 // INSERT COMMENT IFELSE: setup_gpu::if.end12
-  if (64 <= ((int32_t)*(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: if.end12 IF
+  if (64 <= ((int32_t)(gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: if.end12 IF
   threads_per_block_on_kernel_five = 64;
   } else { // IFELSE MARKER: if.end12 ELSE
-  threads_per_block_on_kernel_five = *(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
+  threads_per_block_on_kernel_five = (gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
   }
 // INSERT COMMENT IFELSE: setup_gpu::if.end16
-  if (256 <= ((int32_t)*(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: if.end16 IF
+  if (256 <= ((int32_t)(gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: if.end16 IF
   threads_per_block_on_kernel_six = 256;
   } else { // IFELSE MARKER: if.end16 ELSE
-  threads_per_block_on_kernel_six = *(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
+  threads_per_block_on_kernel_six = (gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
   }
 // INSERT COMMENT IFELSE: setup_gpu::if.end20
-  if (512 <= ((int32_t)*(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: if.end20 IF
+  if (512 <= ((int32_t)(gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: if.end20 IF
   threads_per_block_on_kernel_seven = 512;
   } else { // IFELSE MARKER: if.end20 ELSE
-  threads_per_block_on_kernel_seven = *(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
+  threads_per_block_on_kernel_seven = (gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
   }
 // INSERT COMMENT IFELSE: setup_gpu::if.end24
-  if (64 <= ((int32_t)*(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: if.end24 IF
+  if (64 <= ((int32_t)(gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: if.end24 IF
   threads_per_block_on_kernel_eight = 64;
   } else { // IFELSE MARKER: if.end24 ELSE
-  threads_per_block_on_kernel_eight = *(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
+  threads_per_block_on_kernel_eight = (gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
   }
 // INSERT COMMENT IFELSE: setup_gpu::if.end28
-  if (512 <= ((int32_t)*(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: if.end28 IF
+  if (512 <= ((int32_t)(gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: if.end28 IF
   threads_per_block_on_kernel_nine = 512;
   } else { // IFELSE MARKER: if.end28 ELSE
-  threads_per_block_on_kernel_nine = *(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
+  threads_per_block_on_kernel_nine = (gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
   }
 // INSERT COMMENT IFELSE: setup_gpu::if.end32
-  if (256 <= ((int32_t)*(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: if.end32 IF
+  if (256 <= ((int32_t)(gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: if.end32 IF
   threads_per_block_on_kernel_ten = 256;
   } else { // IFELSE MARKER: if.end32 ELSE
-  threads_per_block_on_kernel_ten = *(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
+  threads_per_block_on_kernel_ten = (gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
   }
 // INSERT COMMENT IFELSE: setup_gpu::if.end36
-  if (512 <= ((int32_t)*(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: if.end36 IF
+  if (512 <= ((int32_t)(gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field6))) { // IFELSE MARKER: if.end36 IF
   threads_per_block_on_kernel_eleven = 512;
   } else { // IFELSE MARKER: if.end36 ELSE
-  threads_per_block_on_kernel_eleven = *(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
+  threads_per_block_on_kernel_eleven = (gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4);
   }
-  __FIXME__4 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((14000 / (double)(threads_per_block_on_kernel_one)));
+  __FIXME__4 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((14000 / ((double)((int32_t)threads_per_block_on_kernel_one))));
   blocks_per_grid_on_kernel_one = ((int32_t)__FIXME__4);
-  __FIXME__5 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((14000 / (double)(threads_per_block_on_kernel_two)));
+  __FIXME__5 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((14000 / ((double)((int32_t)threads_per_block_on_kernel_two))));
   blocks_per_grid_on_kernel_two = ((int32_t)__FIXME__5);
   blocks_per_grid_on_kernel_three = 14000;
-  __FIXME__6 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((14000 / (double)(threads_per_block_on_kernel_four)));
+  __FIXME__6 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((14000 / ((double)((int32_t)threads_per_block_on_kernel_four))));
   blocks_per_grid_on_kernel_four = ((int32_t)__FIXME__6);
-  __FIXME__7 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((14000 / (double)(threads_per_block_on_kernel_five)));
+  __FIXME__7 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((14000 / ((double)((int32_t)threads_per_block_on_kernel_five))));
   blocks_per_grid_on_kernel_five = ((int32_t)__FIXME__7);
-  __FIXME__8 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((14000 / (double)(threads_per_block_on_kernel_six)));
+  __FIXME__8 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((14000 / ((double)((int32_t)threads_per_block_on_kernel_six))));
   blocks_per_grid_on_kernel_six = ((int32_t)__FIXME__8);
-  __FIXME__9 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((14000 / (double)(threads_per_block_on_kernel_seven)));
+  __FIXME__9 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((14000 / ((double)((int32_t)threads_per_block_on_kernel_seven))));
   blocks_per_grid_on_kernel_seven = ((int32_t)__FIXME__9);
   blocks_per_grid_on_kernel_eight = 14000;
-  __FIXME__10 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((14000 / (double)(threads_per_block_on_kernel_nine)));
+  __FIXME__10 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((14000 / ((double)((int32_t)threads_per_block_on_kernel_nine))));
   blocks_per_grid_on_kernel_nine = ((int32_t)__FIXME__10);
-  __FIXME__11 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((14000 / (double)(threads_per_block_on_kernel_ten)));
+  __FIXME__11 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((14000 / ((double)((int32_t)threads_per_block_on_kernel_ten))));
   blocks_per_grid_on_kernel_ten = ((int32_t)__FIXME__11);
-  __FIXME__12 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((14000 / (double)(threads_per_block_on_kernel_eleven)));
+  __FIXME__12 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((14000 / ((double)((int32_t)threads_per_block_on_kernel_eleven))));
   blocks_per_grid_on_kernel_eleven = ((int32_t)__FIXME__12);
-  __FIXME__13 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((14000 / (double)(*(&gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4))));
+  __FIXME__13 = /*__FIXME__INTRINSIC_CALL__*/llvm_OC_ceil_OC_f64((14000 / ((double)((int32_t)(gpu_device_properties.__FIXME__l_struct_struct_OC_cudaDeviceProp_field4)))));
   global_data_elements = ((uint64_t)__FIXME__13);
   size_global_data = global_data_elements * 8;
   size_colidx_device = 8064000;
@@ -938,6 +955,41 @@ void setup_gpu(void) {
   global_data = ((double*)__FIXME__call);
   __FIXME__call69 = malloc(size_global_data);
   global_data_two = ((double*)__FIXME__call69);
+  __FIXME__tulip_2e_host_2e_malloc = malloc(size_colidx_device);
+  colidx_device = ((uint32_t*)__FIXME__tulip_2e_host_2e_malloc);
+  __FIXME__tulip_2e_host_2e_malloc1 = malloc(size_rowstr_device);
+  rowstr_device = ((uint32_t*)__FIXME__tulip_2e_host_2e_malloc1);
+  __FIXME__tulip_2e_host_2e_malloc3 = malloc(size_a_device);
+  a_device = ((double*)__FIXME__tulip_2e_host_2e_malloc3);
+  __FIXME__tulip_2e_host_2e_malloc5 = malloc(size_p_device);
+  p_device = ((double*)__FIXME__tulip_2e_host_2e_malloc5);
+  __FIXME__tulip_2e_host_2e_malloc7 = malloc(size_q_device);
+  q_device = ((double*)__FIXME__tulip_2e_host_2e_malloc7);
+  __FIXME__tulip_2e_host_2e_malloc9 = malloc(size_r_device);
+  r_device = ((double*)__FIXME__tulip_2e_host_2e_malloc9);
+  __FIXME__tulip_2e_host_2e_malloc11 = malloc(size_x_device);
+  x_device = ((double*)__FIXME__tulip_2e_host_2e_malloc11);
+  __FIXME__tulip_2e_host_2e_malloc13 = malloc(size_z_device);
+  z_device = ((double*)__FIXME__tulip_2e_host_2e_malloc13);
+  __FIXME__tulip_2e_host_2e_malloc15 = malloc(size_rho_device);
+  rho_device = ((double*)__FIXME__tulip_2e_host_2e_malloc15);
+  __FIXME__tulip_2e_host_2e_malloc17 = malloc(size_d_device);
+  d_device = ((double*)__FIXME__tulip_2e_host_2e_malloc17);
+  __FIXME__tulip_2e_host_2e_malloc19 = malloc(size_alpha_device);
+  alpha_device = ((double*)__FIXME__tulip_2e_host_2e_malloc19);
+  __FIXME__tulip_2e_host_2e_malloc21 = malloc(size_beta_device);
+  beta_device = ((double*)__FIXME__tulip_2e_host_2e_malloc21);
+  __FIXME__tulip_2e_host_2e_malloc23 = malloc(size_sum_device);
+  sum_device = ((double*)__FIXME__tulip_2e_host_2e_malloc23);
+  __FIXME__tulip_2e_host_2e_malloc25 = malloc(size_norm_temp1_device);
+  norm_temp1_device = ((double*)__FIXME__tulip_2e_host_2e_malloc25);
+  __FIXME__tulip_2e_host_2e_malloc27 = malloc(size_norm_temp2_device);
+  norm_temp2_device = ((double*)__FIXME__tulip_2e_host_2e_malloc27);
+  __FIXME__tulip_2e_host_2e_malloc29 = malloc(size_global_data);
+  global_data_device = ((double*)__FIXME__tulip_2e_host_2e_malloc29);
+  __FIXME__tulip_2e_host_2e_malloc31 = malloc(size_global_data);
+  global_data_two_device = ((double*)__FIXME__tulip_2e_host_2e_malloc31);
+  ;
   size_shared_data_on_kernel_one = threads_per_block_on_kernel_one * 8;
   size_shared_data_on_kernel_two = threads_per_block_on_kernel_two * 8;
   size_shared_data_on_kernel_three = threads_per_block_on_kernel_three * 8;
@@ -1044,6 +1096,7 @@ gpu_kernel_ten_21(global_data_two, _ZL1x, _ZL1z, blocks_per_grid_on_kernel_ten, 
 }
   global_data_reduce = 0;
   global_data_two_reduce = 0;
+  ;
 // INSERT COMMENT LOOP: gpu_kernel_ten_host::for.cond
 for(int64_t i = 0; i < blocks_per_grid_on_kernel_ten;   i = i + 1) {
   global_data_reduce = (global_data_reduce + global_data[i]);
@@ -1152,6 +1205,7 @@ gpu_kernel_two_device1(_ZL1r, rho_device, global_data, blocks_per_grid_on_kernel
 }
 }
   global_data_reduce = 0;
+  ;
 // INSERT COMMENT LOOP: gpu_kernel_two_host::for.cond
 for(int64_t i = 0; i < blocks_per_grid_on_kernel_two;   i = i + 1) {
   global_data_reduce = (global_data_reduce + global_data[i]);
@@ -1223,6 +1277,7 @@ gpu_kernel_four_device1(d_device, _ZL1p, _ZL1q, global_data, blocks_per_grid_on_
 }
 }
   global_data_reduce = 0;
+  ;
 // INSERT COMMENT LOOP: gpu_kernel_four_host::for.cond
 for(int64_t i = 0; i < blocks_per_grid_on_kernel_four;   i = i + 1) {
   global_data_reduce = (global_data_reduce + global_data[i]);
@@ -1310,6 +1365,7 @@ gpu_kernel_six_device1(_ZL1r, global_data, blocks_per_grid_on_kernel_six, 1, 1, 
 }
 }
   global_data_reduce = 0;
+  ;
 // INSERT COMMENT LOOP: gpu_kernel_six_host::for.cond
 for(int64_t i = 0; i < blocks_per_grid_on_kernel_six;   i = i + 1) {
   global_data_reduce = (global_data_reduce + global_data[i]);
@@ -1411,6 +1467,7 @@ gpu_kernel_nine_device1(_ZL1r, _ZL1x, sum_device, global_data, blocks_per_grid_o
 }
 }
   global_data_reduce = 0;
+  ;
 // INSERT COMMENT LOOP: gpu_kernel_nine_host::for.cond
 for(int64_t i = 0; i < blocks_per_grid_on_kernel_nine;   i = i + 1) {
   global_data_reduce = (global_data_reduce + global_data[i]);
@@ -1429,6 +1486,7 @@ void sprnvc(uint32_t n, uint32_t nz, uint32_t nn1, double* v, uint32_t* iv) {
   double vecelt;
   int32_t i;
 
+  nzv = 0;
 // INSERT COMMENT LOOP: sprnvc::while.cond.outer
   nzv = 0;
 // INSERT COMMENT LOOP: _ZL6sprnvciiiPdPi::while.cond.outer
@@ -1529,7 +1587,7 @@ for(k = rowstr[j]; k < rowstr[(j + 1)];   k = k + 1) {
 }
   nzloc[j] = 0;
 }
-  ratio = pow(rcond, (1 / (double)(n)));
+  ratio = pow(rcond, (1 / ((double)((int32_t)n))));
   size = 1;
 // INSERT COMMENT LOOP: sparse::for.cond73
 for(int64_t i = 0; i < n;   i = i + 1) {
@@ -1578,12 +1636,12 @@ for(int64_t j = 1; j < nrows;   j = j + 1) {
 // INSERT COMMENT LOOP: sparse::for.cond200
 for(int64_t j = 0; j < nrows;   j = j + 1) {
   if (((uint64_t)j) > ((uint64_t)0)) { // IFELSE MARKER: for.body202 IF
-  j1 = (rowstr[j] - nzloc[(j - 1)]);
+  j1 = (rowstr[j] - (nzloc[(j - 1)]));
   } else { // IFELSE MARKER: for.body202 ELSE
   j1 = 0;
   }
   nza = rowstr[j];
-for(k = j1; k < (rowstr[(j + 1)] - nzloc[j]);   k = k + 1) {
+for(k = j1; k < (rowstr[(j + 1)] - (nzloc[j]));   k = k + 1) {
   a[k] = a[nza];
   colidx[k] = colidx[nza];
   nza = nza + 1;
@@ -1591,7 +1649,7 @@ for(k = j1; k < (rowstr[(j + 1)] - nzloc[j]);   k = k + 1) {
 }
 // INSERT COMMENT LOOP: sparse::for.cond239
 for(int64_t j = 1; j < nrows + 1;   j = j + 1) {
-  rowstr[j] = (rowstr[j] - nzloc[(j - 1)]);
+  rowstr[j] = (rowstr[j] - (nzloc[(j - 1)]));
 }
 }
 // FUNCTION ORDER ID 20 END
@@ -1600,7 +1658,7 @@ for(int64_t j = 1; j < nrows + 1;   j = j + 1) {
 // FUNCTION ORDER ID 21 START
 // INSERT COMMENT FUNCTION: icnvrt
 uint32_t icnvrt(double x, uint32_t ipwr2) {
-  return ((int32_t)((double)(ipwr2) * x));
+  return ((int32_t)(((double)((int32_t)ipwr2)) * x));
 }
 // FUNCTION ORDER ID 21 END
 
@@ -1612,9 +1670,9 @@ void gpu_kernel_ten_10(double* norm_temp, double* x, double* z, uint32_t __FIXME
 
 // INSERT COMMENT IFELSE: gpu_kernel_ten_10::entry
   thread_id = __FIXME__blockIdx_2e_x * __FIXME__blockDim_2e_x + local_id;
-  (&extern_share_data_shared[0])[local_id] = 0;
+  *((((double*)(&extern_share_data_shared))+local_id)) = 0;
   if (thread_id < 14000) { // IFELSE MARKER: entry IF
-  (&extern_share_data_shared[0])[local_id] = (x[thread_id] * z[thread_id]);
+  *((((double*)(&extern_share_data_shared))+local_id)) = (x[thread_id] * z[thread_id]);
   }
   return;
 }
@@ -1628,9 +1686,9 @@ void gpu_kernel_ten_20(double* norm_temp, double* x, double* z, uint32_t __FIXME
 
 // INSERT COMMENT IFELSE: gpu_kernel_ten_20::entry
   thread_id = __FIXME__blockIdx_2e_x * __FIXME__blockDim_2e_x + local_id;
-  (&extern_share_data_shared[0])[local_id] = 0;
+  *((((double*)(&extern_share_data_shared))+local_id)) = 0;
   if (thread_id < 14000) { // IFELSE MARKER: entry IF
-  (&extern_share_data_shared[0])[local_id] = (z[thread_id] * z[thread_id]);
+  *((((double*)(&extern_share_data_shared))+local_id)) = (z[thread_id] * z[thread_id]);
   }
   return;
 }
@@ -1682,10 +1740,10 @@ void gpu_kernel_two_device0(double* r, double* rho, double* global_data, uint32_
 
 // INSERT COMMENT IFELSE: gpu_kernel_two_device0::entry
   thread_id = __FIXME__blockIdx_2e_x * __FIXME__blockDim_2e_x + local_id;
-  (&extern_share_data_shared[0])[local_id] = 0;
+  *((((double*)(&extern_share_data_shared))+local_id)) = 0;
   if (thread_id < 14000) { // IFELSE MARKER: entry IF
   r_value = r[thread_id];
-  (&extern_share_data_shared[0])[local_id] = (r_value * r_value);
+  *((((double*)(&extern_share_data_shared))+local_id)) = (r_value * r_value);
   }
   return;
 }
@@ -1708,7 +1766,7 @@ void gpu_kernel_three_device0(uint32_t* colidx, uint32_t* rowstr, double* a, dou
 for(k = rowstr[j] + local_id; k < end;   k = k + __FIXME__blockDim_2e_x) {
   sum = (sum + (a[k] * p[colidx[k]]));
 }
-  (&extern_share_data_shared[0])[local_id] = sum;
+  *((((double*)(&extern_share_data_shared))+local_id)) = sum;
 }
 // FUNCTION ORDER ID 27 END
 
@@ -1720,10 +1778,10 @@ void gpu_kernel_four_device0(double* d, double* p, double* q, double* global_dat
 
 // INSERT COMMENT IFELSE: gpu_kernel_four_device0::entry
   thread_id = __FIXME__blockIdx_2e_x * __FIXME__blockDim_2e_x + local_id;
-  (&extern_share_data_shared[0])[local_id] = 0;
-  (&extern_share_data_shared[0])[local_id] = 0;
+  *((((double*)(&extern_share_data_shared))+local_id)) = 0;
+  *((((double*)(&extern_share_data_shared))+local_id)) = 0;
   if (thread_id < 14000) { // IFELSE MARKER: entry IF
-  (&extern_share_data_shared[0])[local_id] = (p[thread_id] * q[thread_id]);
+  *((((double*)(&extern_share_data_shared))+local_id)) = (p[thread_id] * q[thread_id]);
   }
   return;
 }
@@ -1755,7 +1813,7 @@ void gpu_kernel_five_2(double alpha, double* q, double* r, uint32_t __FIXME__gri
   j = __FIXME__blockIdx_2e_x * __FIXME__blockDim_2e_x + __FIXME__threadIdx_2e_x;
   if (j >= 14000) { // IFELSE MARKER: entry IF
   } else { // IFELSE MARKER: entry ELSE
-  r[j] = (r[j] - (alpha * q[j]));
+  r[j] = (r[j] - ((alpha * q[j])));
   }
   return;
 }
@@ -1770,10 +1828,10 @@ void gpu_kernel_six_device0(double* r, double* global_data, uint32_t __FIXME__gr
 
 // INSERT COMMENT IFELSE: gpu_kernel_six_device0::entry
   thread_id = __FIXME__blockIdx_2e_x * __FIXME__blockDim_2e_x + local_id;
-  (&extern_share_data_shared[0])[local_id] = 0;
+  *((((double*)(&extern_share_data_shared))+local_id)) = 0;
   if (thread_id < 14000) { // IFELSE MARKER: entry IF
   r_value = r[thread_id];
-  (&extern_share_data_shared[0])[local_id] = (r_value * r_value);
+  *((((double*)(&extern_share_data_shared))+local_id)) = (r_value * r_value);
   }
   return;
 }
@@ -1812,7 +1870,7 @@ void gpu_kernel_eight_device0(uint32_t* colidx, uint32_t* rowstr, double* a, dou
 for(k = rowstr[j] + local_id; k < end;   k = k + __FIXME__blockDim_2e_x) {
   sum = (sum + (a[k] * z[colidx[k]]));
 }
-  (&extern_share_data_shared[0])[local_id] = sum;
+  *((((double*)(&extern_share_data_shared))+local_id)) = sum;
 }
 // FUNCTION ORDER ID 33 END
 
@@ -1824,10 +1882,10 @@ void gpu_kernel_nine_device0(double* r, double* x, double* sum, double* global_d
 
 // INSERT COMMENT IFELSE: gpu_kernel_nine_device0::entry
   thread_id = __FIXME__blockIdx_2e_x * __FIXME__blockDim_2e_x + local_id;
-  (&extern_share_data_shared[0])[local_id] = 0;
+  *((((double*)(&extern_share_data_shared))+local_id)) = 0;
   if (thread_id < 14000) { // IFELSE MARKER: entry IF
-  (&extern_share_data_shared[0])[local_id] = (x[thread_id] - r[thread_id]);
-  (&extern_share_data_shared[0])[local_id] = ((&extern_share_data_shared[0])[local_id] * (&extern_share_data_shared[0])[local_id]);
+  *((((double*)(&extern_share_data_shared))+local_id)) = (x[thread_id] - (r[thread_id]));
+  *((((double*)(&extern_share_data_shared))+local_id)) = (*((((double*)(&extern_share_data_shared))+local_id)) * *((((double*)(&extern_share_data_shared))+local_id)));
   }
   return;
 }
@@ -1839,145 +1897,138 @@ void gpu_kernel_nine_device0(double* r, double* x, double* sum, double* global_d
 void gpu_kernel_ten_21(double* norm_temp, double* x, double* z, uint32_t __FIXME__gridDim_2e_x, uint32_t __FIXME__gridDim_2e_y, uint32_t __FIXME__gridDim_2e_z, uint32_t __FIXME__blockDim_2e_x, uint32_t __FIXME__blockDim_2e_y, uint32_t __FIXME__blockDim_2e_z, uint32_t __FIXME__blockIdx_2e_x, uint32_t __FIXME__blockIdx_2e_y, uint32_t __FIXME__blockIdx_2e_z, uint32_t local_id, uint32_t __FIXME__threadIdx_2e_y, uint32_t __FIXME__threadIdx_2e_z) {
   int64_t i;
 
-  (&extern_share_data_shared[0])[local_id] = 0;
+  *((((double*)(&extern_share_data_shared))+local_id)) = 0;
+// INSERT COMMENT IFELSE: gpu_kernel_ten_21::syncpoint.1
   /*__FIXME__INTRINSIC_CALL__*///sync point
 ;
-  if (!(local_id == 0)) {
-  return;
-  }
-// INSERT COMMENT LOOP: gpu_kernel_ten_21::for.cond
+  if (local_id == 0) { // IFELSE MARKER: syncpoint.1 IF
 for(int64_t i = 1; ((uint64_t)i) < __FIXME__blockDim_2e_x;   i = i + 1) {
-  (&extern_share_data_shared[0])[0] = ((&extern_share_data_shared[0])[0] + (&extern_share_data_shared[0])[i]);
+  *((((double*)(&extern_share_data_shared))+0)) = (*((((double*)(&extern_share_data_shared))+0)) + *((((double*)(&extern_share_data_shared))+i)));
 }
-  norm_temp[__FIXME__blockIdx_2e_x] = (&extern_share_data_shared[0])[0];
+  norm_temp[__FIXME__blockIdx_2e_x] = *((((double*)(&extern_share_data_shared))+0));
+  }
   return;
 }
 // FUNCTION ORDER ID 35 END
 
 
 // FUNCTION ORDER ID 36 START
-// INSERT COMMENT FUNCTION: gpu_kernel_ten_11
-void gpu_kernel_ten_11(double* norm_temp, double* x, double* z, uint32_t __FIXME__gridDim_2e_x, uint32_t __FIXME__gridDim_2e_y, uint32_t __FIXME__gridDim_2e_z, uint32_t __FIXME__blockDim_2e_x, uint32_t __FIXME__blockDim_2e_y, uint32_t __FIXME__blockDim_2e_z, uint32_t __FIXME__blockIdx_2e_x, uint32_t __FIXME__blockIdx_2e_y, uint32_t __FIXME__blockIdx_2e_z, uint32_t local_id, uint32_t __FIXME__threadIdx_2e_y, uint32_t __FIXME__threadIdx_2e_z) {
+// INSERT COMMENT FUNCTION: gpu_kernel_two_device1
+void gpu_kernel_two_device1(double* r, double* rho, double* global_data, uint32_t __FIXME__gridDim_2e_x, uint32_t __FIXME__gridDim_2e_y, uint32_t __FIXME__gridDim_2e_z, uint32_t __FIXME__blockDim_2e_x, uint32_t __FIXME__blockDim_2e_y, uint32_t __FIXME__blockDim_2e_z, uint32_t __FIXME__blockIdx_2e_x, uint32_t __FIXME__blockIdx_2e_y, uint32_t __FIXME__blockIdx_2e_z, uint32_t local_id, uint32_t __FIXME__threadIdx_2e_y, uint32_t __FIXME__threadIdx_2e_z) {
   int64_t i;
 
-  (&extern_share_data_shared[0])[local_id] = 0;
+  *((((double*)(&extern_share_data_shared))+local_id)) = 0;
+// INSERT COMMENT IFELSE: gpu_kernel_two_device1::syncpoint.1
   /*__FIXME__INTRINSIC_CALL__*///sync point
 ;
-  if (!(local_id == 0)) {
-  return;
-  }
-// INSERT COMMENT LOOP: gpu_kernel_ten_11::for.cond
+  if (local_id == 0) { // IFELSE MARKER: syncpoint.1 IF
 for(int64_t i = 1; ((uint64_t)i) < __FIXME__blockDim_2e_x;   i = i + 1) {
-  (&extern_share_data_shared[0])[0] = ((&extern_share_data_shared[0])[0] + (&extern_share_data_shared[0])[i]);
+  *((((double*)(&extern_share_data_shared))+0)) = (*((((double*)(&extern_share_data_shared))+0)) + *((((double*)(&extern_share_data_shared))+i)));
 }
-  norm_temp[__FIXME__blockIdx_2e_x] = (&extern_share_data_shared[0])[0];
+  global_data[__FIXME__blockIdx_2e_x] = *((((double*)(&extern_share_data_shared))+0));
+  }
   return;
 }
 // FUNCTION ORDER ID 36 END
 
 
 // FUNCTION ORDER ID 37 START
-// INSERT COMMENT FUNCTION: gpu_kernel_nine_device1
-void gpu_kernel_nine_device1(double* r, double* x, double* sum, double* global_data, uint32_t __FIXME__gridDim_2e_x, uint32_t __FIXME__gridDim_2e_y, uint32_t __FIXME__gridDim_2e_z, uint32_t __FIXME__blockDim_2e_x, uint32_t __FIXME__blockDim_2e_y, uint32_t __FIXME__blockDim_2e_z, uint32_t __FIXME__blockIdx_2e_x, uint32_t __FIXME__blockIdx_2e_y, uint32_t __FIXME__blockIdx_2e_z, uint32_t local_id, uint32_t __FIXME__threadIdx_2e_y, uint32_t __FIXME__threadIdx_2e_z) {
+// INSERT COMMENT FUNCTION: gpu_kernel_ten_11
+void gpu_kernel_ten_11(double* norm_temp, double* x, double* z, uint32_t __FIXME__gridDim_2e_x, uint32_t __FIXME__gridDim_2e_y, uint32_t __FIXME__gridDim_2e_z, uint32_t __FIXME__blockDim_2e_x, uint32_t __FIXME__blockDim_2e_y, uint32_t __FIXME__blockDim_2e_z, uint32_t __FIXME__blockIdx_2e_x, uint32_t __FIXME__blockIdx_2e_y, uint32_t __FIXME__blockIdx_2e_z, uint32_t local_id, uint32_t __FIXME__threadIdx_2e_y, uint32_t __FIXME__threadIdx_2e_z) {
   int64_t i;
 
-  (&extern_share_data_shared[0])[local_id] = 0;
+  *((((double*)(&extern_share_data_shared))+local_id)) = 0;
+// INSERT COMMENT IFELSE: gpu_kernel_ten_11::syncpoint.1
   /*__FIXME__INTRINSIC_CALL__*///sync point
 ;
-  if (!(local_id == 0)) {
-  return;
-  }
-// INSERT COMMENT LOOP: gpu_kernel_nine_device1::for.cond
+  if (local_id == 0) { // IFELSE MARKER: syncpoint.1 IF
 for(int64_t i = 1; ((uint64_t)i) < __FIXME__blockDim_2e_x;   i = i + 1) {
-  (&extern_share_data_shared[0])[0] = ((&extern_share_data_shared[0])[0] + (&extern_share_data_shared[0])[i]);
+  *((((double*)(&extern_share_data_shared))+0)) = (*((((double*)(&extern_share_data_shared))+0)) + *((((double*)(&extern_share_data_shared))+i)));
 }
-  global_data[__FIXME__blockIdx_2e_x] = (&extern_share_data_shared[0])[0];
+  norm_temp[__FIXME__blockIdx_2e_x] = *((((double*)(&extern_share_data_shared))+0));
+  }
   return;
 }
 // FUNCTION ORDER ID 37 END
 
 
 // FUNCTION ORDER ID 38 START
-// INSERT COMMENT FUNCTION: gpu_kernel_three_device1
-void gpu_kernel_three_device1(uint32_t* colidx, uint32_t* rowstr, double* a, double* p, double* q, uint32_t __FIXME__gridDim_2e_x, uint32_t __FIXME__gridDim_2e_y, uint32_t __FIXME__gridDim_2e_z, uint32_t __FIXME__blockDim_2e_x, uint32_t __FIXME__blockDim_2e_y, uint32_t __FIXME__blockDim_2e_z, uint32_t __FIXME__blockIdx_2e_x, uint32_t __FIXME__blockIdx_2e_y, uint32_t __FIXME__blockIdx_2e_z, uint32_t local_id, uint32_t __FIXME__threadIdx_2e_y, uint32_t __FIXME__threadIdx_2e_z) {
-  int64_t j;
+// INSERT COMMENT FUNCTION: gpu_kernel_nine_device1
+void gpu_kernel_nine_device1(double* r, double* x, double* sum, double* global_data, uint32_t __FIXME__gridDim_2e_x, uint32_t __FIXME__gridDim_2e_y, uint32_t __FIXME__gridDim_2e_z, uint32_t __FIXME__blockDim_2e_x, uint32_t __FIXME__blockDim_2e_y, uint32_t __FIXME__blockDim_2e_z, uint32_t __FIXME__blockIdx_2e_x, uint32_t __FIXME__blockIdx_2e_y, uint32_t __FIXME__blockIdx_2e_z, uint32_t local_id, uint32_t __FIXME__threadIdx_2e_y, uint32_t __FIXME__threadIdx_2e_z) {
   int64_t i;
 
-  j = ((__FIXME__blockIdx_2e_x * __FIXME__blockDim_2e_x + local_id) / __FIXME__blockDim_2e_x);
+  *((((double*)(&extern_share_data_shared))+local_id)) = 0;
+// INSERT COMMENT IFELSE: gpu_kernel_nine_device1::syncpoint.1
   /*__FIXME__INTRINSIC_CALL__*///sync point
 ;
-  if (!(local_id == 0)) {
-  return;
-  }
-// INSERT COMMENT LOOP: gpu_kernel_three_device1::for.cond22
+  if (local_id == 0) { // IFELSE MARKER: syncpoint.1 IF
 for(int64_t i = 1; ((uint64_t)i) < __FIXME__blockDim_2e_x;   i = i + 1) {
-  (&extern_share_data_shared[0])[0] = ((&extern_share_data_shared[0])[0] + (&extern_share_data_shared[0])[i]);
+  *((((double*)(&extern_share_data_shared))+0)) = (*((((double*)(&extern_share_data_shared))+0)) + *((((double*)(&extern_share_data_shared))+i)));
 }
-  q[j] = (&extern_share_data_shared[0])[0];
+  global_data[__FIXME__blockIdx_2e_x] = *((((double*)(&extern_share_data_shared))+0));
+  }
   return;
 }
 // FUNCTION ORDER ID 38 END
 
 
 // FUNCTION ORDER ID 39 START
-// INSERT COMMENT FUNCTION: gpu_kernel_six_device1
-void gpu_kernel_six_device1(double* r, double* global_data, uint32_t __FIXME__gridDim_2e_x, uint32_t __FIXME__gridDim_2e_y, uint32_t __FIXME__gridDim_2e_z, uint32_t __FIXME__blockDim_2e_x, uint32_t __FIXME__blockDim_2e_y, uint32_t __FIXME__blockDim_2e_z, uint32_t __FIXME__blockIdx_2e_x, uint32_t __FIXME__blockIdx_2e_y, uint32_t __FIXME__blockIdx_2e_z, uint32_t local_id, uint32_t __FIXME__threadIdx_2e_y, uint32_t __FIXME__threadIdx_2e_z) {
+// INSERT COMMENT FUNCTION: gpu_kernel_three_device1
+void gpu_kernel_three_device1(uint32_t* colidx, uint32_t* rowstr, double* a, double* p, double* q, uint32_t __FIXME__gridDim_2e_x, uint32_t __FIXME__gridDim_2e_y, uint32_t __FIXME__gridDim_2e_z, uint32_t __FIXME__blockDim_2e_x, uint32_t __FIXME__blockDim_2e_y, uint32_t __FIXME__blockDim_2e_z, uint32_t __FIXME__blockIdx_2e_x, uint32_t __FIXME__blockIdx_2e_y, uint32_t __FIXME__blockIdx_2e_z, uint32_t local_id, uint32_t __FIXME__threadIdx_2e_y, uint32_t __FIXME__threadIdx_2e_z) {
+  int64_t j;
   int64_t i;
 
-  (&extern_share_data_shared[0])[local_id] = 0;
+  j = ((__FIXME__blockIdx_2e_x * __FIXME__blockDim_2e_x + local_id) / __FIXME__blockDim_2e_x);
+// INSERT COMMENT IFELSE: gpu_kernel_three_device1::syncpoint.1
   /*__FIXME__INTRINSIC_CALL__*///sync point
 ;
-  if (!(local_id == 0)) {
-  return;
-  }
-// INSERT COMMENT LOOP: gpu_kernel_six_device1::for.cond
+  if (local_id == 0) { // IFELSE MARKER: syncpoint.1 IF
 for(int64_t i = 1; ((uint64_t)i) < __FIXME__blockDim_2e_x;   i = i + 1) {
-  (&extern_share_data_shared[0])[0] = ((&extern_share_data_shared[0])[0] + (&extern_share_data_shared[0])[i]);
+  *((((double*)(&extern_share_data_shared))+0)) = (*((((double*)(&extern_share_data_shared))+0)) + *((((double*)(&extern_share_data_shared))+i)));
 }
-  global_data[__FIXME__blockIdx_2e_x] = (&extern_share_data_shared[0])[0];
+  q[j] = *((((double*)(&extern_share_data_shared))+0));
+  }
   return;
 }
 // FUNCTION ORDER ID 39 END
 
 
 // FUNCTION ORDER ID 40 START
-// INSERT COMMENT FUNCTION: gpu_kernel_eight_device1
-void gpu_kernel_eight_device1(uint32_t* colidx, uint32_t* rowstr, double* a, double* r, double* z, uint32_t __FIXME__gridDim_2e_x, uint32_t __FIXME__gridDim_2e_y, uint32_t __FIXME__gridDim_2e_z, uint32_t __FIXME__blockDim_2e_x, uint32_t __FIXME__blockDim_2e_y, uint32_t __FIXME__blockDim_2e_z, uint32_t __FIXME__blockIdx_2e_x, uint32_t __FIXME__blockIdx_2e_y, uint32_t __FIXME__blockIdx_2e_z, uint32_t local_id, uint32_t __FIXME__threadIdx_2e_y, uint32_t __FIXME__threadIdx_2e_z) {
-  int64_t j;
+// INSERT COMMENT FUNCTION: gpu_kernel_six_device1
+void gpu_kernel_six_device1(double* r, double* global_data, uint32_t __FIXME__gridDim_2e_x, uint32_t __FIXME__gridDim_2e_y, uint32_t __FIXME__gridDim_2e_z, uint32_t __FIXME__blockDim_2e_x, uint32_t __FIXME__blockDim_2e_y, uint32_t __FIXME__blockDim_2e_z, uint32_t __FIXME__blockIdx_2e_x, uint32_t __FIXME__blockIdx_2e_y, uint32_t __FIXME__blockIdx_2e_z, uint32_t local_id, uint32_t __FIXME__threadIdx_2e_y, uint32_t __FIXME__threadIdx_2e_z) {
   int64_t i;
 
-  j = ((__FIXME__blockIdx_2e_x * __FIXME__blockDim_2e_x + local_id) / __FIXME__blockDim_2e_x);
+  *((((double*)(&extern_share_data_shared))+local_id)) = 0;
+// INSERT COMMENT IFELSE: gpu_kernel_six_device1::syncpoint.1
   /*__FIXME__INTRINSIC_CALL__*///sync point
 ;
-  if (!(local_id == 0)) {
-  return;
-  }
-// INSERT COMMENT LOOP: gpu_kernel_eight_device1::for.cond22
+  if (local_id == 0) { // IFELSE MARKER: syncpoint.1 IF
 for(int64_t i = 1; ((uint64_t)i) < __FIXME__blockDim_2e_x;   i = i + 1) {
-  (&extern_share_data_shared[0])[0] = ((&extern_share_data_shared[0])[0] + (&extern_share_data_shared[0])[i]);
+  *((((double*)(&extern_share_data_shared))+0)) = (*((((double*)(&extern_share_data_shared))+0)) + *((((double*)(&extern_share_data_shared))+i)));
 }
-  r[j] = (&extern_share_data_shared[0])[0];
+  global_data[__FIXME__blockIdx_2e_x] = *((((double*)(&extern_share_data_shared))+0));
+  }
   return;
 }
 // FUNCTION ORDER ID 40 END
 
 
 // FUNCTION ORDER ID 41 START
-// INSERT COMMENT FUNCTION: gpu_kernel_two_device1
-void gpu_kernel_two_device1(double* r, double* rho, double* global_data, uint32_t __FIXME__gridDim_2e_x, uint32_t __FIXME__gridDim_2e_y, uint32_t __FIXME__gridDim_2e_z, uint32_t __FIXME__blockDim_2e_x, uint32_t __FIXME__blockDim_2e_y, uint32_t __FIXME__blockDim_2e_z, uint32_t __FIXME__blockIdx_2e_x, uint32_t __FIXME__blockIdx_2e_y, uint32_t __FIXME__blockIdx_2e_z, uint32_t local_id, uint32_t __FIXME__threadIdx_2e_y, uint32_t __FIXME__threadIdx_2e_z) {
+// INSERT COMMENT FUNCTION: gpu_kernel_eight_device1
+void gpu_kernel_eight_device1(uint32_t* colidx, uint32_t* rowstr, double* a, double* r, double* z, uint32_t __FIXME__gridDim_2e_x, uint32_t __FIXME__gridDim_2e_y, uint32_t __FIXME__gridDim_2e_z, uint32_t __FIXME__blockDim_2e_x, uint32_t __FIXME__blockDim_2e_y, uint32_t __FIXME__blockDim_2e_z, uint32_t __FIXME__blockIdx_2e_x, uint32_t __FIXME__blockIdx_2e_y, uint32_t __FIXME__blockIdx_2e_z, uint32_t local_id, uint32_t __FIXME__threadIdx_2e_y, uint32_t __FIXME__threadIdx_2e_z) {
+  int64_t j;
   int64_t i;
 
-  (&extern_share_data_shared[0])[local_id] = 0;
+  j = ((__FIXME__blockIdx_2e_x * __FIXME__blockDim_2e_x + local_id) / __FIXME__blockDim_2e_x);
+// INSERT COMMENT IFELSE: gpu_kernel_eight_device1::syncpoint.1
   /*__FIXME__INTRINSIC_CALL__*///sync point
 ;
-  if (!(local_id == 0)) {
-  return;
-  }
-// INSERT COMMENT LOOP: gpu_kernel_two_device1::for.cond
+  if (local_id == 0) { // IFELSE MARKER: syncpoint.1 IF
 for(int64_t i = 1; ((uint64_t)i) < __FIXME__blockDim_2e_x;   i = i + 1) {
-  (&extern_share_data_shared[0])[0] = ((&extern_share_data_shared[0])[0] + (&extern_share_data_shared[0])[i]);
+  *((((double*)(&extern_share_data_shared))+0)) = (*((((double*)(&extern_share_data_shared))+0)) + *((((double*)(&extern_share_data_shared))+i)));
 }
-  global_data[__FIXME__blockIdx_2e_x] = (&extern_share_data_shared[0])[0];
+  r[j] = *((((double*)(&extern_share_data_shared))+0));
+  }
   return;
 }
 // FUNCTION ORDER ID 41 END
@@ -1988,18 +2039,17 @@ for(int64_t i = 1; ((uint64_t)i) < __FIXME__blockDim_2e_x;   i = i + 1) {
 void gpu_kernel_four_device1(double* d, double* p, double* q, double* global_data, uint32_t __FIXME__gridDim_2e_x, uint32_t __FIXME__gridDim_2e_y, uint32_t __FIXME__gridDim_2e_z, uint32_t __FIXME__blockDim_2e_x, uint32_t __FIXME__blockDim_2e_y, uint32_t __FIXME__blockDim_2e_z, uint32_t __FIXME__blockIdx_2e_x, uint32_t __FIXME__blockIdx_2e_y, uint32_t __FIXME__blockIdx_2e_z, uint32_t local_id, uint32_t __FIXME__threadIdx_2e_y, uint32_t __FIXME__threadIdx_2e_z) {
   int64_t i;
 
-  (&extern_share_data_shared[0])[local_id] = 0;
-  (&extern_share_data_shared[0])[local_id] = 0;
+  *((((double*)(&extern_share_data_shared))+local_id)) = 0;
+  *((((double*)(&extern_share_data_shared))+local_id)) = 0;
+// INSERT COMMENT IFELSE: gpu_kernel_four_device1::syncpoint.1
   /*__FIXME__INTRINSIC_CALL__*///sync point
 ;
-  if (!(local_id == 0)) {
-  return;
-  }
-// INSERT COMMENT LOOP: gpu_kernel_four_device1::for.cond
+  if (local_id == 0) { // IFELSE MARKER: syncpoint.1 IF
 for(int64_t i = 1; ((uint64_t)i) < __FIXME__blockDim_2e_x;   i = i + 1) {
-  (&extern_share_data_shared[0])[0] = ((&extern_share_data_shared[0])[0] + (&extern_share_data_shared[0])[i]);
+  *((((double*)(&extern_share_data_shared))+0)) = (*((((double*)(&extern_share_data_shared))+0)) + *((((double*)(&extern_share_data_shared))+i)));
 }
-  global_data[__FIXME__blockIdx_2e_x] = (&extern_share_data_shared[0])[0];
+  global_data[__FIXME__blockIdx_2e_x] = *((((double*)(&extern_share_data_shared))+0));
+  }
   return;
 }
 // FUNCTION ORDER ID 42 END
