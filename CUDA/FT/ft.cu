@@ -161,12 +161,12 @@ static dcomplex u0[NTOTAL];
 static dcomplex u1[NTOTAL];
 static int dims[3];
 #else
-static dcomplex (*sums)=(dcomplex*)malloc(sizeof(dcomplex)*(NITER_DEFAULT+1));
-static double (*twiddle)=(double*)malloc(sizeof(double)*(NTOTAL));
-static dcomplex (*u)=(dcomplex*)malloc(sizeof(dcomplex)*(MAXDIM));
-static dcomplex (*u0)=(dcomplex*)malloc(sizeof(dcomplex)*(NTOTAL));
-static dcomplex (*u1)=(dcomplex*)malloc(sizeof(dcomplex)*(NTOTAL));
-static int (*dims)=(int*)malloc(sizeof(int)*(3));
+static dcomplex (*sums);
+static double (*twiddle);
+static dcomplex (*u);
+static dcomplex (*u0);
+static dcomplex (*u1);
+static int (*dims);
 #endif
 static int niter;
 /* gpu variables */
@@ -331,6 +331,187 @@ __device__ void vranlc_device(int n,
 		double a, 
 		double y[]);
 
+/*
+
+ * --------------------------------------------------------------------
+ *
+ * this routine returns a uniform pseudorandom double precision number in the
+ * range (0, 1) by using the linear congruential generator
+ * 
+ * x_{k+1} = a x_k  (mod 2^46)
+ *
+ * where 0 < x_k < 2^46 and 0 < a < 2^46. this scheme generates 2^44 numbers
+ * before repeating. the argument A is the same as 'a' in the above formula,
+ * and X is the same as x_0.  A and X must be odd double precision integers
+ * in the range (1, 2^46). the returned value RANDLC is normalized to be
+ * between 0 and 1, i.e. RANDLC = 2^(-46) * x_1.  X is updated to contain
+ * the new seed x_1, so that subsequent calls to RANDLC using the same
+ * arguments will generate a continuous sequence.
+ * 
+ * this routine should produce the same results on any computer with at least
+ * 48 mantissa bits in double precision floating point data.  On 64 bit
+ * systems, double precision should be disabled.
+ *
+ * David H. Bailey, October 26, 1990
+ * 
+ * ---------------------------------------------------------------------
+ */
+
+ #if defined(USE_POW)
+ #define r23 pow(0.5, 23.0)
+ #define r46 (r23*r23)
+ #define t23 pow(2.0, 23.0)
+ #define t46 (t23*t23)
+ #else
+ #define r23 (0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5*0.5)
+ #define r46 (r23*r23)
+ #define t23 (2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0*2.0)
+ #define t46 (t23*t23)
+ #endif
+ double randlc(double *x, double a){    
+	 double t1,t2,t3,t4,a1,a2,x1,x2,z;
+ 
+	 /*
+	  * ---------------------------------------------------------------------
+	  * break A into two parts such that A = 2^23 * A1 + A2.
+	  * ---------------------------------------------------------------------
+	  */
+	 t1 = r23 * a;
+	 a1 = (int)t1;
+	 a2 = a - t23 * a1;
+ 
+	 /*
+	  * ---------------------------------------------------------------------
+	  * break X into two parts such that X = 2^23 * X1 + X2, compute
+	  * Z = A1 * X2 + A2 * X1  (mod 2^23), and then
+	  * X = 2^23 * Z + A2 * X2  (mod 2^46).
+	  * ---------------------------------------------------------------------
+	  */
+	 t1 = r23 * (*x);
+	 x1 = (int)t1;
+	 x2 = (*x) - t23 * x1;
+	 t1 = a1 * x2 + a2 * x1;
+	 t2 = (int)(r23 * t1);
+	 z = t1 - t23 * t2;
+	 t3 = t23 * z + a2 * x2;
+	 t4 = (int)(r46 * t3);
+	 (*x) = t3 - t46 * t4;
+ 
+	 return (r46 * (*x));
+ }
+ 
+ /*****************************************************************/
+ /******     C  _  P  R  I  N  T  _  R  E  S  U  L  T  S     ******/
+ /*****************************************************************/
+ void c_print_results(char* name,
+		 char class_npb,
+		 int n1, 
+		 int n2,
+		 int n3,
+		 int niter,
+		 double t,
+		 double mops,
+		 char* optype,
+		 int passed_verification,
+		 char* npbversion,
+		 char* compiletime,
+		 char* compilerversion,
+		 char* libversion,
+		 char* cpu_device,
+		 char* gpu_device,
+		 char* gpu_config,
+		 char* cc,
+		 char* clink,
+		 char* c_lib,
+		 char* c_inc,
+		 char* cflags,
+		 char* clinkflags,
+		 char* rand){
+			 printf("\n\n %s Benchmark Completed\n", name);
+			 printf(" class_npb       =                        %c\n", class_npb);
+			 if((name[0]=='I')&&(name[1]=='S')){
+				 if(n3==0){
+					 long nn = n1;
+					 if(n2!=0){nn*=n2;}
+					 printf(" Size            =             %12ld\n", nn); /* as in IS */
+				 }else{
+					 printf(" Size            =             %4dx%4dx%4d\n", n1,n2,n3);
+				 }
+			 }else{
+				 char size[16];
+				 int j;
+				 if((n2==0) && (n3==0)){
+					 if((name[0]=='E')&&(name[1]=='P')){
+						 sprintf(size, "%15.0lf", pow(2.0, n1));
+						 j = 14;
+						 if(size[j] == '.'){
+							 size[j] = ' '; 
+							 j--;
+						 }
+						 size[j+1] = '\0';
+						 printf(" Size            =          %15s\n", size);
+					 }else{
+						 printf(" Size            =             %12d\n", n1);
+					 }
+				 }else{
+					 printf(" Size            =           %4dx%4dx%4d\n", n1, n2, n3);
+				 }
+			 }	
+			 printf(" Iterations      =             %12d\n", niter); 
+			 printf(" Time in seconds =             %12.2f\n", t);
+			 printf(" Mop/s total     =             %12.2f\n", mops);
+			 printf(" Operation type  = %24s\n", optype);
+			 if(passed_verification < 0){
+				 printf( " Verification    =            NOT PERFORMED\n");
+			 }else if(passed_verification){
+				 printf(" Verification    =               SUCCESSFUL\n");
+			 }else{
+				 printf(" Verification    =             UNSUCCESSFUL\n");
+			 }
+			 printf(" Version         =             %12s\n", npbversion);
+			 printf(" Compile date    =             %12s\n", compiletime);
+			 printf(" NVCC version    =             %12s\n", compilerversion);
+			 printf(" CUDA version    =             %12s\n", libversion);
+			 printf("\n Compile options:\n");
+			 printf("    CC           = %s\n", cc);
+			 printf("    CLINK        = %s\n", clink);
+			 printf("    C_LIB        = %s\n", c_lib);
+			 printf("    C_INC        = %s\n", c_inc);
+			 printf("    CFLAGS       = %s\n", cflags);
+			 printf("    CLINKFLAGS   = %s\n", clinkflags);
+			 printf("    RAND         = %s\n", rand);
+			 printf("\n Hardware:\n");
+			 printf("    CPU device   = %s\n", cpu_device);
+			 printf("    GPU device   = %s\n", gpu_device);
+			 printf("\n Software:\n");
+			 printf("    Parameters   = %s\n", gpu_config);
+ #ifdef SMP
+			 evalue = getenv("MP_SET_NUMTHREADS");
+			 printf("   MULTICPUS = %s\n", evalue);
+ #endif    
+			 /* 
+			  * printf(" Please send the results of this run to:\n\n");
+			  * printf(" NPB Development Team\n");
+			  * printf(" Internet: npb@nas.nasa.gov\n \n");
+			  * printf(" If email is not available, send this to:\n\n");
+			  * printf(" MS T27A-1\n");
+			  * printf(" NASA Ames Research Center\n");
+			  * printf(" Moffett Field, CA  94035-1000\n\n");
+			  * printf(" Fax: 650-604-3957\n\n");
+			  */
+			 printf("\n");
+			 printf("----------------------------------------------------------------------\n");
+			 printf(" NPB-CPP is developed by:\n");
+			 printf("            Dalvan Griebler <dalvangriebler@gmail.com>\n");
+			 printf("            Gabriell Araujo <hexenoften@gmail.com>\n");
+			 printf("            Júnior Löff <loffjh@gmail.com>\n");
+			 printf("\n");
+			 printf(" In case of problems, send an email to us\n");
+			 printf("----------------------------------------------------------------------\n");
+			 printf("\n");
+		 }
+ 
+
 /* ft */
 int main(int argc, char** argv){
 #if defined(DO_NOT_ALLOCATE_ARRAYS_WITH_DYNAMIC_MEMORY_AND_AS_SINGLE_DIMENSION)
@@ -344,6 +525,15 @@ int main(int argc, char** argv){
 	boolean verified;
 	char class_npb;	
 
+#if !defined(DO_NOT_ALLOCATE_ARRAYS_WITH_DYNAMIC_MEMORY_AND_AS_SINGLE_DIMENSION)
+	sums = (dcomplex*)malloc(sizeof(dcomplex) * (NITER_DEFAULT + 1));
+	twiddle = (double*)malloc(sizeof(double) * (NTOTAL));
+	u = (dcomplex*)malloc(sizeof(dcomplex) * (MAXDIM));
+	u0 = (dcomplex*)malloc(sizeof(dcomplex) * (NTOTAL));
+	u1 = (dcomplex*)malloc(sizeof(dcomplex) * (NTOTAL));
+	dims = (int*)malloc(sizeof(int) * 3);
+#endif
+
 	/*
 	 * ---------------------------------------------------------------------
 	 * run the entire problem once to make sure all data is touched. 
@@ -354,16 +544,10 @@ int main(int argc, char** argv){
 	setup();
 	setup_gpu();
 	init_ui_gpu(u0_device, u1_device, twiddle_device);
-#pragma omp parallel
-	{
-		if(omp_get_thread_num()==TASK_INDEXMAP){
-			compute_indexmap_gpu(twiddle_device);
-		}else if(omp_get_thread_num()==TASK_INITIAL_CONDITIONS){
-			compute_initial_conditions_gpu(u1_device);
-		}else if(omp_get_thread_num()==TASK_INIT_UI){
-			fft_init_gpu(MAXDIM);
-		}		
-	}cudaDeviceSynchronize();
+	compute_indexmap_gpu(twiddle_device);
+	compute_initial_conditions_gpu(u1_device);
+	fft_init_gpu(MAXDIM);
+	cudaDeviceSynchronize();
 	fft_gpu(1, u1_device, u0_device);
 
 	/*
@@ -372,7 +556,7 @@ int main(int argc, char** argv){
 	 * be timed, in contrast to other benchmarks. 
 	 * ---------------------------------------------------------------------
 	 */
-	timer_clear(PROFILING_TOTAL_TIME);
+	// timer_clear(PROFILING_TOTAL_TIME);
 #if defined(PROFILING)
 	timer_clear(PROFILING_INDEXMAP);
 	timer_clear(PROFILING_INITIAL_CONDITIONS);
@@ -390,17 +574,11 @@ int main(int argc, char** argv){
 	timer_clear(PROFILING_CHECKSUM);
 #endif
 
-	timer_start(PROFILING_TOTAL_TIME);
-#pragma omp parallel
-	{
-		if(omp_get_thread_num()==TASK_INDEXMAP){
-			compute_indexmap_gpu(twiddle_device);
-		}else if(omp_get_thread_num()==TASK_INITIAL_CONDITIONS){
-			compute_initial_conditions_gpu(u1_device);
-		}else if(omp_get_thread_num()==TASK_INIT_UI){
-			fft_init_gpu(MAXDIM);
-		}		
-	}cudaDeviceSynchronize();
+	// timer_start(PROFILING_TOTAL_TIME);
+	compute_indexmap_gpu(twiddle_device);
+	compute_initial_conditions_gpu(u1_device);
+	fft_init_gpu(MAXDIM);
+	cudaDeviceSynchronize();
 	fft_gpu(1, u1_device, u0_device);
 	for(iter=1; iter<=niter; iter++){
 		evolve_gpu(u0_device, u1_device, twiddle_device);
@@ -415,8 +593,9 @@ int main(int argc, char** argv){
 
 	verify(NX, NY, NZ, niter, &verified, &class_npb);
 
-	timer_stop(PROFILING_TOTAL_TIME);
-	total_time = timer_read(PROFILING_TOTAL_TIME);		
+	// timer_stop(PROFILING_TOTAL_TIME);
+	// total_time = timer_read(PROFILING_TOTAL_TIME);	
+	total_time = 0.0;	
 
 	if(total_time != 0.0){
 		mflops = 1.0e-6 * ((double)(NTOTAL)) *
@@ -519,6 +698,14 @@ int main(int argc, char** argv){
 			(char*)CS7);	
 
 	release_gpu();
+#if !defined(DO_NOT_ALLOCATE_ARRAYS_WITH_DYNAMIC_MEMORY_AND_AS_SINGLE_DIMENSION)
+	free(sums);
+	free(twiddle);
+	free(u);
+	free(u0);
+	free(u1);
+	free(dims);
+#endif
 
 	return 0;
 }
@@ -1137,12 +1324,12 @@ __global__ void checksum_gpu_kernel(int iteration,
 		share_sums[threadIdx.x] = dcomplex_create(0.0, 0.0);
 	}
 
+	// ANDREW: Sequential Reduction
 	__syncthreads();
-	for(int i=blockDim.x/2; i>0; i>>=1){
-		if(threadIdx.x<i){
-			share_sums[threadIdx.x] = dcomplex_add(share_sums[threadIdx.x], share_sums[threadIdx.x+i]);
+	if(threadIdx.x==0){
+		for(int i=1; i<blockDim.x; ++i){
+			share_sums[0] = dcomplex_add(share_sums[0], share_sums[i]);
 		}
-		__syncthreads();
 	}
 	if(threadIdx.x==0){
 		share_sums[0].real = share_sums[0].real/(double)(NTOTAL);
@@ -1346,7 +1533,7 @@ static void init_ui_gpu(dcomplex u0[],
 		threads_per_block_on_init_ui>>>(u0, 
 				u1,
 				twiddle);
-	cudaDeviceSynchronize();
+//	cudaDeviceSynchronize();
 #if defined(PROFILING)
 	timer_stop(PROFILING_INIT_UI);
 #endif  
@@ -1497,21 +1684,22 @@ static void setup_gpu(){
 	 * }
 	 */
 	/* amount of available devices */ 
-	cudaGetDeviceCount(&total_devices);
+	// cudaGetDeviceCount(&total_devices);
 
-	/* define gpu_device */
-	if(total_devices==0){
-		printf("\n\n\nNo Nvidia GPU found!\n\n\n");
-		exit(-1);
-	}else if((GPU_DEVICE>=0)&&
-			(GPU_DEVICE<total_devices)){
-		gpu_device_id = GPU_DEVICE;
-	}else{
-		gpu_device_id = 0;
-	}
-	cudaSetDevice(gpu_device_id);	
-	cudaGetDeviceProperties(&gpu_device_properties, gpu_device_id);
-
+	// /* define gpu_device */
+	// if(total_devices==0){
+	// 	printf("\n\n\nNo Nvidia GPU found!\n\n\n");
+	// 	exit(-1);
+	// }else if((GPU_DEVICE>=0)&&
+	// 		(GPU_DEVICE<total_devices)){
+	// 	gpu_device_id = GPU_DEVICE;
+	// }else{
+	// 	gpu_device_id = 0;
+	// }
+	// cudaSetDevice(gpu_device_id);	
+	// cudaGetDeviceProperties(&gpu_device_properties, gpu_device_id);
+	gpu_device_properties.warpSize = 32;
+	gpu_device_properties.maxThreadsPerBlock = 32;
 	/* define threads_per_block */
 	if((FT_THREADS_PER_BLOCK_ON_COMPUTE_INDEXMAP>=1)&&
 			(FT_THREADS_PER_BLOCK_ON_COMPUTE_INDEXMAP<=gpu_device_properties.maxThreadsPerBlock)){
